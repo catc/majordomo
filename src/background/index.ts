@@ -13,8 +13,8 @@ chrome.runtime.onInstalled.addListener(function() {
 })
 
 function reloadOnPageRefresh() {
-	chrome.tabs.onUpdated.addListener((tabID, changeInfo = {}) => {
-		// console.log('created', new Date(), changeInfo)
+	chrome.tabs.onUpdated.addListener((_, changeInfo = {}) => {
+		console.log('created', new Date(), changeInfo)
 		if (changeInfo.status && changeInfo.status === 'complete') {
 			console.log('refresh', 1, new Date())
 			chrome.runtime.reload()

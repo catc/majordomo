@@ -23,9 +23,6 @@ const config = {
 		alias: {
 			'@popup': join(root, 'src/popup'),
 			'@background': join(root, 'src/background'),
-			// '@tk': resolve(root, './src/index.ts'),
-			// https://github.com/hot-loader/react-dom#webpack
-			// 'react-dom': '@hot-loader/react-dom',
 		},
 	},
 
@@ -41,22 +38,22 @@ const config = {
 					},
 				},
 			},
-			// {
-			// 	// overwritten in build script with extract-text-plugin
-			// 	test: /\.(s?)css$/,
-			// 	loaders: [
-			// 		'style-loader',
-			// 		'css-loader',
-			// 		{
-			// 			loader: 'postcss-loader',
-			// 			options: {
-			// 				ident: 'postcss',
-			// 				plugins: [require('autoprefixer')()],
-			// 			},
-			// 		},
-			// 		'sass-loader',
-			// 	],
-			// },
+			{
+				// overwritten in build script with extract-text-plugin
+				test: /\.(s?)css$/,
+				loaders: [
+					'style-loader',
+					'css-loader',
+					{
+						loader: 'postcss-loader',
+						options: {
+							ident: 'postcss',
+							plugins: [require('autoprefixer')()],
+						},
+					},
+					'sass-loader',
+				],
+			},
 		],
 	},
 	plugins: [
@@ -68,7 +65,7 @@ const config = {
 		new HtmlWebpackPlugin({
 			template: join(root, 'src/popup/index.html'),
 			filename: 'popup.html',
-			chunks: ['popup', 'lib'],
+			chunks: ['popup', 'lib', 'styles'],
 		}),
 		new CopyWebpackPlugin([
 			// copy manifest.json
