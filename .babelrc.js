@@ -15,19 +15,7 @@ const config = {
 		"@babel/preset-typescript",
 		"@babel/preset-react"
 	],
-	"plugins": [
-		// '@babel/plugin-transform-runtime',
-		// [
-		// 	"@babel/plugin-proposal-class-properties",
-		// 	{
-		// 		"loose": true
-		// 	},
-		// ]
-	]
+	"plugins": []
 }
-
-// if (!isProd) {
-// 	config.plugins.push('react-hot-loader/babel')
-// }
 
 module.exports = config

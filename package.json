@@ -7,13 +7,25 @@
 		"@babel/preset-typescript": "^7.7.7",
 		"@typescript-eslint/eslint-plugin": "^2.12.0",
 		"@typescript-eslint/parser": "^2.12.0",
+		"babel-loader": "^8.0.6",
+		"copy-webpack-plugin": "^5.1.1",
 		"eslint": "^6.7.2",
+		"eslint-config-prettier": "^6.7.0",
+		"eslint-plugin-prettier": "^3.1.2",
 		"eslint-plugin-react": "^7.17.0",
 		"eslint-plugin-react-hooks": "^2.3.0",
-		"typescript": "^3.7.3"
+		"html-webpack-plugin": "^3.2.0",
+		"prettier": "^1.19.1",
+		"typescript": "^3.7.3",
+		"webpack": "^4.41.4",
+		"write-file-webpack-plugin": "^4.5.1"
 	},
 	"dependencies": {
 		"react": "^16.12.0",
 		"react-dom": "^16.12.0"
+	},
+	"scripts": {
+		"dev": "node webpack/dev.js",
+		"check": "eslint --print-config path/to/main.js | eslint-config-prettier-check"
 	}
 }

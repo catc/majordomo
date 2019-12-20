@@ -1,14 +1,14 @@
 module.exports = {
 	root: true,
 	parser: '@typescript-eslint/parser',
-	"parserOptions": {
-		"ecmaVersion": 2018,
-		"sourceType": "module",
-		"ecmaFeatures": {
-			"jsx": true
+	'parserOptions': {
+		'ecmaVersion': 2019,
+		'sourceType': 'module',
+		'ecmaFeatures': {
+			'jsx': true
 		},
-		"useJSXTextNode": true,
-		"project": "./tsconfig.json",
+		'useJSXTextNode': true,
+		'project': './tsconfig.json',
 	},
 	extends: [
 		'eslint:recommended',
@@ -22,24 +22,27 @@ module.exports = {
 		// ts
 		'plugin:@typescript-eslint/recommended',
 
-		// prettier
-		// 'plugin:prettier/recommended',
-		// 'prettier/@typescript-eslint',
 		// 'prettier',
 		// 'prettier/react',
-		// 'prettier/standard',
+
+		// prettier
+		'prettier',
+		'prettier/@typescript-eslint',
+		'prettier/react',
+		// 'plugin:prettier/recommended',
+		'prettier/standard',
 	],
 	plugins: [
 		'react',
 		'react-hooks',
 		// 'import',
 		'@typescript-eslint',
-		// 'prettier',
+		'prettier',
 	],
 	env: {
 		webextensions: true,
-		browser: true,
-		// node: true,
+		// browser: true,
+		node: true,
 		// jest: true,
 	},
 	rules: {
@@ -85,21 +88,22 @@ module.exports = {
 		// 		prop: 'parens-new-line',
 		// 	},
 		// ],
-		'react/jsx-first-prop-new-line': ['error', 'multiline-multiprop'],
-		'react/jsx-equals-spacing': ['error', 'never'],
-		'react/jsx-tag-spacing': [
-			'error',
-			{
-				closingSlash: 'never',
-				beforeSelfClosing: 'always',
-				afterOpening: 'never',
-				beforeClosing: 'never',
-			},
-		],
+
+		// 'react/jsx-first-prop-new-line': ['error', 'multiline-multiprop'], // MIGHT interferes with prettier
+		// 'react/jsx-equals-spacing': ['error', 'never'], // MIGHT interferes with prettier
+		// 'react/jsx-tag-spacing': [ // MIGHT interferes with prettier
+		// 	'error',
+		// 	{
+		// 		closingSlash: 'never',
+		// 		beforeSelfClosing: 'always',
+		// 		afterOpening: 'never',
+		// 		beforeClosing: 'never',
+		// 	},
+		// ],
 
 		// standard eslint
-		'quote-props': [1, 'as-needed'],
-		'eol-last': 1,
+		// 'quote-props': [1, 'as-needed'], // MIGHT interferes with prettier
+		// 'eol-last': 1,
 		curly: 2,
 		eqeqeq: [1, 'smart'],
 		'no-eval': 2,
@@ -118,6 +122,30 @@ module.exports = {
 				SwitchCase: 1,
 			},
 		],
+
+		'prettier/prettier': [
+			'error',
+			{
+				arrowParens: "always",
+				bracketSpacing: true,
+				jsxBracketSameLine: false,
+				printWidth: 100,
+				proseWrap: "preserve",
+				requirePragma: false,
+				semi: false,
+				singleQuote: true,
+				tabWidth: 4,
+				trailingComma: "all",
+				useTabs: true
+			},
+			{
+				usePrettierrc: false,
+			},
+		],
+
+
+		// 'no-multi-spaces': [1],
+		// 'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
 		'no-trailing-spaces': 1,
 		// 'function-paren-newline': [1, 'multiline'], // breaks js?? investigate
 		'keyword-spacing': [
@@ -128,10 +156,10 @@ module.exports = {
 				after: true,
 			},
 		],
-		'object-curly-spacing': [1, 'always'],
+		// 'object-curly-spacing': [1, 'always'], // MIGHT interferes with prettier
 		'no-var': 1,
 
-		'space-before-function-paren': [
+		'space-before-function-paren': [ // MIGHT interferes with prettier
 			1,
 			{
 				anonymous: 'never',
@@ -139,8 +167,10 @@ module.exports = {
 				asyncArrow: 'ignore',
 			},
 		],
-		// 'comma-dangle': [1, 'always-multiline'], // conflicts with prettier
-		'space-in-parens': [1, 'never'],
+		// 'comma-dangle': [1, 'always-multiline'],
+		//  conflicts with prettier
+		'space-in-parens': [1, 'never'], // MIGHT interferes with prettier
+		'linebreak-style': 0
 	},
 	// globals: {
 	// 	window: true,

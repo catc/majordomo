@@ -28,9 +28,12 @@
 		"baseUrl": ".",
 		"paths": {
 			// also see webpack config resolve.alias
-			"@tk": [
-				"src/"
-			]
+			"@popup/*": [
+				"src/popup/*"
+			],
+			"@background/*": [
+				"src/background/*"
+			],
 		},
 	},
 	"exclude": [
