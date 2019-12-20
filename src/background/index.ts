@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(function() {
 	console.log('started!', new Date())
 
-	chrome.storage.sync.set({ someKey: aVal }, function() {
+	chrome.storage.sync.set({ someKey: 'some val' }, function() {
 		console.log('done setting')
 	})
 
