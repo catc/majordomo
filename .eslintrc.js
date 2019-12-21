@@ -172,15 +172,10 @@ module.exports = {
 		'space-in-parens': [1, 'never'], // MIGHT interferes with prettier
 		'linebreak-style': 0
 	},
-	// globals: {
-	// 	window: true,
-	// 	document: true,
-	// 	localStorage: true,
-	// 	FormData: true,
-	// 	FileReader: true,
-	// 	Blob: true,
-	// 	navigator: true,
-	// },
+	globals: {
+		document: true,
+		Promise: true,
+	},
 	settings: {
 		'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
 		react: {

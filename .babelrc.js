@@ -4,18 +4,16 @@ const config = {
 			"@babel/preset-env",
 			{
 				"targets": {
-					"browsers": [
-						">0.5%",
-						"not ie 11",
-						"not op_mini all"
-					]
+					"chrome": "72"
 				}
 			}
 		],
 		"@babel/preset-typescript",
 		"@babel/preset-react"
 	],
-	"plugins": []
+	"plugins": [
+		'@babel/plugin-proposal-optional-chaining'
+	]
 }
 
 module.exports = config

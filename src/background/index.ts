@@ -1,23 +1,34 @@
 chrome.runtime.onInstalled.addListener(function() {
 	console.log('started!', new Date())
 
-	chrome.storage.sync.set({ someKey: 'some val' }, function() {
-		console.log('done setting')
-	})
-
 	chrome.management.getSelf(({ installType }) => {
 		if (installType === 'development') {
-			reloadOnPageRefresh()
+			dev_reloadOnPageRefresh()
 		}
 	})
+	// dev_openOptions()
 })
 
-function reloadOnPageRefresh() {
-	chrome.tabs.onUpdated.addListener((_, changeInfo = {}) => {
-		console.log('created', new Date(), changeInfo)
-		if (changeInfo.status && changeInfo.status === 'complete') {
-			console.log('refresh', 1, new Date())
-			chrome.runtime.reload()
-		}
+/*
+	TODO
+	- remove "tabs" permission from manifest
+*/
+
+// eslint-disable-next-line
+function dev_openOptions(){
+	chrome.runtime.openOptionsPage()
+}
+
+// eslint-disable-next-line
+function dev_reloadOnPageRefresh() {
+	chrome.tabs.onUpdated.addListener((tabID, changeInfo = {}) => {
+		const pageLoaded = changeInfo.status && changeInfo.status === 'complete'
+		// requires "tabs" permission
+		chrome.tabs.get(tabID, (tab) => {
+			if (!tab.url?.match('domo=true') && pageLoaded) {
+				console.log('refreshing!')
+				chrome.runtime.reload()
+			}
+		})
 	})
 }

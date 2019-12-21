@@ -12,6 +12,7 @@ const config = {
 	entry: {
 		background: join(root, '/src/background/index.ts'),
 		popup: join(root, '/src/popup/index.tsx'),
+		options: join(root, '/src/options/index.tsx'),
 	},
 	output: {
 		path: join(root, 'build'),
@@ -58,9 +59,9 @@ const config = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: join(root, 'src/background/index.html'),
-			filename: 'background.html',
-			chunks: ['background'],
+			template: join(root, 'src/options/index.html'),
+			filename: 'options.html',
+			chunks: ['options', 'lib'],
 		}),
 		new HtmlWebpackPlugin({
 			template: join(root, 'src/popup/index.html'),
@@ -99,6 +100,7 @@ const config = {
 		splitChunks: {
 			cacheGroups: {
 				// vendor bundle
+				// TODO - split monaco stuff into separate chunk only for options page
 				vendor: {
 					test: /node_modules/,
 					chunks: 'initial',

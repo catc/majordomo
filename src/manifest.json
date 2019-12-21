@@ -4,12 +4,15 @@
 	"description": "Build an Extension!",
 	"permissions": [
 		"activeTab",
+		"tabs",
 		"storage",
 		"declarativeContent"
 	],
-	
+	"options_page": "options.html?domo=true",
 	"background": {
-		"page": "./background.html",
+		"scripts": [
+			"background.bundle.js"
+		],
 		"persistent": false
 	},
 	"browser_action": {
@@ -17,10 +20,10 @@
 		"default_title": "Majordomo"
 	},
 	"icons": {
-		"16": "images/get_started16.png",
-		"32": "images/get_started32.png",
-		"48": "images/get_started48.png",
-		"128": "images/get_started128.png"
+		"16": "images/icon-16.png",
+		"32": "images/icon-32.png",
+		"48": "images/icon-48.png",
+		"128": "images/icon-128.png"
 	},
 	"manifest_version": 2,
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"

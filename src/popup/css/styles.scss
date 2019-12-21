@@ -1,8 +1,10 @@
+@import 'common/variables.scss';
+@import 'common/normalize.scss';
+@import 'common/global.scss';
 
-body {
-	background: green;
+
+body{
+	width: 600px;
+	height: 600px;
 }
 
-p {
-	color: white;
-}
