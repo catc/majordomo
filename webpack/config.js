@@ -3,6 +3,7 @@ const { join } = require('path')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const root = resolve(__dirname, '../')
 
@@ -42,6 +43,7 @@ const config = {
 			{
 				// overwritten in build script with extract-text-plugin
 				test: /\.(s?)css$/,
+				exclude: [/node_modules/],
 				loaders: [
 					'style-loader',
 					'css-loader',
@@ -55,18 +57,28 @@ const config = {
 					'sass-loader',
 				],
 			},
+			// specific to monaco editor
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader'],
+				include: [/node_modules/]
+			},
+			{
+				test: /\.ttf$/,
+				use: ['file-loader']
+			},
 		],
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: join(root, 'src/options/index.html'),
 			filename: 'options.html',
-			chunks: ['options', 'lib'],
+			chunks: ['options', 'lib', 'monaco'],
 		}),
 		new HtmlWebpackPlugin({
 			template: join(root, 'src/popup/index.html'),
 			filename: 'popup.html',
-			chunks: ['popup', 'lib', 'styles'],
+			chunks: ['popup', 'lib'],
 		}),
 		new CopyWebpackPlugin([
 			// copy manifest.json
@@ -94,19 +106,29 @@ const config = {
 				},
 			},
 		]),
+		new MonacoWebpackPlugin({
+			// https://github.com/microsoft/monaco-editor-webpack-plugin#options
+			languages: ['javascript', 'typescript'],
+			// features: ['!inPlaceReplace']
+		})
 	],
 
 	optimization: {
 		splitChunks: {
 			cacheGroups: {
 				// vendor bundle
-				// TODO - split monaco stuff into separate chunk only for options page
-				vendor: {
+				lib: {
 					test: /node_modules/,
 					chunks: 'initial',
 					name: 'lib',
 					enforce: true,
 				},
+				monaco: {
+					test: /node_modules\/monaco/,
+					chunks: 'initial',
+					name: 'monaco',
+					priority: 5
+				}
 			},
 		},
 	},

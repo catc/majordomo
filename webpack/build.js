@@ -5,8 +5,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const config = require('./config')
 
 config.mode = 'production'
+
+// regular css
 config.module.rules[1] = {
 	test: /\.(s?)css$/,
+	exclude: [/node_modules/],
 	loaders: [
 		{
 			loader: MiniCssExtractPlugin.loader,
@@ -23,9 +26,23 @@ config.module.rules[1] = {
 		'sass-loader',
 	],
 }
+
+// monaco
+config.module.rules[2] = {
+	test: /\.css$/,
+	include: [/node_modules/],
+	loaders: [
+		{
+			loader: MiniCssExtractPlugin.loader,
+			options: {},
+		},
+		'css-loader',
+	],
+}
 config.plugins.push(
 	new MiniCssExtractPlugin({
-		filename: 'style.css',
+		filename: '[name].css',
+		chunkFilename: '[id].css',
 	}),
 	new CleanWebpackPlugin(),
 )

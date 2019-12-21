@@ -38,7 +38,8 @@
 	},
 	"include": [
 		"src/popup",
-		"src/background"
+		"src/background",
+		"src/options"
 	],
 	"exclude": [
 		"node_modules",
