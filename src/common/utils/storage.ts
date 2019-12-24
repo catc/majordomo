@@ -1,12 +1,8 @@
+import { Script } from '@common/types/scripts'
+import { useEffect, useState } from 'react'
+
 const SCRIPT_KEY = 'script_'
 const SCRIPT_ID_REGEX = new RegExp('^' + SCRIPT_KEY)
-
-type Script = {
-	id: string
-	name: string
-	lastModified: number
-	code: string
-}
 
 type callback = () => void
 const noop = () => {}
@@ -14,8 +10,6 @@ const noop = () => {}
 const set = (key: string, data: any, cb: callback = noop) => {
 	chrome.storage.sync.set({ [key]: data }, cb)
 }
-
-const get = (val) => {}
 
 export function setScript(code: string) {
 	const id = SCRIPT_KEY + Date.now()
@@ -35,8 +29,6 @@ export function removeScript(id: string) {
 export function getScripts() {
 	return new Promise<Script[]>((res) => {
 		chrome.storage.sync.get(null, function(data) {
-			console.log('all data is', data)
-
 			const scripts: Script[] = Object.keys(data)
 				.map((key: string) => {
 					return SCRIPT_ID_REGEX.test(key) ? data[key] : null
@@ -46,9 +38,4 @@ export function getScripts() {
 			res(scripts)
 		})
 	})
-}
-
-// unused - can remove?
-export function getScriptsByID(id: string) {
-	// get
 }

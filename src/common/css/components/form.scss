@@ -1,0 +1,53 @@
+@import '@common/css/base/variables.scss';
+
+.input-wrapper {
+	display: block;
+	padding-top: 24px;
+	position: relative;
+	width: 100%;
+
+	label {
+		width: 100%;
+		position: absolute;
+		font-size: 1.2rem;
+		text-transform: uppercase;
+		top: 0;
+		left: 0;
+	}
+}
+
+.input, .textarea {
+	font-family: inherit;
+	border: 0;
+	border-bottom: 2px solid lighten($b1, 70%);
+	transition: border 0.2s ease-out;
+	width: 100%;
+
+	&:focus {
+		border-bottom-color: lighten($b1, 40%);
+	}
+
+	&:active, &:focus {
+		outline: none;
+	}
+}
+
+.input {
+	padding: 4px 1px;
+	display: inline-block;
+
+	&.medium {
+		font-size: 1.5rem;
+	}
+
+	&.error {
+		border-bottom-color: $red1;
+	}
+}
+
+.textarea {
+	display: block;
+	padding: 4px 1px;
+	line-height: 1.35;
+	resize: none;
+}

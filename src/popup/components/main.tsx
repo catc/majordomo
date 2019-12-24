@@ -1,6 +1,6 @@
-import React, { useRef, TextareaHTMLAttributes } from 'react'
+import React, { useRef } from 'react'
 
-import { setScript } from '@popup/utils/script-storage'
+import { setScript } from '@common/utils/storage'
 
 export default function TextArea() {
 	const textarea = useRef<HTMLTextAreaElement>(null)

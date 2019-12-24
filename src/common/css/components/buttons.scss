@@ -1,0 +1,65 @@
+@import '@common/css/base/variables.scss';
+
+button {
+	font-family: inherit;
+	text-transform: none;
+	margin: 0;
+	border: 0;
+	line-height: inherit;
+
+	&:not(:disabled) {
+		cursor: pointer;
+	}
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+	-webkit-appearance: button;
+}
+
+.button-primary {
+	font-size: 100%;
+	background: $b2;
+	color: white;
+	padding: 4px 8px;
+	font-size: 1.3rem;
+	text-transform: uppercase;
+	font-weight: bold;
+	letter-spacing: 0.7px;
+	position: relative;
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.45;
+	}
+
+	&:after {
+		content: "";
+		display: block;
+		height: 3px;
+		bottom: 0;
+		width: 100%;
+		position: absolute;
+		left: 0;
+		background: white;
+		background: $b2;
+		transition: 0.15s ease;
+	}
+
+	&:hover:after {
+		background: darken($b2, 10%);
+	}
+}
+
+.button-secondary {
+	color: $b2;
+	padding: 4px 2px 3px;
+	border-bottom: 2px solid $b4;
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.8;
+	}
+}

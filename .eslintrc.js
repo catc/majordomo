@@ -104,7 +104,9 @@ module.exports = {
 		// standard eslint
 		// 'quote-props': [1, 'as-needed'], // MIGHT interferes with prettier
 		// 'eol-last': 1,
-		curly: 2,
+		'@typescript-eslint/no-empty-function': 0,
+		'@typescript-eslint/ban-ts-ignore': 0,
+		curly: [2, 'multi-line'],
 		eqeqeq: [1, 'smart'],
 		'no-eval': 2,
 		'no-use-before-define': [1, 'nofunc'],
@@ -129,7 +131,7 @@ module.exports = {
 				arrowParens: "always",
 				bracketSpacing: true,
 				jsxBracketSameLine: false,
-				printWidth: 100,
+				printWidth: 90,
 				proseWrap: "preserve",
 				requirePragma: false,
 				semi: false,

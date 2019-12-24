@@ -1,0 +1,79 @@
+$font-main: 'Inconsolata', monospace;
+$font-alt: 'Roboto Condensed', sans-serif;
+// colors
+$b1: #323232;
+$b2: #6c6c6c;
+$b3: #777;
+$b4: #4e4e4e;
+$light1: #f1f1f1;
+$blue1: #8eddfd;
+$blue2: #61c8f2;
+$blue3: #2196f3;
+$red1: #f44336;
+
+@mixin keyframes ($name) {
+	@-webkit-keyframes #{$name} {
+		@content;
+	}
+
+	@keyframes #{$name} {
+		@content;
+	}
+}
+
+@include keyframes(fadeIn) {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@include keyframes(fadeOut) {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@mixin mq($type, $sizes...) {
+	@if $type==min {
+		@media only screen and (min-width : nth($sizes, 1)) {
+			@content;
+		}
+	}
+
+	@else if $type==max {
+		@media only screen and (max-width : nth($sizes, 1)) {
+			@content;
+		}
+	}
+
+	@else if $type==between {
+		@media only screen and (min-width : nth($sizes, 1)) and (max-width : nth($sizes, 2)) {
+			@content;
+		}
+	}
+}
+
+// https://tobiasahlin.com/blog/layered-smooth-box-shadows/
+@mixin shadowShort() {
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11),
+		0 2px 2px rgba(0, 0, 0, 0.11),
+		0 4px 4px rgba(0, 0, 0, 0.11),
+		0 6px 8px rgba(0, 0, 0, 0.11),
+		0 8px 16px rgba(0, 0, 0, 0.11);
+}
+
+@mixin shadowSharp() {
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25),
+		0 2px 2px rgba(0, 0, 0, 0.20),
+		0 4px 4px rgba(0, 0, 0, 0.15),
+		0 8px 8px rgba(0, 0, 0, 0.10),
+		0 16px 16px rgba(0, 0, 0, 0.05);
+}

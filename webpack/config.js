@@ -23,7 +23,9 @@ const config = {
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.jsx'],
 		alias: {
+			'@common': join(root, 'src/common'),
 			'@popup': join(root, 'src/popup'),
+			'@options': join(root, 'src/options'),
 			'@background': join(root, 'src/background'),
 		},
 	},
@@ -109,7 +111,7 @@ const config = {
 		new MonacoWebpackPlugin({
 			// https://github.com/microsoft/monaco-editor-webpack-plugin#options
 			languages: ['javascript', 'typescript'],
-			// features: ['!inPlaceReplace']
+			features: ['!inPlaceReplace', '!gotoLine', '!gotoSymbol', '!gotoLine']
 		})
 	],
 

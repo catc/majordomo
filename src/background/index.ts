@@ -3,7 +3,7 @@ chrome.runtime.onInstalled.addListener(function() {
 
 	chrome.management.getSelf(({ installType }) => {
 		if (installType === 'development') {
-			dev_reloadOnPageRefresh()
+			// dev_reloadOnPageRefresh()
 		}
 	})
 	// dev_openOptions()

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Script } from '@popup/types/scripts'
+import { Script } from '@common/scripts'
 
-import { getScripts } from '@popup/utils/script-storage'
+// import { getScripts } from '@common/utils/storage'
 
 export default function ScriptList() {
 	const [scripts, setScripts] = useState<Script[]>([])
@@ -12,7 +12,7 @@ export default function ScriptList() {
 			const scripts = await getScripts()
 			setScripts(scripts)
 		}
-		fetchAll()
+		// fetchAll()
 	}, [])
 
 	function execute(code: string) {

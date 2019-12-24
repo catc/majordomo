@@ -34,12 +34,19 @@
 			"@background/*": [
 				"src/background/*"
 			],
+			"@common/*": [
+				"src/common/*"
+			],
+			"@options/*": [
+				"src/options/*"
+			],
 		},
 	},
 	"include": [
 		"src/popup",
 		"src/background",
-		"src/options"
+		"src/options",
+		"src/common"
 	],
 	"exclude": [
 		"node_modules",
