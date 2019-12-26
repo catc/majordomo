@@ -51,6 +51,35 @@ button,
 	&:hover:after {
 		background: darken($b2, 10%);
 	}
+
+	&.icon, .icon-with-text {
+		svg {
+			$size: 18px;
+			height: $size;
+			width: $size;
+			fill: white;
+
+		}
+	}
+
+	&.icon-with-text {
+		padding: 4px;
+		padding-right: 9px;
+
+		svg {
+			height: 19px;
+			width: 18px;
+			fill: white;
+			margin-right: 8px;
+			vertical-align: top;
+		}
+	}
+
+	&.icon {
+		height: 28px;
+		width: 28px;
+		padding: 4px;
+	}
 }
 
 .button-secondary {

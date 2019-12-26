@@ -1,33 +1,37 @@
 import React from 'react'
 import useAppContext from '@options/hooks/context'
 import { STATUS } from '@options/hooks/state'
-import NewScript from './NewScript'
+import { ScriptDraft, Script } from '@common/types/scripts'
+import { createID, saveScript } from '@common/utils/storage'
 
-type Props = {
-	// status: STATUS
-}
+import ScriptEditor from './ScriptEditor'
 
 /*
-	Title
-	Tag color
-	Fav
-	Description
-	Id
-	Code
+	wraps script editor and contains functionality
+	around saving + updating scripts
 */
 
-export default function ScriptPanel({}: Props) {
-	const { editorStatus } = useAppContext()
+export default function ScriptPanel() {
+	const { editorStatus, setStatus } = useAppContext()
 
-	let component = null
-	if (editorStatus === STATUS.NEW) {
-		component = <NewScript />
+	function save(data: ScriptDraft) {
+		const now = Date.now()
+		data.lastModified = now
+
+		// is new - set an id
+		if (!data.id) {
+			data.id = createID()
+			data.fav = false
+		}
+
+		saveScript(data as Script)
+
+		setStatus({ status: STATUS.NONE })
 	}
 
-	return (
-		<div className="script-editor">
-			{/* status: {editorStatus} */}
-			{component}
-		</div>
-	)
+	if (editorStatus === STATUS.NONE) {
+		return null
+	}
+
+	return <ScriptEditor save={save} />
 }

@@ -177,6 +177,7 @@ module.exports = {
 	globals: {
 		document: true,
 		Promise: true,
+		window: true
 	},
 	settings: {
 		'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],

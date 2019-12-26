@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { editor } from 'monaco-editor/esm/vs/editor/editor.api'
 
-import theme from '../theme'
+import theme from '../themes/devtools'
 // @ts-ignore
-editor.defineTheme('monokai', theme)
+editor.defineTheme('devtools', theme)
 
-const PLACEHOLDER = `// add content
+const PLACEHOLDER = `// script content
 const foo = 'this is foo';
 console.log('this script will execute', foo);
 `
@@ -23,15 +23,10 @@ export default function MonacoEditor({ initialValue = PLACEHOLDER, monacoRef }: 
 
 	useEffect(() => {
 		if (editorRef.current) {
-			const el = editorRef.current
-
-			el.style.height =
-				window.innerHeight - el.getBoundingClientRect().top - 80 + 'px'
-
-			const e = editor.create(el, {
+			const e = editor.create(editorRef.current, {
 				value: initialValue,
 				language: 'javascript',
-				theme: 'monokai',
+				theme: 'devtools',
 				minimap: {
 					enabled: false,
 				},
@@ -46,5 +41,5 @@ export default function MonacoEditor({ initialValue = PLACEHOLDER, monacoRef }: 
 		}
 	}, [editorRef, initialValue, monacoRef])
 
-	return <div ref={editorRef}></div>
+	return <div ref={editorRef} style={{ height: '100%', width: '100%' }}></div>
 }

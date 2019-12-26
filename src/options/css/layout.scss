@@ -1,0 +1,37 @@
+.main {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	// TODO - add breakpoints
+}
+
+.panel {
+	&__title {
+		font-size: 1.8rem;
+	}
+
+	&__item {
+		padding: $panel-padding-top 2em 1.5em;
+	}
+}
+
+.script-list-wrapper {
+	max-width: 500px;
+	width: 100%;
+	border-right: 1px solid $light1;
+	height: $body-height;
+
+	&__empty {
+		padding: 2.5em 2em;
+		display: block;
+		text-align: center;
+	}
+}
+
+.script-editor {
+	width: 100%;
+	max-width: 600px;
+	display: flex;
+	flex-direction: column;
+	height: $body-height;
+}

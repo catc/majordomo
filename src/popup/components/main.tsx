@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 
-import { setScript } from '@common/utils/storage'
+import { saveScript } from '@common/utils/storage'
 
 export default function TextArea() {
 	const textarea = useRef<HTMLTextAreaElement>(null)
@@ -8,7 +8,7 @@ export default function TextArea() {
 	function save() {
 		const data = textarea.current?.value
 		if (data) {
-			setScript(data)
+			saveScript(data)
 		}
 	}
 

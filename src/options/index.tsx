@@ -3,7 +3,8 @@ import { render } from 'react-dom'
 import './css/style.scss'
 
 import { Provider } from '@options/hooks/context'
-import Main from './components/Main'
+import ScriptListWrapper from './components/ScriptListWrapper'
+import ScriptPanel from './components/ScriptPanel'
 
 function App() {
 	return (
@@ -12,7 +13,10 @@ function App() {
 				<span className="header__icon">🤵</span>
 				<span className="header__title">Majordomo</span>
 			</div>
-			<Main />
+			<div className="main">
+				<ScriptListWrapper />
+				<ScriptPanel />
+			</div>
 		</Provider>
 	)
 }
