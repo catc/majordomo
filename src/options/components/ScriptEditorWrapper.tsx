@@ -12,7 +12,7 @@ import ScriptEditor from './ScriptEditor'
 */
 
 export default function ScriptPanel() {
-	const { editorStatus, setStatus } = useAppContext()
+	const { editorStatus, setStatus, currentScript } = useAppContext()
 
 	function save(data: ScriptDraft) {
 		const now = Date.now()
@@ -33,5 +33,7 @@ export default function ScriptPanel() {
 		return null
 	}
 
-	return <ScriptEditor save={save} />
+	return (
+		<ScriptEditor save={save} currentScript={currentScript} key={currentScript?.id} />
+	)
 }

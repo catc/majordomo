@@ -1,34 +1,19 @@
 import React, { createContext, useContext } from 'react'
 
-import useAppState, {
-	initialState as AppInitialState,
-	SetStatusActionProps,
-} from './state'
+import useAppState, { STATUS } from './state'
 
-import { StateFromObject } from '@common/types/utils'
+type State = ReturnType<typeof useAppState>
 
-const initialState = {
-	editorStatus: AppInitialState.editorStatus,
-	setStatus: () => null,
-}
-
-type State = StateFromObject<
-	typeof initialState,
-	{
-		setStatus: (p: SetStatusActionProps) => void
-	}
->
-
-const AppStateContext = createContext<State>(initialState)
+const AppStateContext = createContext<State>({
+	editorStatus: STATUS.NONE,
+	setStatus: () => {},
+	currentScript: null,
+})
 
 export function Provider({ children }: { children: React.ReactNode }) {
-	const { editorStatus, setStatus } = useAppState()
+	const state = useAppState()
 
-	const value = {
-		editorStatus,
-		setStatus,
-	}
-	return <AppStateContext.Provider value={value}>{children}</AppStateContext.Provider>
+	return <AppStateContext.Provider value={state}>{children}</AppStateContext.Provider>
 }
 
 export default function useStateContext() {

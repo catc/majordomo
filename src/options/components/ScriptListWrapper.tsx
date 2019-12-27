@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import getScripts from '@common/hooks/getScripts'
 import useAppContext from '@options/hooks/context'
 import PrimaryButton from '@common/components/PrimaryButton'
@@ -9,6 +9,21 @@ import ScriptList from './ScriptList'
 export default function ScriptListWrapper() {
 	const { scripts, isInitialFetching } = getScripts()
 	const { setStatus, editorStatus } = useAppContext()
+
+	const initialLoad = useRef(true)
+
+	// if query param has script id, load that script in edit panel
+	useEffect(() => {
+		if (initialLoad.current && !isInitialFetching) {
+			initialLoad.current = false
+			const params = new URLSearchParams(window.location.search)
+			const id = params.get('edit')
+			if (id) {
+				const script = scripts.find((s) => s.id === id)
+				if (script) setStatus({ status: STATUS.EDIT, script })
+			}
+		}
+	}, [isInitialFetching, scripts, setStatus])
 
 	let component = null
 	switch (true) {

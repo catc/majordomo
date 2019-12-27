@@ -1,0 +1,70 @@
+.script-editor {
+	&__form-top {
+		flex-shrink: 0;
+	}
+
+	&__name-wrapper {
+		display: flex;
+		flex-direction: row;
+	}
+
+	&__monaco-wrapper {
+		margin-top: 2.5em;
+		border: 1px solid $light1;
+		height: 100%;
+		overflow-y: auto;
+	}
+
+	&__actions {
+		margin-top: 2em;
+		display: flex;
+		justify-content: space-between;
+	}
+
+
+	// delete
+	&__delete-wrapper {
+		position: relative;
+	}
+
+	&__delete-btn {
+		color: $b5;
+		position: relative;
+
+		&:hover {
+			color: $red1;
+			text-decoration: underline;
+		}
+	}
+
+	&__delete-confirm {
+		bottom: 100%;
+		width: 200px;
+		border: 1px solid $light1;
+		margin-bottom: 1em;
+		right: 0;
+		padding: 0.5em;
+	}
+
+	&__delete-confirm-buttons {
+		margin-top: 1em;
+
+		button {
+			margin-right: 1em;
+			color: $b4;
+
+			&:first-child {
+				&:hover {
+					color: $red1;
+				}
+			}
+
+			&:last-child {
+				&:hover {
+					color: $b3;
+				}
+			}
+		}
+
+	}
+}

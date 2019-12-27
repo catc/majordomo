@@ -1,42 +1,31 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { Script } from '@common/types/scripts'
 import { formatDate } from '@common/utils/date'
+import { SetStatusActionProps, STATUS } from '@options/hooks/state'
 
 type Props = {
 	script: Script
 	index: number
+	setStatus: (p: SetStatusActionProps) => void
 }
 
-const BASE_DELAY = 0.02
-
-/*
-    DONE lastModified: number;
-    DONE name: string;
-    DONE color: string;
-    code: string;
-    TODO description: string;
-    TODO fav: boolean;
-*/
-
-/*
-	icons:
-
-	plus
-	delete
-	edit
-	star?
-
-	close
-*/
-
-export default function ScriptItem({ script, index }: Props) {
+export default function ScriptItem({ script, setStatus }: Props) {
 	const date = useMemo(() => formatDate(script.lastModified), [script.lastModified])
+
+	const edit = useCallback(() => setStatus({ status: STATUS.EDIT, script: script }), [
+		script,
+		setStatus,
+	])
 
 	const color = script.color !== '#ffffff' ? script.color : ''
 	return (
 		<li
 			className="script-item"
-			style={{ borderLeftColor: color, animationDelay: BASE_DELAY * index + 's' }}
+			style={{
+				borderLeftColor: color,
+				//  animationDelay: BASE_DELAY * index + 's'
+			}}
+			onClick={edit}
 		>
 			<span className="script-item__name">{script.name}</span>
 			<span className="script-item__date">{date}</span>

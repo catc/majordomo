@@ -14,10 +14,15 @@ type Props = {
 	scripts: Script[]
 }
 
+/*
+	- renders all scripts
+	- displays search bar if more than 3 scripts
+*/
+
 export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 	const { setStatus } = useAppContext()
 	const [term, setSearchTerm] = useState('')
-	const [isScrolledDown, bind] = useInView()
+	const [topInView, bind] = useInView(true)
 
 	const { current: debounceSetTerm } = useRef(
 		debounce((val: string) => setSearchTerm(val), 450),
@@ -36,9 +41,11 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 		return () => debounceSetTerm.cancel()
 	}, [debounceSetTerm, debounceSetTerm.cancel])
 
+	const displaySearch = scripts.length > 3
+
 	return (
 		<div className="script-list">
-			<div className={`script-list__top ${!isScrolledDown ? 'bottom-shadow' : ''}`}>
+			<div className={`script-list__top ${!topInView ? 'bottom-shadow' : ''}`}>
 				<h2 className="panel__title">
 					Scripts
 					<PrimaryButton
@@ -51,7 +58,10 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 					</PrimaryButton>
 				</h2>
 
-				<div className="script-list__search-wrapper">
+				<div
+					className="script-list__search-wrapper"
+					style={{ display: !displaySearch ? 'none' : '' }}
+				>
 					<SearchIcon />
 					<input
 						placeholder="Search"
@@ -67,7 +77,7 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 				<li {...bind}></li>
 
 				{scripts.map((s, i) => (
-					<ScriptItem key={s.id} script={s} index={i} />
+					<ScriptItem key={s.id} script={s} index={i} setStatus={setStatus} />
 				))}
 			</ul>
 		</div>

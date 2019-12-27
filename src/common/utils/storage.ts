@@ -1,4 +1,5 @@
 import { Script } from '@common/types/scripts'
+import orderBy from 'lodash/orderBy'
 
 /*
 	TODO - error handling
@@ -23,8 +24,7 @@ export function createID() {
 }
 
 export function saveScript(script: Script) {
-	const id = createID()
-	set(id, script)
+	set(script.id, script)
 }
 
 export function removeScript(id: string) {
@@ -32,14 +32,15 @@ export function removeScript(id: string) {
 }
 
 export function getScripts() {
-	// TODO - add sorting
 	return new Promise<Script[]>((res) => {
 		chrome.storage.sync.get(null, function(data) {
 			const scripts: Script[] = Object.keys(data)
 				.map((key: string) => (isScript(key) ? data[key] : null))
 				.filter(Boolean)
 
-			res(scripts)
+			const sorted = orderBy(scripts, ['selected', 'lastModified'], ['desc', 'asc'])
+
+			res(sorted)
 		})
 	})
 }

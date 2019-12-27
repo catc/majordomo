@@ -3,7 +3,7 @@ import { editor } from 'monaco-editor/esm/vs/editor/editor.api'
 
 import theme from '../themes/devtools'
 // @ts-ignore
-editor.defineTheme('devtools', theme)
+editor.defineTheme('chrome-devtools', theme)
 
 const PLACEHOLDER = `// script content
 const foo = 'this is foo';
@@ -26,7 +26,7 @@ export default function MonacoEditor({ initialValue = PLACEHOLDER, monacoRef }: 
 			const e = editor.create(editorRef.current, {
 				value: initialValue,
 				language: 'javascript',
-				theme: 'devtools',
+				theme: 'chrome-devtools',
 				minimap: {
 					enabled: false,
 				},

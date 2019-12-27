@@ -16,12 +16,14 @@
 	&__top {
 		flex-shrink: 0;
 		@include padding();
+		padding-bottom: 0.5em;
 		border-bottom: 1px solid $light1;
 		z-index: 2;
 		transition: 0.15s ease-out;
 
 		&.bottom-shadow {
-			@include shadowDreamy($b3);
+			// @include shadowDreamy($b3);
+			@include shadowShort($b4);
 		}
 	}
 
@@ -33,14 +35,14 @@
 	&__list {
 		overflow: auto;
 		@include padding();
-		padding-top: 2em;
+		padding-top: 1.3em;
 		background: #f3f3f3;
 		height: 100%;
 	}
 
 	&__search-wrapper {
 		padding-top: 1em;
-		padding-bottom: 0.5em;
+		padding-bottom: 1em;
 
 		svg {
 			$size: 18px;
@@ -60,18 +62,19 @@
 
 
 .script-item {
-	margin-bottom: 1.5em;
+	// margin-bottom: 1.5em;
+	// padding: 0.5em 1em;
+	padding: 0.8em 1em;
+	margin-bottom: 1em;
 	$border-color: darken($light1, 3%);
 	border: 1px solid $border-color;
 	border-left: 4px solid $border-color;
 	border-radius: 3px 1px 1px 3px;
-	padding: 0.5em 1em;
 	background: white;
 
 	cursor: pointer;
-	transition: 0.15s ease-out;
-
 	animation: 0.25s fadeIn both;
+	transition: 0.2s ease-out;
 
 	&__name {
 		white-space: nowrap;
@@ -90,12 +93,16 @@
 
 	// TODO
 	&:hover {
-		@include shadowSharp($b3);
-		@include shadowShort($b3);
-		// @include shadowShort();
-		// border-color: darken($light1, 10%);
-		// border-top-color: darken($light1, 10%);
-		// border-bottom-color: darken($light1, 10%);
-		// border-right-color: darken($light1, 10%);
+		$color: lighten($b3, 10%);
+		// @include shadowSharp($color);
+		// @include shadowShort($color);
+		// @include shadowDreamy($color);
+		// box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.14);
+		box-shadow:
+			0 1px 1px rgba($color, 0.25),
+			0 2px 2px rgba($color, 0.20),
+			0 4px 4px rgba($color, 0.15);
+		// 0 8px 8px rgba($color, 0.10),
+		// 0 16px 16px rgba($color, 0.05);
 	}
 }

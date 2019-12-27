@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 
-export default function useInView(opts: IntersectionObserverInit = {}) {
-	const [isInView, setIsInView] = useState(false)
+export default function useInView(
+	initialVal = false,
+	opts: IntersectionObserverInit = {},
+) {
+	const [isInView, setIsInView] = useState(initialVal)
 
 	const ref = useRef<any>(null)
 

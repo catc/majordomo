@@ -1,34 +1,39 @@
 import { useReducer, useCallback } from 'react'
 import { StateFromObject } from '@common/types/utils'
+import { Script } from '@common/types/scripts'
 
 export enum STATUS {
 	NONE = 'none',
 	NEW = 'new',
-	VIEW = 'view',
 	EDIT = 'edit',
 }
 
 export const initialState = {
 	editorStatus: STATUS.NONE,
+	currentScript: null,
 	// editorStatus: STATUS.NEW, // FOR TESTING
-	// error: null,
 }
 
-// export type State = StateFromObject<typeof initialState, { error: null | string }>
-export type State = StateFromObject<typeof initialState>
+export type State = StateFromObject<
+	typeof initialState,
+	{
+		currentScript: null | Script
+	}
+>
 type ActionType<A, T> = A extends { type: T } ? Omit<A, 'type'> : never
 
 type Action =
 	| { type: 'SET_STATUS'; status: STATUS.NONE | STATUS.NEW }
-	| { type: 'SET_STATUS'; status: STATUS.VIEW | STATUS.EDIT; data: string }
-// | { type: 'SET_ERROR'; error: string }
+	| { type: 'SET_STATUS'; status: STATUS.EDIT | STATUS.EDIT; script: Script }
 
 function stateReducer(state: State, action: Action) {
 	switch (action.type) {
 		case 'SET_STATUS':
-			return { ...state, editorStatus: action.status }
-		// case 'SET_ERROR':
-		// 	return { ...state, error: 'kokk' }
+			return {
+				...state,
+				editorStatus: action.status,
+				currentScript: action.status === STATUS.EDIT ? action.script : null,
+			}
 		default:
 			throw new Error('unsupported action')
 	}
@@ -38,7 +43,7 @@ export type SetStatusActionProps = ActionType<Action, 'SET_STATUS'>
 
 export default function useAppState() {
 	const [state, dispatch] = useReducer(stateReducer, initialState)
-	const { editorStatus } = state
+	const { editorStatus, currentScript } = state
 
 	const setStatus = useCallback(
 		(payload: SetStatusActionProps) => dispatch({ type: 'SET_STATUS', ...payload }),
@@ -64,5 +69,6 @@ export default function useAppState() {
 	return {
 		editorStatus,
 		setStatus,
+		currentScript,
 	}
 }

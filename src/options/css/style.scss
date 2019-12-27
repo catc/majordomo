@@ -13,7 +13,7 @@
 // components
 @import './components/script-list.scss';
 @import './components/color-picker.scss';
-
+@import './components/script-editor.scss';
 
 .header {
 	height: $header-height;
@@ -35,31 +35,3 @@
 		margin-left: 1em;
 	}
 }
-
-.script-editor {
-	&__form-top {
-		flex-shrink: 0;
-	}
-
-	&__name-wrapper {
-		display: flex;
-		flex-direction: row;
-	}
-
-	&__monaco-wrapper {
-		margin-top: 2.5em;
-		// border-top: 1px solid $light1;
-		border: 1px solid $light1;
-		height: 100%;
-		overflow-y: auto;
-	}
-}
-
-// .new-script {
-// 	&__form {
-// 		// padding: 0.5em 2em 1.5em;
-// 	}
-// }
-// .monaco-editor {
-// 	// padding-top: 4px;
-// }

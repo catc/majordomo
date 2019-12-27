@@ -19,7 +19,9 @@ export default function ExpandingTextArea({ name, register }: Props) {
 	}, [])
 
 	useEffect(() => {
-		if (el.current) update()
+		if (el.current) {
+			update()
+		}
 	}, [update])
 
 	return (

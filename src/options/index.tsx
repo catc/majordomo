@@ -4,7 +4,7 @@ import './css/style.scss'
 
 import { Provider } from '@options/hooks/context'
 import ScriptListWrapper from './components/ScriptListWrapper'
-import ScriptPanel from './components/ScriptPanel'
+import ScriptEditorWrapper from './components/ScriptEditorWrapper'
 
 function App() {
 	return (
@@ -15,7 +15,7 @@ function App() {
 			</div>
 			<div className="main">
 				<ScriptListWrapper />
-				<ScriptPanel />
+				<ScriptEditorWrapper />
 			</div>
 		</Provider>
 	)

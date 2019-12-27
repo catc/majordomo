@@ -13,9 +13,7 @@ export const COLORS = [
 	'#000',
 ]
 
-type Props = {}
-
-export default function ColorPicker({}: Props) {
+export default function ColorPicker() {
 	const { register, setValue, watch } = useFormContext()
 	const [isOpen, setIsOpen] = useState(false)
 
