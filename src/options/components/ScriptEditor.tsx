@@ -82,6 +82,7 @@ export default function ScriptEditor({ save, currentScript }: Props) {
 					<MonacoEditor monacoRef={monaco} initialValue={currentScript?.code} />
 				</div>
 
+				{/* save/update + delete */}
 				<div className="script-editor__actions">
 					<PrimaryButton type="submit" disabled={disabled}>
 						{currentScript ? 'Save' : 'Submit'}

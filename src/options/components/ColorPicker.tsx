@@ -1,6 +1,6 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
-import Popup from '@common/components/Popup'
+import usePopup from '@common/components/Popup'
 
 export const COLORS = [
 	'#ffffff',
@@ -15,12 +15,11 @@ export const COLORS = [
 
 export default function ColorPicker() {
 	const { register, setValue, watch } = useFormContext()
-	const [isOpen, setIsOpen] = useState(false)
 
 	const color = watch('color')
 	const selectedContainer = useRef<HTMLDivElement>(null)
 
-	const close = useCallback(() => setIsOpen(false), [])
+	const { open, close, isOpen, Popup } = usePopup()
 
 	return (
 		<div className="color-picker">
@@ -30,7 +29,7 @@ export default function ColorPicker() {
 				<label>Tag Color</label>
 				<div
 					className="color-picker__selected-color"
-					onClick={() => setIsOpen(!isOpen)}
+					onClick={() => (isOpen ? close() : open())}
 				>
 					<span
 						style={{
@@ -40,12 +39,7 @@ export default function ColorPicker() {
 				</div>
 			</div>
 
-			<Popup
-				isOpen={isOpen}
-				close={close}
-				className="color-picker__popup"
-				highlightContent={[selectedContainer]}
-			>
+			<Popup className="color-picker__popup" highlightContent={[selectedContainer]}>
 				<ul className="color-picker__colors">
 					{COLORS.map((c) => (
 						<li

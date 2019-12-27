@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useReducer } from 'react'
+import React, { useEffect, useRef, useReducer, useCallback, useMemo } from 'react'
 import { StateFromObject } from '@common/types/utils'
 import '../css/components/popup.scss'
 
-type Props = {
-	isOpen: boolean
+type PopupProps = {
 	children: React.ReactNode
-	close: () => void
 	className?: string
 	highlightContent?: React.RefObject<HTMLElement>[]
 }
@@ -14,6 +12,44 @@ const HIGHLIGHT_CLASS = 'popup__highlight'
 const BACKGROUND_HIDE_DELAY = 305
 
 const noop = () => {}
+
+function createPopup(isVisible: boolean, isClosing: boolean, startClose: typeof noop) {
+	return function Popup({ className, children, highlightContent }: PopupProps) {
+		// highlight content
+		useEffect(() => {
+			if (!isVisible) return
+
+			highlightContent?.forEach((ref) => {
+				ref.current?.classList.add(HIGHLIGHT_CLASS)
+			})
+
+			return () => {
+				highlightContent?.forEach((ref) => {
+					ref.current?.classList.remove(HIGHLIGHT_CLASS)
+				})
+			}
+		}, [highlightContent])
+
+		if (!isVisible) {
+			return null
+		}
+		return (
+			<>
+				<div
+					className={`popup__bg ${isClosing ? 'popup__close' : ''}`}
+					onClick={startClose}
+				></div>
+				<div
+					className={`popup__item ${className} ${
+						isClosing ? 'popup__close' : ''
+					}`}
+				>
+					{children}
+				</div>
+			</>
+		)
+	}
+}
 
 const initialState = {
 	isVisible: false,
@@ -36,70 +72,35 @@ function stateReducer(_: State, action: Action) {
 	}
 }
 
-export default function Popup({
-	children,
-	isOpen,
-	className = '',
-	close,
-	highlightContent = [],
-}: Props) {
-	const clearTimer = useRef<typeof noop>(noop)
+export default function usePopup() {
 	const [state, dispatch] = useReducer(stateReducer, initialState)
 	const { isClosing, isVisible } = state
 
-	// handling opening + closing
-	useEffect(() => {
-		if (isOpen && !isVisible) {
-			dispatch({ type: 'OPEN' })
-		} else if (!isOpen && isVisible && !isClosing) {
-			dispatch({ type: 'START_CLOSE' })
-		}
-	}, [isClosing, isOpen, isVisible])
+	const timer = useRef<number>(0)
 
-	// handle start closing
+	const open = useCallback(() => dispatch({ type: 'OPEN' }), [])
+	const close = useCallback(() => dispatch({ type: 'START_CLOSE' }), [])
+
+	// handle start closing fade animation
 	useEffect(() => {
 		if (isClosing) {
-			const timer = setTimeout(() => {
+			const t = window.setTimeout(() => {
 				close()
 				dispatch({ type: 'FINISH_CLOSE' })
 			}, BACKGROUND_HIDE_DELAY)
-			clearTimer.current = () => clearTimeout(timer)
+			timer.current = t
 		}
 	}, [close, isClosing])
 
-	// highlight content
-	useEffect(() => {
-		if (!isVisible) return
+	// clean up timer
+	useEffect(() => clearTimeout(timer.current), [])
 
-		highlightContent?.forEach((ref) => {
-			ref.current?.classList.add(HIGHLIGHT_CLASS)
-		})
+	// create popup
+	const popup = useMemo(() => createPopup(isVisible, isClosing, close), [
+		close,
+		isClosing,
+		isVisible,
+	])
 
-		return () => {
-			highlightContent.forEach((ref) => {
-				ref.current?.classList.remove(HIGHLIGHT_CLASS)
-			})
-		}
-	}, [highlightContent, isVisible])
-
-	// clean up
-	useEffect(() => clearTimer.current(), [])
-
-	if (!isVisible) {
-		return null
-	}
-
-	return (
-		<>
-			<div
-				className={`popup__bg ${isClosing ? 'popup__close' : ''}`}
-				onClick={() => dispatch({ type: 'START_CLOSE' })}
-			></div>
-			<div
-				className={`popup__item ${className} ${isClosing ? 'popup__close' : ''}`}
-			>
-				{children}
-			</div>
-		</>
-	)
+	return { open, close, isOpen: isVisible, Popup: popup }
 }

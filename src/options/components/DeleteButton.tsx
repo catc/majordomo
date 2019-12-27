@@ -1,23 +1,20 @@
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import useAppContext from '@options/hooks/context'
-import Popup from '@common/components/Popup'
 import { STATUS } from '@options/hooks/state'
 import { removeScript } from '@common/utils/storage'
+import usePopup from '@common/components/Popup'
 
 type Props = {
 	id: string
 }
 
-/*
-	TODO - make popup a hook?
- */
-
 export default function DeleteButton({ id }: Props) {
 	const { setStatus } = useAppContext()
-	const [isOpen, setIsOpen] = useState(false)
+
+	const { open, close, Popup } = usePopup()
+
 	const buttonRef = useRef<HTMLButtonElement>(null)
 
-	const close = useCallback(() => setIsOpen(false), [])
 	const remove = useCallback(() => {
 		removeScript(id)
 		setStatus({ status: STATUS.NONE })
@@ -28,17 +25,13 @@ export default function DeleteButton({ id }: Props) {
 			<button
 				type="button"
 				className="script-editor__delete-btn"
-				onClick={() => {
-					setIsOpen(true)
-				}}
+				onClick={open}
 				ref={buttonRef}
 			>
 				Delete
 			</button>
 
 			<Popup
-				isOpen={isOpen}
-				close={close}
 				className="script-editor__delete-confirm"
 				highlightContent={[buttonRef]}
 			>
