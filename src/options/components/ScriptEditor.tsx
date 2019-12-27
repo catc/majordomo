@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import useForm, { FormContext } from 'react-hook-form'
 import ExpandingTextArea from '@common/components/ExpandingTextarea'
 import PrimaryButton from '@common/components/PrimaryButton'
@@ -87,18 +87,7 @@ export default function ScriptEditor({ save, currentScript }: Props) {
 						{currentScript ? 'Save' : 'Submit'}
 					</PrimaryButton>
 
-					{currentScript?.id && (
-						<DeleteButton id={currentScript.id} />
-						// <button
-						// 	type="button"
-						// 	className="script-editor__delete-btn"
-						// 	onClick={() => {
-						// 		console.log('delet1')
-						// 	}}
-						// >
-						// 	Delete
-						// </button>
-					)}
+					{currentScript?.id && <DeleteButton id={currentScript.id} />}
 				</div>
 			</form>
 		</FormContext>
