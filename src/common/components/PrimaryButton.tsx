@@ -1,4 +1,5 @@
 import React from 'react'
+import '../css/components/buttons.scss'
 
 type Props = {
 	type?: 'submit' | 'button'

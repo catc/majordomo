@@ -23,7 +23,7 @@
 
 		&.bottom-shadow {
 			// @include shadowDreamy($b3);
-			@include shadowShort($b4);
+			@include shadowShort($b3);
 		}
 	}
 
@@ -116,9 +116,20 @@
 		// padding: 0 1em;
 	}
 
+	&:hover &__fav {
+		visibility: visible;
+	}
+
 	&__fav {
+		animation: 0.15s fadeIn ease;
+		padding: 1em;
+
+		&:not(.selected) {
+			visibility: hidden;
+		}
+
 		svg {
-			fill: lighten($b5, 25%);
+			fill: lighten($b3, 15%);
 			$size: 18px;
 			width: $size;
 			height: $size;
@@ -128,7 +139,7 @@
 		}
 
 		&:hover svg {
-			fill: $b4;
+			fill: $b2;
 		}
 
 		&.selected svg {

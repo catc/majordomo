@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { editor } from 'monaco-editor/esm/vs/editor/editor.api'
 
-import theme from '../themes/devtools'
+import theme from '../monaco-themes/devtools'
 // @ts-ignore
 editor.defineTheme('chrome-devtools', theme)
 

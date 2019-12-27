@@ -3,3 +3,26 @@
 		outline: none;
 	}
 }
+
+button {
+	font-family: inherit;
+	text-transform: none;
+	margin: 0;
+	border: 0;
+	line-height: inherit;
+
+	&:not(:disabled) {
+		cursor: pointer;
+	}
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+	-webkit-appearance: button;
+}
+
+svg {
+	vertical-align: middle;
+}

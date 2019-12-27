@@ -2,17 +2,23 @@ import React from 'react'
 import { render } from 'react-dom'
 import './css/style.scss'
 
-import { Provider } from '@options/hooks/context'
+import { Provider } from '@common/hooks/useAppContext'
+import Header from '@common/components/Header'
 import ScriptListWrapper from './components/ScriptListWrapper'
 import ScriptEditorWrapper from './components/ScriptEditorWrapper'
 
+const permissions = {
+	canFav: true,
+	canEditScript: true,
+	canExecute: false,
+	canOpenOptions: false,
+	canToggleDescription: false,
+}
+
 function App() {
 	return (
-		<Provider>
-			<div className="header">
-				<span className="header__icon">🤵</span>
-				<span className="header__title">Majordomo</span>
-			</div>
+		<Provider permissions={permissions}>
+			<Header />
 			<div className="main">
 				<ScriptListWrapper />
 				<ScriptEditorWrapper />

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import getScripts from '@common/hooks/getScripts'
-import useAppContext from '@options/hooks/context'
+import useAppContext from '@common/hooks/useAppContext'
 import PrimaryButton from '@common/components/PrimaryButton'
-import { STATUS } from '@options/hooks/state'
+import { STATUS } from '@common/types/state'
 
 import ScriptList from './ScriptList'
 

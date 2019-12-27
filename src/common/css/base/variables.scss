@@ -5,8 +5,9 @@ $font-alt: 'Roboto Condensed', sans-serif;
 $b1: #323232;
 $b2: #6c6c6c;
 $b3: #777;
-$b4: #4e4e4e;
-$b5: lighten(#4e4e4e, 15%);
+$b4: lighten($b3, 10%);
+// $b4: #4e4e4e;
+// $b5: lighten(#4e4e4e, 15%);
 
 $light1: #f1f1f1;
 $blue1: #8eddfd;
@@ -14,6 +15,12 @@ $blue2: #61c8f2;
 $blue3: #2196f3;
 
 $red1: #f44336;
+
+$header-height: 60px;
+$side-padding: 1em;
+$body-height: calc(100vh - #{$header-height});
+
+$panel-padding-top: 0.5em;
 
 @mixin keyframes ($name) {
 	@-webkit-keyframes #{$name} {

@@ -3,12 +3,12 @@ import debounce from 'lodash/debounce'
 import { Script } from '@common/types/scripts'
 import ScriptItem from './ScriptItem'
 import PrimaryButton from '@common/components/PrimaryButton'
-import { STATUS } from '@options/hooks/state'
-import useAppContext from '@options/hooks/context'
+import { STATUS } from '@common/types/state'
+import useAppContext from '@common/hooks/useAppContext'
 import SearchIcon from '@common/components/icons/Search'
 import PlusIcon from '@common/components/icons/Plus'
 
-import useInView from '../hooks/inView'
+import useInView from '@common/hooks/inView'
 
 type Props = {
 	scripts: Script[]
@@ -20,7 +20,7 @@ type Props = {
 */
 
 export default function ScriptList({ scripts: unfilteredScripts }: Props) {
-	const { setStatus } = useAppContext()
+	const { setStatus, permissions } = useAppContext()
 	const [term, setSearchTerm] = useState('')
 	const [topInView, bind] = useInView(true)
 

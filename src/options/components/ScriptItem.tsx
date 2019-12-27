@@ -1,7 +1,8 @@
 import React, { useMemo, useCallback } from 'react'
 import { Script } from '@common/types/scripts'
 import { formatDate } from '@common/utils/date'
-import { SetStatusActionProps, STATUS } from '@options/hooks/state'
+import { SetStatusActionProps } from '@common/hooks/state'
+import { STATUS } from '@common/types/state'
 import AwardIcon from '@common/components/icons/Award'
 import { toggleFavourite } from '@common/utils/storage'
 

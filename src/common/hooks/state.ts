@@ -1,16 +1,12 @@
 import { useReducer, useCallback } from 'react'
 import { StateFromObject } from '@common/types/utils'
 import { Script } from '@common/types/scripts'
-
-export enum STATUS {
-	NONE = 'none',
-	NEW = 'new',
-	EDIT = 'edit',
-}
+import { STATUS, Permissions } from '@common/types/state'
 
 export const initialState = {
 	editorStatus: STATUS.NONE,
 	currentScript: null,
+	permissions: {} as Permissions,
 	// editorStatus: STATUS.NEW, // FOR TESTING
 }
 
@@ -41,34 +37,22 @@ function stateReducer(state: State, action: Action) {
 
 export type SetStatusActionProps = ActionType<Action, 'SET_STATUS'>
 
-export default function useAppState() {
-	const [state, dispatch] = useReducer(stateReducer, initialState)
-	const { editorStatus, currentScript } = state
+export default function useAppState(perms: Permissions) {
+	const [state, dispatch] = useReducer(stateReducer, null, () => ({
+		...initialState,
+		permissions: perms,
+	}))
+	const { editorStatus, currentScript, permissions } = state
 
 	const setStatus = useCallback(
 		(payload: SetStatusActionProps) => dispatch({ type: 'SET_STATUS', ...payload }),
 		[],
 	)
 
-	// const setError = useCallback(
-	// 	(payload: ActionType<Action, 'SET_ERROR'>) =>
-	// 		dispatch({ type: 'SET_ERROR', ...payload }),
-	// 	[],
-	// )
-
-	// const setStatusNew = useCallback(() => setStatus({ status: STATUS.NEW }), [setStatus])
-	// setStatus({ status: STATUS.EDIT, data: 'zz', foo: 'afa' }) // should throw error
-	// setStatus({ status: STATUS.NEW, data: 'zz' }) // should throw error
-	// setStatus({ status: STATUS.EDIT }) // should throw error
-	// setStatus({ status: STATUS.NEW }) // should be good
-	// setStatus({ status: STATUS.EDIT, data: 'zz' }) // should be good
-
-	// setError({ error: 123 }) // should throw error
-	// setError({ error: 'something' }) // is correct
-
 	return {
 		editorStatus,
 		setStatus,
 		currentScript,
+		permissions,
 	}
 }

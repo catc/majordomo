@@ -1,6 +1,6 @@
 import React from 'react'
-import useAppContext from '@options/hooks/context'
-import { STATUS } from '@options/hooks/state'
+import useAppContext from '@common/hooks/useAppContext'
+import { STATUS } from '@common/types/state'
 import { ScriptDraft, Script } from '@common/types/scripts'
 import { createID, saveScript } from '@common/utils/storage'
 

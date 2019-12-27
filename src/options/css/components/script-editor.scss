@@ -1,5 +1,5 @@
 .script-editor {
-	animation: 0.6s fadeIn ease;
+	animation: 0.45s fadeIn ease;
 
 	&__form-top {
 		flex-shrink: 0;
@@ -30,7 +30,7 @@
 	}
 
 	&__delete-btn {
-		color: $b5;
+		color: $b4;
 		position: relative;
 
 		&:hover {
@@ -53,7 +53,7 @@
 
 		button {
 			margin-right: 1em;
-			color: $b4;
+			color: $b3;
 
 			&:first-child {
 				&:hover {
@@ -63,7 +63,7 @@
 
 			&:last-child {
 				&:hover {
-					color: $b3;
+					color: $b1;
 				}
 			}
 		}

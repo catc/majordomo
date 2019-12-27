@@ -1,38 +1,12 @@
 // base
-@import '@common/css/base/variables.scss';
-@import '@common/css/base/normalize.scss';
-@import '@common/css/base/global.scss';
-@import '@common/css/base/common.scss';
+@import '@common/css/base.scss';
 
 // common components
-@import '@common/css/components/buttons.scss';
 @import '@common/css/components/form.scss';
 
-@import './variables.scss';
 @import './layout.scss';
 
 // components
 @import './components/script-list.scss';
 @import './components/color-picker.scss';
 @import './components/script-editor.scss';
-
-.header {
-	height: $header-height;
-	display: flex;
-	align-items: center;
-	padding: 0 $side-padding;
-	border-bottom: 1px solid $light1;
-	position: relative;
-	z-index: 2;
-	background: white;
-
-	&__icon {
-		font-size: 2.8rem;
-		opacity: 0.75;
-	}
-
-	&__title {
-		display: inline-block;
-		margin-left: 1em;
-	}
-}

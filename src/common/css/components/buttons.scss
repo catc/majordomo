@@ -1,24 +1,5 @@
 @import '@common/css/base/variables.scss';
 
-button {
-	font-family: inherit;
-	text-transform: none;
-	margin: 0;
-	border: 0;
-	line-height: inherit;
-
-	&:not(:disabled) {
-		cursor: pointer;
-	}
-}
-
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-	-webkit-appearance: button;
-}
-
 .button-primary {
 	font-size: 100%;
 	background: $b2;
@@ -85,7 +66,7 @@ button,
 .button-secondary {
 	color: $b2;
 	padding: 4px 2px 3px;
-	border-bottom: 2px solid $b4;
+	border-bottom: 2px solid darken($b2, 15%);
 
 	&:disabled {
 		cursor: not-allowed;

@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react'
-import useAppContext from '@options/hooks/context'
-import { STATUS } from '@options/hooks/state'
+import useAppContext from '@common/hooks/useAppContext'
+import { STATUS } from '@common/types/state'
 import { removeScript } from '@common/utils/storage'
 import usePopup from '@common/components/Popup'
 

@@ -1,0 +1,42 @@
+@import '@common/css/base/variables.scss';
+
+.header {
+	height: $header-height;
+	display: flex;
+	align-items: center;
+	padding: 0 $side-padding;
+	padding-right: 0.5em;
+	border-bottom: 1px solid $light1;
+	position: relative;
+	z-index: 2;
+	background: white;
+	justify-content: space-between;
+
+	&__left {
+		display: flex;
+		align-items: center;
+	}
+
+	&__icon {
+		font-size: 2.8rem;
+		opacity: 0.75;
+	}
+
+	&__title {
+		display: inline-block;
+		margin-left: 1em;
+	}
+
+	&__settings-btn {
+		padding: 1em;
+
+		svg {
+			fill: $b4;
+			transition: 0.15 ease;
+		}
+
+		&:hover svg {
+			fill: $b2;
+		}
+	}
+}

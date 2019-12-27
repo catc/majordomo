@@ -1,3 +1,5 @@
+// TODO - on install open options page
+
 chrome.runtime.onInstalled.addListener(function() {
 	console.log('started!', new Date())
 
