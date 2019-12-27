@@ -54,7 +54,7 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 						onClick={() => setStatus({ status: STATUS.NEW })}
 					>
 						<PlusIcon />
-						Add new
+						New
 					</PrimaryButton>
 				</h2>
 

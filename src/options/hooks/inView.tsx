@@ -21,5 +21,5 @@ export default function useInView(
 		return () => observer.disconnect()
 	}, [observer])
 
-	return [isInView, { ref }]
+	return [isInView, { ref } as any]
 }

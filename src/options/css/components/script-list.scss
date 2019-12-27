@@ -73,8 +73,28 @@
 	background: white;
 
 	cursor: pointer;
-	animation: 0.25s fadeIn both;
+	// animation: 0.25s fadeIn both;
 	transition: 0.2s ease-out;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	&:hover {
+		$color: lighten($b3, 10%);
+		// @include shadowSharp($color);
+		// @include shadowShort($color);
+		// @include shadowDreamy($color);
+		// box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.14);
+		box-shadow:
+			0 1px 1px rgba($color, 0.25),
+			0 2px 2px rgba($color, 0.20),
+			0 4px 4px rgba($color, 0.15);
+		// 0 8px 8px rgba($color, 0.10),
+		// 0 16px 16px rgba($color, 0.05);
+	}
+
 
 	&__name {
 		white-space: nowrap;
@@ -91,18 +111,28 @@
 		color: lighten($b3, 10%);
 	}
 
-	// TODO
-	&:hover {
-		$color: lighten($b3, 10%);
-		// @include shadowSharp($color);
-		// @include shadowShort($color);
-		// @include shadowDreamy($color);
-		// box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.14);
-		box-shadow:
-			0 1px 1px rgba($color, 0.25),
-			0 2px 2px rgba($color, 0.20),
-			0 4px 4px rgba($color, 0.15);
-		// 0 8px 8px rgba($color, 0.10),
-		// 0 16px 16px rgba($color, 0.05);
+	&__right {
+		flex-shrink: 0;
+		// padding: 0 1em;
+	}
+
+	&__fav {
+		svg {
+			fill: lighten($b5, 25%);
+			$size: 18px;
+			width: $size;
+			height: $size;
+			vertical-align: middle;
+			margin-bottom: 2px;
+			transition: 0.15s ease;
+		}
+
+		&:hover svg {
+			fill: $b4;
+		}
+
+		&.selected svg {
+			fill: #fbc02d;
+		}
 	}
 }

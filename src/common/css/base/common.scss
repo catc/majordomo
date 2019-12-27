@@ -1,0 +1,5 @@
+.no-outline {
+	&:active, &:focus {
+		outline: none;
+	}
+}

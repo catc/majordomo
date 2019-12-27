@@ -33,6 +33,7 @@ function createPopup(isVisible: boolean, isClosing: boolean, startClose: typeof 
 		if (!isVisible) {
 			return null
 		}
+
 		return (
 			<>
 				<div

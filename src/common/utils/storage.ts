@@ -38,9 +38,14 @@ export function getScripts() {
 				.map((key: string) => (isScript(key) ? data[key] : null))
 				.filter(Boolean)
 
-			const sorted = orderBy(scripts, ['selected', 'lastModified'], ['desc', 'asc'])
+			const sorted = orderBy(scripts, ['fav', 'lastModified'], ['desc', 'desc'])
 
 			res(sorted)
 		})
 	})
+}
+
+export function toggleFavourite(script: Script) {
+	script.fav = !script.fav
+	saveScript(script)
 }
