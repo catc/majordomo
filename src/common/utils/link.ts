@@ -1,16 +1,20 @@
-type Props = string | 'new'
+type Props = string | 'new' | 'intro'
 
 export function openOptionsPage(type?: Props) {
 	if (type) {
-		if (type === 'new') {
-			const url = chrome.extension.getURL(`options.html?status=new`)
-			window.open(url)
-			return
-		} else if (type) {
-			const url = chrome.extension.getURL(`options.html?edit=${type}`)
-			window.open(url)
-			return
+		let url = ''
+		switch (type) {
+			case 'intro':
+				url = chrome.extension.getURL(`options.html?status=intro`)
+				break
+			case 'new':
+				url = chrome.extension.getURL(`options.html?status=new`)
+				break
+			default:
+				url = chrome.extension.getURL(`options.html?edit=${type}`)
 		}
+		chrome.tabs.create({ url })
+		return
 	}
 	chrome.runtime.openOptionsPage()
 }
