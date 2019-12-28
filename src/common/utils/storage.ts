@@ -41,7 +41,6 @@ export function getScripts() {
 			const sorted = orderBy(scripts, ['fav', 'lastModified'], ['desc', 'desc'])
 
 			res(sorted)
-			// res([])
 		})
 	})
 }

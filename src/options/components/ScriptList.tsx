@@ -51,38 +51,41 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 	}, [debounceSetTerm, debounceSetTerm.cancel])
 
 	const displaySearch = unfilteredScripts.length > 3
+	const displayTop = canAddScript || displaySearch
 
 	return (
 		<div className="script-list">
-			<div className={`script-list__top ${!topInView ? 'bottom-shadow' : ''}`}>
-				{canAddScript && (
-					<h2 className="panel__title">
-						Scripts
-						<PrimaryButton
-							icon="with-text"
-							style={{ float: 'right' }}
-							onClick={() => setStatus({ status: STATUS.NEW })}
-						>
-							<PlusIcon />
-							New
-						</PrimaryButton>
-					</h2>
-				)}
+			{displayTop && (
+				<div className={`script-list__top ${!topInView ? 'bottom-shadow' : ''}`}>
+					{canAddScript && (
+						<h2 className="panel__title">
+							Scripts
+							<PrimaryButton
+								icon="with-text"
+								style={{ float: 'right' }}
+								onClick={() => setStatus({ status: STATUS.NEW })}
+							>
+								<PlusIcon />
+								New
+							</PrimaryButton>
+						</h2>
+					)}
 
-				<div
-					className="script-list__search-wrapper"
-					style={{ display: !displaySearch ? 'none' : '' }}
-				>
-					<SearchIcon />
-					<input
-						placeholder="Search"
-						autoComplete="off"
-						className="input"
-						onChange={(e) => debounceSetTerm(e.target.value)}
-						type="text"
-					/>
+					<div
+						className="script-list__search-wrapper"
+						style={{ display: !displaySearch ? 'none' : '' }}
+					>
+						<SearchIcon />
+						<input
+							placeholder="Search"
+							autoComplete="off"
+							className="input"
+							onChange={(e) => debounceSetTerm(e.target.value)}
+							type="text"
+						/>
+					</div>
 				</div>
-			</div>
+			)}
 
 			<ul className="script-list__list">
 				<li {...bind}></li>

@@ -14,13 +14,6 @@ const permissions = {
 	canExecute: false,
 	canOpenOptions: false,
 	canToggleDescription: false,
-
-	// canFav: false,
-	// canEditScript: false,
-	// canAddScript: false,
-	// canExecute: true,
-	// canOpenOptions: true,
-	// canToggleDescription: true,
 }
 
 function App() {
