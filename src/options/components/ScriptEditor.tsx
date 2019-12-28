@@ -3,6 +3,7 @@ import useForm, { FormContext } from 'react-hook-form'
 import ExpandingTextArea from '@common/components/ExpandingTextarea'
 import PrimaryButton from '@common/components/PrimaryButton'
 import { ScriptDraft, Script } from '@common/types/scripts'
+import X from '@common/components/icons/X'
 
 import ColorPicker, { COLORS } from './ColorPicker'
 import MonacoEditor, { MonacoEditorType } from '@options/components/MonacoEditor'
@@ -17,6 +18,7 @@ type FormData = {
 type Props = {
 	currentScript: null | Script
 	save: (d: ScriptDraft) => void
+	close: () => void
 }
 
 const formDefaults = {
@@ -25,7 +27,7 @@ const formDefaults = {
 	name: '',
 }
 
-export default function ScriptEditor({ save, currentScript }: Props) {
+export default function ScriptEditor({ save, currentScript, close }: Props) {
 	const methods = useForm({
 		mode: 'onChange',
 		defaultValues: {
@@ -48,8 +50,19 @@ export default function ScriptEditor({ save, currentScript }: Props) {
 		<FormContext {...methods}>
 			<form onSubmit={handleSubmit(onSubmit)} className="panel__item script-editor">
 				<div className="script-editor__form-top">
-					<h2 className="panel__title" style={{ marginBottom: '2em' }}>
+					<h2
+						className="panel__title script-editor__title"
+						style={{ marginBottom: '2em' }}
+					>
 						{currentScript?.id ? currentScript?.name : 'Add new script'}
+
+						<button
+							type="button"
+							className="script-editor__close"
+							onClick={close}
+						>
+							<X />
+						</button>
 					</h2>
 
 					<div className="script-editor__name-wrapper">

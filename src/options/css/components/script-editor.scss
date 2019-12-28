@@ -5,6 +5,20 @@
 		flex-shrink: 0;
 	}
 
+	&__title {
+		display: flex;
+		// flex-direction: row;
+		justify-content: space-between;
+	}
+
+	&__close {
+		margin-left: 1em;
+
+		svg {
+			fill: $b4;
+		}
+	}
+
 	&__name-wrapper {
 		display: flex;
 		flex-direction: row;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import useAppContext from '@common/hooks/useAppContext'
 import { STATUS } from '@common/types/state'
 import { ScriptDraft, Script } from '@common/types/scripts'
@@ -13,6 +13,8 @@ import ScriptEditor from './ScriptEditor'
 
 export default function ScriptPanel() {
 	const { editorStatus, setStatus, currentScript } = useAppContext()
+
+	const close = useCallback(() => setStatus({ status: STATUS.NONE }), [setStatus])
 
 	function save(data: ScriptDraft) {
 		const now = Date.now()
@@ -34,6 +36,11 @@ export default function ScriptPanel() {
 	}
 
 	return (
-		<ScriptEditor save={save} currentScript={currentScript} key={currentScript?.id} />
+		<ScriptEditor
+			save={save}
+			currentScript={currentScript}
+			key={currentScript?.id}
+			close={close}
+		/>
 	)
 }
