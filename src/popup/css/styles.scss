@@ -1,7 +1,9 @@
 @import '@common/css/base.scss';
 
+// common components
+@import '@common/css/components/form.scss';
 
 body {
-	width: 500px;
-	height: 600px;
+	width: 400px;
+	// height: 600px;
 }

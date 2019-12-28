@@ -10,9 +10,17 @@ import ScriptEditorWrapper from './components/ScriptEditorWrapper'
 const permissions = {
 	canFav: true,
 	canEditScript: true,
+	canAddScript: true,
 	canExecute: false,
 	canOpenOptions: false,
 	canToggleDescription: false,
+
+	// canFav: false,
+	// canEditScript: false,
+	// canAddScript: false,
+	// canExecute: true,
+	// canOpenOptions: true,
+	// canToggleDescription: true,
 }
 
 function App() {

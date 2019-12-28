@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react'
+import '@common/css/components/script-list.scss'
 import getScripts from '@common/hooks/getScripts'
 import useAppContext from '@common/hooks/useAppContext'
-import PrimaryButton from '@common/components/PrimaryButton'
+import AddNewScriptPrompt from '@common/components/AddNewScriptPrompt'
 import { STATUS } from '@common/types/state'
 
 import ScriptList from './ScriptList'
@@ -37,18 +38,7 @@ export default function ScriptListWrapper() {
 
 		case editorStatus !== STATUS.NEW:
 			component = (
-				<div className="script-list-wrapper__empty">
-					You have no scripts
-					<br />
-					<PrimaryButton
-						onClick={() => setStatus({ status: STATUS.NEW })}
-						style={{
-							marginTop: 16,
-						}}
-					>
-						Add new script
-					</PrimaryButton>
-				</div>
+				<AddNewScriptPrompt onClick={() => setStatus({ status: STATUS.NEW })} />
 			)
 	}
 

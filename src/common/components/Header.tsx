@@ -3,15 +3,13 @@ import '../css/components/header.scss'
 
 import useAppContext from '@common/hooks/useAppContext'
 import SettingsIcon from '@common/components/icons/Settings'
-
-const openOptions = () => {
-	chrome.runtime.openOptionsPage()
-}
+import { openOptionsPage } from '@common/utils/link'
 
 export default function Header() {
 	const {
 		permissions: { canOpenOptions },
 	} = useAppContext()
+
 	return (
 		<div className="header">
 			<div className="header__left">
@@ -23,7 +21,7 @@ export default function Header() {
 			{canOpenOptions && (
 				<div className="header__right">
 					<button
-						onClick={openOptions}
+						onClick={() => openOptionsPage()}
 						className="no-outline header__settings-btn"
 					>
 						<SettingsIcon />

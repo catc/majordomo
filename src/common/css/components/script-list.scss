@@ -1,0 +1,56 @@
+@import '@common/css/base/variables.scss';
+
+@mixin padding() {
+	padding-top: $panel-padding-top;
+	padding-bottom: 1em;
+	padding-left: 1.3em;
+	padding-right: 1.5em;
+}
+
+.script-list {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden; // for __top shadow not to spill over
+
+	&__top {
+		flex-shrink: 0;
+		@include padding();
+		padding-bottom: 0.5em;
+		border-bottom: 1px solid $light1;
+		z-index: 2;
+		transition: 0.15s ease-out;
+
+		&.bottom-shadow {
+			// @include shadowDreamy($b3);
+			@include shadowShort($b3);
+		}
+	}
+
+	&__list {
+		overflow: auto;
+		@include padding();
+		padding-top: 1.3em;
+		background: #f3f3f3;
+		height: 100%;
+	}
+
+	&__search-wrapper {
+		padding-top: 1em;
+		padding-bottom: 1em;
+
+		svg {
+			$size: 18px;
+			width: $size;
+			height: $size;
+			fill: lighten($b4, 10%);
+			position: absolute;
+			margin-top: 2px;
+		}
+
+		input {
+			padding-left: 28px;
+			padding-bottom: 8px;
+		}
+	}
+}

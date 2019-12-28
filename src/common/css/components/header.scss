@@ -31,6 +31,9 @@
 		padding: 1em;
 
 		svg {
+			$size: 18px;
+			width: $size;
+			height: $size;
 			fill: $b4;
 			transition: 0.15 ease;
 		}

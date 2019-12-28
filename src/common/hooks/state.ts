@@ -3,11 +3,16 @@ import { StateFromObject } from '@common/types/utils'
 import { Script } from '@common/types/scripts'
 import { STATUS, Permissions } from '@common/types/state'
 
+function isStateNew() {
+	const params = new URLSearchParams(window.location.search)
+	const status = params.get('status')
+	return status === 'new'
+}
+
 export const initialState = {
-	editorStatus: STATUS.NONE,
+	editorStatus: isStateNew() ? STATUS.NEW : STATUS.NONE,
 	currentScript: null,
 	permissions: {} as Permissions,
-	// editorStatus: STATUS.NEW, // FOR TESTING
 }
 
 export type State = StateFromObject<
