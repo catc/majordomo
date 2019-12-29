@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const config = require('./config')
+const zip = require('./zip')
 
 config.mode = 'production'
 
@@ -47,6 +48,10 @@ config.plugins.push(
 	new CleanWebpackPlugin(),
 )
 
-const { handleErrors } = require('./common')
+const { handleErrors, wrapInColor } = require('./common')
 
-webpack(config, handleErrors)
+webpack(config, async (err, stats) => {
+	handleErrors(err, stats)
+	await zip()
+	wrapInColor('green', 'Done')
+})

@@ -1,10 +1,13 @@
 {
 	"name": "Majordomo",
 	"version": "1.0.0",
-	"description": "Save and execute custom scripts",
+	"description": "Execute scripts on any page",
+	"author": "catc",
+	"homepage_url": "https://github.com/catc/majordomo",
 	"permissions": [
 		"tabs",
-		"storage"
+		"storage",
+		"activeTab"
 	],
 	"options_page": "options.html",
 	"background": {

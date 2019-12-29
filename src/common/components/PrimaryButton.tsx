@@ -7,7 +7,7 @@ type Props = {
 	onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 	style?: any
 	disabled?: boolean
-	icon?: 'icon' | 'with-text' | null
+	icon?: 'icon' | 'with-text'
 }
 
 export default function ButtonPrimary({
@@ -16,7 +16,7 @@ export default function ButtonPrimary({
 	onClick,
 	style = {},
 	disabled = false,
-	icon = null,
+	icon,
 }: Props) {
 	let classes = 'button-primary'
 	// filthy, do something better
