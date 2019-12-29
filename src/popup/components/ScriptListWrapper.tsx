@@ -2,7 +2,7 @@ import React from 'react'
 import '@common/css/components/script-list.scss'
 import getScripts from '@common/hooks/getScripts'
 import AddNewScriptPrompt from '@common/components/AddNewScriptPrompt'
-import ScriptList from '@options/components/ScriptList'
+import ScriptList from '@common/components/ScriptList'
 import { openOptionsPage } from '@common/utils/link'
 
 export default function ScriptListWrapper() {

@@ -5,7 +5,7 @@ import useAppContext from '@common/hooks/useAppContext'
 import AddNewScriptPrompt from '@common/components/AddNewScriptPrompt'
 import { STATUS } from '@common/types/state'
 
-import ScriptList from './ScriptList'
+import ScriptList from '@common/components/ScriptList'
 
 export default function ScriptListWrapper() {
 	const { scripts, isInitialFetching } = getScripts()

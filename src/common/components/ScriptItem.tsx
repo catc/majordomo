@@ -5,6 +5,7 @@ import { formatDate } from '@common/utils/date'
 import { SetStatusActionProps } from '@common/hooks/state'
 import { STATUS } from '@common/types/state'
 import { toggleFavourite } from '@common/utils/storage'
+import { runScript } from '@common/utils/execute'
 
 import AwardIcon from '@common/components/icons/Award'
 import PlayCircle from '@common/components/icons/PlayCircle'
@@ -34,22 +35,6 @@ export default function ScriptItem({
 	const handleItemClick = useCallback(() => {
 		canEditScript ? setStatus({ status: STATUS.EDIT, script: script }) : ''
 	}, [canEditScript, script, setStatus])
-
-	const executeScript = useCallback(() => {
-		chrome.tabs.executeScript(null, { code: script.code }, () => {
-			if (chrome.runtime.lastError) {
-				window.alert(
-					'Error executing script :: ' + chrome.runtime.lastError.message,
-				)
-				console.error(
-					`Error :: ${chrome.runtime.lastError.message}`,
-					chrome.runtime.lastError,
-				)
-			} else {
-				console.log(`Done executing "${script.name}"`)
-			}
-		})
-	}, [script.code, script.name])
 
 	const favourite = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.stopPropagation()
@@ -103,7 +88,7 @@ export default function ScriptItem({
 					<button
 						type="button"
 						className="script-item__execute-btn"
-						onClick={executeScript}
+						onClick={() => runScript(script)}
 					>
 						<PlayCircle />
 					</button>
