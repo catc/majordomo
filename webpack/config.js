@@ -71,16 +71,17 @@ const config = {
 			},
 		],
 	},
+
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: join(root, 'src/options/index.html'),
 			filename: 'options.html',
-			chunks: ['options', 'lib', 'monaco'],
+			chunks: ['options', 'monaco']
 		}),
 		new HtmlWebpackPlugin({
 			template: join(root, 'src/popup/index.html'),
 			filename: 'popup.html',
-			chunks: ['popup', 'lib'],
+			chunks: ['popup']
 		}),
 		new CopyWebpackPlugin([
 			// copy manifest.json
@@ -111,20 +112,13 @@ const config = {
 		new MonacoWebpackPlugin({
 			// https://github.com/microsoft/monaco-editor-webpack-plugin#options
 			languages: ['javascript', 'typescript'],
-			features: ['!inPlaceReplace', '!gotoLine', '!gotoSymbol', '!gotoLine']
+			features: ['!	inPlaceReplace', '!gotoLine', '!gotoSymbol', '!gotoLine']
 		})
 	],
 
 	optimization: {
 		splitChunks: {
 			cacheGroups: {
-				// vendor bundle
-				lib: {
-					test: /node_modules/,
-					chunks: 'initial',
-					name: 'lib',
-					enforce: true,
-				},
 				monaco: {
 					test: /node_modules\/monaco/,
 					chunks: 'initial',

@@ -1,6 +1,8 @@
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 const config = require('./config')
 const zip = require('./zip')
@@ -47,6 +49,11 @@ config.plugins.push(
 	}),
 	new CleanWebpackPlugin(),
 )
+
+if (process.env.BUNDLE_ANALYZER) {
+	config.plugins.push(new BundleAnalyzerPlugin())
+	config.profile = true;
+}
 
 const { handleErrors, wrapInColor } = require('./common')
 

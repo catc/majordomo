@@ -37,6 +37,7 @@
 		"style-loader": "^1.0.2",
 		"typescript": "^3.7.3",
 		"webpack": "^4.41.4",
+		"webpack-bundle-analyzer": "^3.6.1",
 		"write-file-webpack-plugin": "^4.5.1"
 	},
 	"dependencies": {
@@ -49,6 +50,7 @@
 	"scripts": {
 		"dev": "node webpack/dev.js",
 		"build": "node webpack/build.js",
+		"analyze": "BUNDLE_ANALYZER=true npm run build",
 		"check": "eslint --print-config path/to/main.js | eslint-config-prettier-check",
 		"icons": "node src/common/components/icons/compile/compile"
 	}
