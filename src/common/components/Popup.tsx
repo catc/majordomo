@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useReducer, useCallback, useMemo } from 'react'
-import { StateFromObject } from '@common/types/utils'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import '../css/components/popup.scss'
 
 type PopupProps = {
@@ -52,49 +51,29 @@ function createPopup(isVisible: boolean, isClosing: boolean, startClose: typeof 
 	}
 }
 
-const initialState = {
-	isVisible: false,
-	isClosing: false,
-}
-type State = StateFromObject<typeof initialState>
-
-type Action = { type: 'START_CLOSE' } | { type: 'OPEN' } | { type: 'FINISH_CLOSE' }
-
-function stateReducer(_: State, action: Action) {
-	switch (action.type) {
-		case 'OPEN':
-			return { isVisible: true, isClosing: false }
-		case 'START_CLOSE':
-			return { isVisible: true, isClosing: true }
-		case 'FINISH_CLOSE':
-			return { isVisible: false, isClosing: true }
-		default:
-			throw new Error('unsupported action')
-	}
-}
-
 export default function usePopup() {
-	const [state, dispatch] = useReducer(stateReducer, initialState)
-	const { isClosing, isVisible } = state
+	const [isVisible, setVisible] = useState(false)
+	const [isClosing, setIsClosing] = useState(false)
 
-	const timer = useRef<number>(0)
-
-	const open = useCallback(() => dispatch({ type: 'OPEN' }), [])
-	const close = useCallback(() => dispatch({ type: 'START_CLOSE' }), [])
+	const open = useCallback(() => {
+		setVisible(true)
+		setIsClosing(false)
+	}, [])
+	const close = useCallback(() => {
+		setVisible(true)
+		setIsClosing(true)
+	}, [])
 
 	// handle start closing fade animation
 	useEffect(() => {
 		if (isClosing) {
 			const t = window.setTimeout(() => {
 				close()
-				dispatch({ type: 'FINISH_CLOSE' })
+				setVisible(false)
 			}, BACKGROUND_HIDE_DELAY)
-			timer.current = t
+			return () => clearTimeout(t)
 		}
 	}, [close, isClosing])
-
-	// clean up timer
-	useEffect(() => clearTimeout(timer.current), [])
 
 	// create popup
 	const popup = useMemo(() => createPopup(isVisible, isClosing, close), [
