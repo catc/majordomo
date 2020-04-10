@@ -2,11 +2,13 @@
 	"name": "majordomo",
 	"devDependencies": {
 		"@babel/core": "^7.7.7",
+		"@babel/plugin-proposal-class-properties": "^7.8.3",
 		"@babel/plugin-proposal-optional-chaining": "^7.7.5",
 		"@babel/preset-env": "^7.7.7",
 		"@babel/preset-react": "^7.7.4",
 		"@babel/preset-typescript": "^7.7.7",
 		"@types/chrome": "0.0.91",
+		"@types/jest": "^25.2.1",
 		"@types/lodash": "^4.14.149",
 		"@types/react": "^16.9.16",
 		"@types/react-dom": "^16.9.4",
@@ -27,6 +29,8 @@
 		"fibers": "^4.0.2",
 		"file-loader": "^5.0.2",
 		"html-webpack-plugin": "^3.2.0",
+		"jest": "^25.3.0",
+		"jest-watch-typeahead": "^0.5.0",
 		"mini-css-extract-plugin": "^0.8.2",
 		"monaco-editor-webpack-plugin": "^1.8.0",
 		"node-sass": "^4.13.0",
@@ -50,8 +54,24 @@
 	"scripts": {
 		"dev": "node webpack/dev.js",
 		"build": "node webpack/build.js",
+		"test": "jest --watch",
 		"analyze": "BUNDLE_ANALYZER=true npm run build",
 		"check": "eslint --print-config path/to/main.js | eslint-config-prettier-check",
 		"icons": "node src/common/components/icons/compile/compile"
+	},
+	"jest": {
+		"watchPlugins": [
+			"jest-watch-typeahead/filename",
+			"jest-watch-typeahead/testname"
+		],
+		"setupFiles": [
+			"./common/_test/setup.ts"
+		],
+		"rootDir": "src/",
+		"testRegex": "(.*)\\_spec\\.(t|j)sx?$",
+		"moduleNameMapper": {
+			"^@common/(.*)$": "<rootDir>/common/$1",
+			"^@background/(.*)$": "<rootDir>/background/$1"
+		}
 	}
 }

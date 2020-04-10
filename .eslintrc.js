@@ -43,7 +43,7 @@ module.exports = {
 		webextensions: true,
 		// browser: true,
 		node: true,
-		// jest: true,
+		jest: true,
 	},
 	rules: {
 		// prettier
@@ -63,6 +63,8 @@ module.exports = {
 		'@typescript-eslint/no-use-before-define': [2, { functions: false }],
 		'@typescript-eslint/no-non-null-assertion': 0,
 		'@typescript-eslint/no-explicit-any': 0,
+
+		'@typescript-eslint/camelcase': 0,
 
 		// react hooks
 		'react-hooks/rules-of-hooks': 1,
@@ -128,16 +130,16 @@ module.exports = {
 		'prettier/prettier': [
 			'error',
 			{
-				arrowParens: "always",
+				arrowParens: 'avoid',
 				bracketSpacing: true,
 				jsxBracketSameLine: false,
 				printWidth: 90,
-				proseWrap: "preserve",
+				proseWrap: 'preserve',
 				requirePragma: false,
 				semi: false,
 				singleQuote: true,
 				tabWidth: 4,
-				trailingComma: "all",
+				trailingComma: 'all',
 				useTabs: true
 			},
 			{
