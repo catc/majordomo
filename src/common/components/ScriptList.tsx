@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react'
 import debounce from 'lodash/debounce'
-import { ScriptV1 } from '@common/types/scripts'
+import { Script } from '@common/types/scripts'
 import ScriptItem from './ScriptItem'
 import PrimaryButton from '@common/components/PrimaryButton'
 import { STATUS } from '@common/types/state'
@@ -11,7 +11,7 @@ import PlusIcon from '@common/components/icons/Plus'
 import useInView from '@common/hooks/inView'
 
 type Props = {
-	scripts: ScriptV1[]
+	scripts: Script[]
 }
 
 /*
@@ -40,7 +40,7 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 	const scripts = useMemo(() => {
 		if (term.length > 2) {
 			const regex = new RegExp(term, 'i')
-			return unfilteredScripts.filter((s) => regex.test(s.name + s.description))
+			return unfilteredScripts.filter(s => regex.test(s.name + s.description))
 		}
 		return unfilteredScripts
 	}, [term, unfilteredScripts])
@@ -80,7 +80,7 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 							placeholder="Search"
 							autoComplete="off"
 							className="input"
-							onChange={(e) => debounceSetTerm(e.target.value)}
+							onChange={e => debounceSetTerm(e.target.value)}
 							type="text"
 						/>
 					</div>

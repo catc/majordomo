@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import '@common/css/components/script-list.scss'
-import getScripts from '@common/hooks/getScripts'
+import useScripts from '@common/hooks/useScripts'
 import useAppContext from '@common/hooks/useAppContext'
 import AddNewScriptPrompt from '@common/components/AddNewScriptPrompt'
 import { STATUS } from '@common/types/state'
@@ -8,7 +8,7 @@ import { STATUS } from '@common/types/state'
 import ScriptList from '@common/components/ScriptList'
 
 export default function ScriptListWrapper() {
-	const { scripts, isInitialFetching } = getScripts()
+	const { scripts, isInitialFetching } = useScripts()
 	const { setStatus, editorStatus } = useAppContext()
 
 	const initialLoad = useRef(true)
@@ -20,7 +20,7 @@ export default function ScriptListWrapper() {
 			const params = new URLSearchParams(window.location.search)
 			const id = params.get('edit')
 			if (id) {
-				const script = scripts.find((s) => s.id === id)
+				const script = scripts.find(s => s.id === id)
 				if (script) setStatus({ status: STATUS.EDIT, script })
 			}
 		}
