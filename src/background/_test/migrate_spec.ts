@@ -12,7 +12,7 @@ const v2Script2 = {
 }
 
 // aka chrome.storage.sync.get(null)
-let storage: any = {
+const storage: any = {
 	scripts: {
 		[v2Script1.id]: v2Script1,
 		[v2Script2.id]: v2Script2,
@@ -42,28 +42,10 @@ storage[oldScript1.id] = oldScript1
 storage[oldScript2.id] = oldScript2
 
 it('migrate_v1', async () => {
-	jest.spyOn(chrome.storage.sync, 'get').mockImplementation((key: any, cb: any) => {
-		if (!key) {
-			return cb(storage)
-		}
-		return cb(storage[key])
-	})
+	// set initial
+	global.storage = storage
 
-	jest.spyOn(chrome.storage.sync, 'set').mockImplementation((data: any, cb: any) => {
-		storage = { ...storage, ...data }
-		cb()
-	})
-
-	const remove = jest
-		.spyOn(chrome.storage.sync, 'remove')
-		.mockImplementation((keys: any, cb: any) => {
-			if (Array.isArray(keys)) {
-				keys.forEach(key => delete storage[key])
-			} else {
-				delete storage[keys]
-			}
-			cb()
-		})
+	const remove = jest.spyOn(chrome.storage.sync, 'remove')
 
 	// setup store and start migration
 	await setup()

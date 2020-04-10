@@ -12,26 +12,20 @@ const scriptsMock = () => ({
 	},
 })
 
-async function createStore(values: any) {
-	const get = jest
-		.spyOn(chrome.storage.sync, 'get')
-		.mockImplementation((_, cb) => cb(values))
+async function mock(storage: any) {
+	global.storage = storage
+	const get = jest.spyOn(chrome.storage.sync, 'get')
 	const set = jest.spyOn(chrome.storage.sync, 'set')
 
 	const store = new Store()
 	await store.ready
-
 	return { get, set, store }
 }
 
 describe('storage', () => {
-	afterEach(() => {
-		jest.clearAllMocks()
-	})
-	// beforeEach(() => )
 	it('correctly fetches scripts', async () => {
 		const data = scriptsMock()
-		const { get, store } = await createStore(data)
+		const { get, store } = await mock({ scripts: data })
 
 		expect(get).toBeCalledWith('scripts', expect.any(Function))
 		expect(store.scripts).toMatchObject(data)
@@ -39,7 +33,7 @@ describe('storage', () => {
 
 	it('correctly saves a new script', async () => {
 		const data = scriptsMock()
-		const { store, set } = await createStore(data)
+		const { set, store } = await mock({ scripts: data })
 
 		const script = { id: 'cc', name: 'this is c' } as Script
 		await store.saveScript(script)
@@ -60,7 +54,7 @@ describe('storage', () => {
 
 	it('correctly updates scripts', async () => {
 		const data = scriptsMock()
-		const { store, set } = await createStore(data)
+		const { set, store } = await mock({ scripts: data })
 
 		const script = { id: 'aa', name: 'new value!' } as Script
 		await store.saveScript(script)
@@ -81,7 +75,7 @@ describe('storage', () => {
 
 	it('correctly saves multiple new scripts', async () => {
 		const data = scriptsMock()
-		const { store, set } = await createStore(data)
+		const { set, store } = await mock({ scripts: data })
 
 		const scripts = [
 			{ id: 'cc', name: 'this is c' } as Script,
