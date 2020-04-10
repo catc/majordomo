@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react'
 import debounce from 'lodash/debounce'
-import { Script } from '@common/types/scripts'
+import { ScriptV1 } from '@common/types/scripts'
 import ScriptItem from './ScriptItem'
 import PrimaryButton from '@common/components/PrimaryButton'
 import { STATUS } from '@common/types/state'
@@ -11,7 +11,7 @@ import PlusIcon from '@common/components/icons/Plus'
 import useInView from '@common/hooks/inView'
 
 type Props = {
-	scripts: Script[]
+	scripts: ScriptV1[]
 }
 
 /*

@@ -1,10 +1,10 @@
 import React, { useMemo, useCallback, useState } from 'react'
 import '../css/components/script-item.scss'
-import { Script } from '@common/types/scripts'
+import { ScriptV1 } from '@common/types/scripts'
 import { formatDate } from '@common/utils/date'
 import { SetStatusActionProps } from '@common/hooks/state'
 import { STATUS } from '@common/types/state'
-import { toggleFavourite } from '@common/utils/storage'
+import { toggleFavourite } from '@common/utils/storage_v1'
 import { runScript } from '@common/utils/execute'
 
 import AwardIcon from '@common/components/icons/Award'
@@ -13,7 +13,7 @@ import ChevronDown from '@common/components/icons/ChevronDown'
 import ChevronUp from '@common/components/icons/ChevronUp'
 
 type Props = {
-	script: Script
+	script: ScriptV1
 	setStatus: (p: SetStatusActionProps) => void
 	canFav: boolean
 	canToggleDescription: boolean

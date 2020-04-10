@@ -1,6 +1,6 @@
-import { Script } from '@common/types/scripts'
+import { ScriptV1 } from '@common/types/scripts'
 
-export function runScript(script: Script) {
+export function runScript(script: ScriptV1) {
 	chrome.tabs.executeScript(null, { code: script.code }, () => {
 		if (chrome.runtime.lastError) {
 			window.alert('Error executing script :: ' + chrome.runtime.lastError.message)

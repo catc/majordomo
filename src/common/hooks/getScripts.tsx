@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback } from 'react'
-import { Script } from '@common/types/scripts'
-import { getScripts, isScript } from '@common/utils/storage'
+import { ScriptV1 } from '@common/types/scripts'
+import { getScripts, isScript } from '@common/utils/storage_v1'
 
 export default function useScripts() {
 	const [isInitialFetching, setIsInitialFetching] = useState(true)
-	const [scripts, setScripts] = useState<Script[]>([])
+	const [scripts, setScripts] = useState<ScriptV1[]>([])
 
 	const fetch = useCallback(async () => {
 		const scripts = await getScripts()

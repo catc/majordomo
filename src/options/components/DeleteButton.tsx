@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react'
 import useAppContext from '@common/hooks/useAppContext'
 import { STATUS } from '@common/types/state'
-import { removeScript } from '@common/utils/storage'
+import { removeScript } from '@common/utils/storage_v1'
 import usePopup from '@common/components/Popup'
 
 type Props = {

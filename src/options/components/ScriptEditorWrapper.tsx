@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import useAppContext from '@common/hooks/useAppContext'
 import { STATUS } from '@common/types/state'
-import { ScriptDraft, Script } from '@common/types/scripts'
-import { createID, saveScript } from '@common/utils/storage'
+import { ScriptDraft, ScriptV1 } from '@common/types/scripts'
+import { createID, saveScript } from '@common/utils/storage_v1'
 
 import ScriptEditor from './ScriptEditor'
 
@@ -26,7 +26,7 @@ export default function ScriptPanel() {
 			data.fav = false
 		}
 
-		saveScript(data as Script)
+		saveScript(data as ScriptV1)
 
 		setStatus({ status: STATUS.NONE })
 	}

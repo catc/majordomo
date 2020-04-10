@@ -1,6 +1,6 @@
 import { useReducer, useCallback } from 'react'
 import { StateFromObject } from '@common/types/utils'
-import { Script } from '@common/types/scripts'
+import { ScriptV1 } from '@common/types/scripts'
 import { STATUS, Permissions } from '@common/types/state'
 
 function isStateNew() {
@@ -18,14 +18,14 @@ export const initialState = {
 export type State = StateFromObject<
 	typeof initialState,
 	{
-		currentScript: null | Script
+		currentScript: null | ScriptV1
 	}
 >
 type ActionType<A, T> = A extends { type: T } ? Omit<A, 'type'> : never
 
 type Action =
 	| { type: 'SET_STATUS'; status: STATUS.NONE | STATUS.NEW }
-	| { type: 'SET_STATUS'; status: STATUS.EDIT | STATUS.EDIT; script: Script }
+	| { type: 'SET_STATUS'; status: STATUS.EDIT | STATUS.EDIT; script: ScriptV1 }
 
 function stateReducer(state: State, action: Action) {
 	switch (action.type) {

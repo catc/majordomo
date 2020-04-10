@@ -1,51 +1,88 @@
 import { Script } from '@common/types/scripts'
-import orderBy from 'lodash/orderBy'
+import keyBy from 'lodash/keyBy'
 
 /*
 	TODO - error handling
 */
 
-const SCRIPT_KEY = 'script_'
-const SCRIPT_ID_REGEX = new RegExp('^' + SCRIPT_KEY)
+type ScriptsMap = { [id: string]: Script }
 
-type callback = () => void
-const noop = () => {}
+const SCRIPTS_KEY = 'scripts'
 
-const set = (key: string, data: any, cb: callback = noop) => {
-	chrome.storage.sync.set({ [key]: data }, cb)
-}
+export let store: NonNullable<Store>
 
-export function isScript(key: string) {
-	return SCRIPT_ID_REGEX.test(key)
-}
+export class Store {
+	ready: Promise<void>
+	scripts: ScriptsMap = {}
 
-export function createID() {
-	return SCRIPT_KEY + Date.now()
-}
-
-export function saveScript(script: Script) {
-	set(script.id, script)
-}
-
-export function removeScript(id: string) {
-	chrome.storage.sync.remove(id)
-}
-
-export function getScripts() {
-	return new Promise<Script[]>((res) => {
-		chrome.storage.sync.get(null, function(data) {
-			const scripts: Script[] = Object.keys(data)
-				.map((key: string) => (isScript(key) ? data[key] : null))
-				.filter(Boolean)
-
-			const sorted = orderBy(scripts, ['fav', 'lastModified'], ['desc', 'desc'])
-
-			res(sorted)
+	constructor() {
+		this.ready = this._fetchScripts().then(scripts => {
+			this.scripts = scripts
 		})
+	}
+
+	_fetchScripts() {
+		return new Promise<ScriptsMap>(res => {
+			chrome.storage.sync.get(SCRIPTS_KEY, (data = {}) => {
+				res(data as ScriptsMap)
+			})
+		})
+	}
+
+	async saveScript(script: Script) {
+		this.scripts[script.id] = script
+		await this._save()
+	}
+
+	async saveScripts(scripts: Script[]) {
+		const obj = keyBy(scripts, 'id')
+		this.scripts = { ...this.scripts, ...obj }
+		await this._save()
+	}
+
+	async _save() {
+		await save(SCRIPTS_KEY, this.scripts)
+	}
+
+	refresh() {
+		return this._fetchScripts().then(scripts => {
+			this.scripts = scripts
+		})
+	}
+}
+
+export async function setup() {
+	store = new Store()
+	await store.ready
+}
+
+const defaults = {
+	name: '',
+	color: '#fff',
+	code: '',
+	description: '',
+	filters: {},
+	on: {},
+	order: 999,
+}
+
+export function newScript(data: Partial<Script>): Script {
+	return {
+		...defaults,
+		lastModified: Date.now(),
+		id: String(Date.now()),
+		...data,
+	}
+}
+
+export function remove(key: string | string[]) {
+	return new Promise(res => {
+		chrome.storage.sync.remove(key, res)
 	})
 }
 
-export function toggleFavourite(script: Script) {
-	script.fav = !script.fav
-	saveScript(script)
+export function save(key: string, data: any) {
+	return new Promise(res => {
+		chrome.storage.sync.set({ [key]: data }, res)
+	})
 }

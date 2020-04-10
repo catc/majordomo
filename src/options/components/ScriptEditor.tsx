@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import useForm, { FormContext } from 'react-hook-form'
 import ExpandingTextArea from '@common/components/ExpandingTextarea'
 import PrimaryButton from '@common/components/PrimaryButton'
-import { ScriptDraft, Script } from '@common/types/scripts'
+import { ScriptDraft, ScriptV1 } from '@common/types/scripts'
 import X from '@common/components/icons/X'
 
 import ColorPicker, { COLORS } from './ColorPicker'
@@ -16,7 +16,7 @@ type FormData = {
 }
 
 type Props = {
-	currentScript: null | Script
+	currentScript: null | ScriptV1
 	save: (d: ScriptDraft) => void
 	close: () => void
 }
