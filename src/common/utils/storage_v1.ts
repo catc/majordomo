@@ -1,5 +1,5 @@
-import { ScriptV1 } from '@common/types/scripts'
 import orderBy from 'lodash/orderBy'
+import { ScriptV1 } from './scripts'
 
 /*
 	DEPRECATED - scripts v1

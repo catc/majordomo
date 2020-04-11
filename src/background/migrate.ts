@@ -26,7 +26,12 @@ export default async function migrate_v1() {
 			const oldScriptKeys = scriptsv1.map(s => s.id)
 			await remove(oldScriptKeys)
 
-			console.debug('finished migrating v1 scripts to v2')
+			console.log(
+				`%cFinished migrating ${scriptsv2.length} script${
+					scriptsv2.length === 1 ? '' : 's'
+				} from v1 to v2`,
+				'font-weight: bold; color: #2196f3;',
+			)
 		} catch (err) {
 			console.error('Error migrating v1 scripts to v2', err)
 			logError(err)

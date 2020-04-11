@@ -6,7 +6,6 @@ import { STATUS } from '@common/types/state'
 import useAppContext from '@common/hooks/useAppContext'
 import SearchIcon from '@common/components/icons/Search'
 import PlusIcon from '@common/components/icons/Plus'
-
 import useInView from '@common/hooks/inView'
 import { Script } from '@common/utils/scripts'
 
@@ -90,7 +89,7 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 			<ul className="script-list__list">
 				<li {...bind}></li>
 
-				{scripts.map(s => (
+				{scripts.map((s, i) => (
 					<ScriptItem
 						key={s.id}
 						script={s}
