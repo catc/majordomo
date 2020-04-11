@@ -11,6 +11,7 @@ import AwardIcon from '@common/components/icons/Award'
 import PlayCircle from '@common/components/icons/PlayCircle'
 import ChevronDown from '@common/components/icons/ChevronDown'
 import ChevronUp from '@common/components/icons/ChevronUp'
+import { store } from '@common/utils/scripts'
 
 type Props = {
 	script: ScriptV1
@@ -76,7 +77,8 @@ export default function ScriptItem({
 				{canFav && (
 					<button
 						type="button"
-						onClick={favourite}
+						// onClick={favourite}
+						onClick={() => store.remove(script)}
 						className={`no-outline script-item__fav ${
 							script.fav ? 'selected' : ''
 						}`}

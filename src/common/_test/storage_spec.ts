@@ -1,5 +1,4 @@
-import { Store } from '@common/utils/storage'
-import { Script } from '@common/types/scripts'
+import { Script, Store } from '@common/utils/scripts'
 
 const scriptsMock = () => ({
 	aa: {

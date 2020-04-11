@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react'
 import useAppContext from '@common/hooks/useAppContext'
 import { STATUS } from '@common/types/state'
-import { ScriptDraft, ScriptV1 } from '@common/types/scripts'
-import { createID, saveScript } from '@common/utils/storage_v1'
-
-import ScriptEditor from './ScriptEditor'
+import { Script, store } from '@common/utils/scripts'
+import FormContainer from './FormContainer'
+import { genID } from '@common/utils/scripts'
+import { FormFields } from './form/types'
 
 /*
 	wraps script editor and contains functionality
@@ -16,18 +16,17 @@ export default function ScriptPanel() {
 
 	const close = useCallback(() => setStatus({ status: STATUS.NONE }), [setStatus])
 
-	function save(data: ScriptDraft) {
-		const now = Date.now()
-		data.lastModified = now
-
-		// is new - set an id
-		if (!data.id) {
-			data.id = createID()
-			data.fav = false
+	async function save(form: FormFields) {
+		const data: Script = {
+			...form,
+			lastModified: Date.now(),
+			id: currentScript?.id || genID(),
 		}
 
-		saveScript(data as ScriptV1)
+		// save
+		await store.saveScript(data)
 
+		// close editor panel
 		setStatus({ status: STATUS.NONE })
 	}
 
@@ -36,11 +35,11 @@ export default function ScriptPanel() {
 	}
 
 	return (
-		<ScriptEditor
-			save={save}
-			currentScript={currentScript}
+		<FormContainer
 			key={currentScript?.id}
+			save={save}
 			close={close}
+			currentScript={currentScript}
 		/>
 	)
 }

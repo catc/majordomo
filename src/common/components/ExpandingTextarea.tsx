@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useCallback } from 'react'
+import { FieldInputProps } from 'react-final-form'
 
-type Props = {
-	name: string
-	register: any
-}
+type Props = FieldInputProps<string, HTMLElement>
 
 function resize(el: HTMLTextAreaElement) {
 	const offset = el.offsetHeight - el.clientHeight
@@ -11,7 +9,7 @@ function resize(el: HTMLTextAreaElement) {
 	el.style.height = el.scrollHeight + offset + 'px'
 }
 
-export default function ExpandingTextArea({ name, register }: Props) {
+export default function ExpandingTextArea(props: Props) {
 	const el = useRef<HTMLTextAreaElement | null>(null)
 
 	const update = useCallback(() => {
@@ -24,16 +22,5 @@ export default function ExpandingTextArea({ name, register }: Props) {
 		}
 	}, [update])
 
-	return (
-		<textarea
-			rows={1}
-			className="textarea"
-			name={name}
-			ref={(ref) => {
-				register(ref)
-				el.current = ref
-			}}
-			onInput={update}
-		/>
-	)
+	return <textarea {...props} rows={1} className="textarea" ref={el} onInput={update} />
 }

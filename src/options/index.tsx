@@ -5,7 +5,7 @@ import './css/style.scss'
 import { Provider } from '@common/hooks/useAppContext'
 import Header from '@common/components/Header'
 import ScriptListWrapper from './components/ScriptListWrapper'
-import ScriptEditorWrapper from './components/ScriptEditorWrapper'
+import ScriptEditorSection from './components/ScriptEditorSection'
 
 const permissions = {
 	canFav: true,
@@ -22,7 +22,7 @@ function App() {
 			<Header />
 			<div className="main">
 				<ScriptListWrapper />
-				<ScriptEditorWrapper />
+				<ScriptEditorSection />
 			</div>
 		</Provider>
 	)

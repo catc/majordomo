@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react'
 import debounce from 'lodash/debounce'
-import { Script } from '@common/types/scripts'
 import ScriptItem from './ScriptItem'
 import PrimaryButton from '@common/components/PrimaryButton'
 import { STATUS } from '@common/types/state'
@@ -9,6 +8,7 @@ import SearchIcon from '@common/components/icons/Search'
 import PlusIcon from '@common/components/icons/Plus'
 
 import useInView from '@common/hooks/inView'
+import { Script } from '@common/utils/scripts'
 
 type Props = {
 	scripts: Script[]
@@ -90,7 +90,7 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 			<ul className="script-list__list">
 				<li {...bind}></li>
 
-				{scripts.map((s, i) => (
+				{scripts.map(s => (
 					<ScriptItem
 						key={s.id}
 						script={s}

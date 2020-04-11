@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import { useFormContext } from 'react-hook-form'
 import usePopup from '@common/components/Popup'
 
 export const COLORS = [
@@ -13,18 +12,18 @@ export const COLORS = [
 	'#000',
 ]
 
-export default function ColorPicker() {
-	const { register, setValue, watch } = useFormContext()
+type Props = {
+	color: string
+	change: (event: any) => void
+}
 
-	const color = watch('color')
+export default function ColorPicker({ color, change }: Props) {
 	const selectedContainer = useRef<HTMLDivElement>(null)
 
 	const { open, close, isOpen, Popup } = usePopup()
 
 	return (
 		<div className="color-picker">
-			<input name="color" hidden type="text" ref={register} />
-
 			<div className="input-wrapper color-picker__selected" ref={selectedContainer}>
 				<label>Tag Color</label>
 				<div
@@ -41,13 +40,13 @@ export default function ColorPicker() {
 
 			<Popup className="color-picker__popup" highlightContent={[selectedContainer]}>
 				<ul className="color-picker__colors">
-					{COLORS.map((c) => (
+					{COLORS.map(c => (
 						<li
 							className={color === c ? 'selected' : ''}
 							key={c}
 							onClick={() => {
 								close()
-								setValue('color', c)
+								change(c)
 							}}
 						>
 							<span style={{ background: c }} />

@@ -1,6 +1,6 @@
-import migrate_v1 from '../migrate'
+import migrate_v1, { newScript } from '../migrate'
 import { createID } from '@common/utils/storage_v1'
-import { setup, store, newScript } from '@common/utils/storage'
+import { setup, store } from '@common/utils/scripts'
 
 const v2Script1 = {
 	id: 'aa',

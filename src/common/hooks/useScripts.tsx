@@ -1,10 +1,10 @@
-import { useEffect, useState, useCallback, useMemo, useRef } from 'react'
-import { setup, store, ScriptsMap } from '@common/utils/storage'
+import { useEffect, useState, useCallback, useMemo } from 'react'
+import { store, ScriptsMap } from '@common/utils/scripts'
 import map from 'lodash/map'
 import orderBy from 'lodash/orderBy'
 
 /*
-	light wrapper around store
+	react wrapper around store
 */
 
 export default function useScripts() {
@@ -12,17 +12,16 @@ export default function useScripts() {
 	const [scriptsMap, setScriptsMap] = useState<ScriptsMap>({})
 
 	const fetch = useCallback(async () => {
-		await setup()
 		setScriptsMap(store.scripts)
-		setIsInitialFetching(false)
-	}, [])
+	}, [setScriptsMap])
 
+	// fetch scripts and subscribe to store
 	useEffect(() => {
-		// initial fetch
 		fetch()
+		setIsInitialFetching(false)
 
 		// subscribe
-		store.register(fetch)
+		return store.subscribe(fetch)
 	}, [fetch])
 
 	const scripts = useMemo(() => orderBy(map(scriptsMap), 'order'), [scriptsMap])

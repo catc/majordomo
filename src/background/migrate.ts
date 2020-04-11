@@ -1,6 +1,6 @@
 import { getScripts as getScriptsV1 } from '@common/utils/storage_v1'
-import { newScript } from '@common/utils/storage'
-import { store, remove } from '@common/utils/storage'
+import { store, Script, getScriptDefaults, genID } from '@common/utils/scripts'
+import { remove } from '@common/utils/storage'
 
 // migrate v1 scripts to v2
 export default async function migrate_v1() {
@@ -48,4 +48,13 @@ ${message ? message : 'trace'}:
 ${trace}
 `
 	window.alert(msg)
+}
+
+export function newScript(data: Partial<Script>): Script {
+	return {
+		...getScriptDefaults(),
+		lastModified: Date.now(),
+		id: genID(),
+		...data,
+	}
 }

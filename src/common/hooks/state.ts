@@ -1,7 +1,7 @@
 import { useReducer, useCallback } from 'react'
 import { StateFromObject } from '@common/types/utils'
-import { Script } from '@common/types/scripts'
 import { STATUS, Permissions } from '@common/types/state'
+import { Script } from '@common/utils/scripts'
 
 function isStateNew() {
 	const params = new URLSearchParams(window.location.search)
