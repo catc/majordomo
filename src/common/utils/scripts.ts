@@ -6,18 +6,29 @@ import { MESSAGE_TYPES } from '@background/autorun-scripts'
 	TODO - error handling
 */
 
-export enum EVENT_TYPES {
+export const SUPPORTED_EVENTS = [
 	// https://developer.chrome.com/extensions/webNavigation
-	onDOMContentLoaded = 'onDOMContentLoaded',
-	onCompleted = 'onCompleted',
-	onBeforeNavigate = 'onBeforeNavigate',
-	onCommitted = 'onCommitted',
-	onErrorOccurred = 'onErrorOccurred',
-	onCreatedNavigationTarget = 'onCreatedNavigationTarget',
-	onReferenceFragmentUpdated = 'onReferenceFragmentUpdated',
-	onTabReplaced = 'onTabReplaced',
-	onHistoryStateUpdated = 'onHistoryStateUpdated',
-}
+	'onDOMContentLoaded',
+	'onCompleted',
+	'onBeforeNavigate',
+	'onCommitted',
+	'onErrorOccurred',
+	'onCreatedNavigationTarget',
+	'onReferenceFragmentUpdated',
+	'onTabReplaced',
+	'onHistoryStateUpdated',
+] as const
+
+type ElementType<T extends ReadonlyArray<unknown>> = T extends ReadonlyArray<
+	infer ElementType
+>
+	? ElementType
+	: never
+
+export type EventType = keyof Pick<
+	typeof chrome.webNavigation,
+	ElementType<typeof SUPPORTED_EVENTS>
+>
 
 export type ScriptV1 = {
 	id: string
@@ -42,7 +53,7 @@ export type Script = {
 		/* TODO */
 	}
 	on: {
-		[key in keyof typeof EVENT_TYPES]?: boolean
+		[key in EventType]?: boolean
 	}
 }
 

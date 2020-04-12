@@ -1,4 +1,4 @@
-import { store, EVENT_TYPES } from '@common/utils/scripts'
+import { store, EventType } from '@common/utils/scripts'
 import map from 'lodash/map'
 import pickBy from 'lodash/pickBy'
 import flatten from 'lodash/flatten'
@@ -13,8 +13,6 @@ const filters = {
 	- add tests
 	- add proper filter support
 */
-
-type EventType = keyof typeof EVENT_TYPES
 
 type DisposeType = { fn: () => any; eventType: EventType }
 

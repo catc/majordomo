@@ -1,6 +1,6 @@
 import React from 'react'
 import { Field } from 'react-final-form'
-import { EVENT_TYPES } from '@common/utils/scripts'
+import { SUPPORTED_EVENTS } from '@common/utils/scripts'
 import Square from '@common/components/icons/Square'
 import CheckSquare from '@common/components/icons/CheckSquare'
 
@@ -8,7 +8,6 @@ interface Props {
 	autorunEnabled: boolean
 }
 
-const EVENTS = Object.keys(EVENT_TYPES)
 const URL = 'https://developer.chrome.com/extensions/webNavigation#toc'
 
 export default function EventFields({ autorunEnabled }: Props) {
@@ -24,7 +23,7 @@ export default function EventFields({ autorunEnabled }: Props) {
 			</div>
 
 			<div className="event-types-form__options">
-				{EVENTS.map(key => (
+				{SUPPORTED_EVENTS.map(key => (
 					<Field type="checkbox" name={`on.${key}`} key={key}>
 						{({ input }) => (
 							<>
