@@ -1,0 +1,26 @@
+@import './form.scss';
+
+.autorun-form-trigger {
+	margin-left: 2em;
+	flex-shrink: 0;
+	width: 75px;
+	text-align: center;
+
+	&__button {
+		@include button-item;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		svg {
+			$size: 14px;
+			width: $size;
+			height: $size;
+			fill: $b3;
+		}
+
+		&.active svg {
+			fill: $b1;
+		}
+	}
+}

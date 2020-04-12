@@ -1,0 +1,6 @@
+@mixin button-item {
+	cursor: pointer;
+	border: 2px solid lighten($b1, 15%);
+	height: 24px;
+	border-radius: 2px;
+}

@@ -4,6 +4,7 @@ import { validateName } from '../form/validate'
 import Title from './Title'
 import ExpandingTextArea from '@common/components/ExpandingTextarea'
 import ColorPicker from './ColorPicker'
+import AutorunForm from '../autorun-form'
 
 interface Props {
 	close: () => void
@@ -15,7 +16,7 @@ export default function TopBar({ close }: Props) {
 			{/* titles */}
 			<Title close={close} />
 
-			<div className="main-form__name-wrapper">
+			<div className="main-form__name-bar">
 				{/* name */}
 				<Field<string> name="name" validate={validateName}>
 					{({ input, meta }) => (
@@ -32,6 +33,9 @@ export default function TopBar({ close }: Props) {
 						</div>
 					)}
 				</Field>
+
+				{/* auto run */}
+				<AutorunForm />
 
 				{/* color picker */}
 				<Field name="color">
