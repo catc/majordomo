@@ -1,5 +1,6 @@
 import { save } from './storage'
 import keyBy from 'lodash/keyBy'
+import { MESSAGE_TYPES } from '@background/autorun-scripts'
 
 /*
 	TODO - error handling
@@ -59,26 +60,29 @@ export class Store {
 	private _subs: Set<StoreSubscriber> = new Set()
 
 	constructor() {
-		this.ready = this._fetchScripts().then(scripts => {
-			this.scripts = scripts
-		})
+		this.ready = this._fetchScripts()
 	}
 
 	private _fetchScripts() {
-		return new Promise<ScriptsMap>(res => {
+		return new Promise<void>(res => {
 			chrome.storage.sync.get(SCRIPTS_KEY, (data = {}) => {
 				const scripts: ScriptsMap = data[SCRIPTS_KEY] || {}
-				res(scripts)
+				this.scripts = scripts
+				res()
 			})
 		})
 	}
 
-	async saveScript(script: Script) {
+	async saveScript(script: Script, shouldTriggerAutorunRefresh?: boolean) {
 		if (!script.id) {
 			throw new Error('script has no id ')
 		}
 		this.scripts[script.id] = script
 		await this._save()
+
+		if (shouldTriggerAutorunRefresh) {
+			this._triggerAutorunRefresh()
+		}
 	}
 
 	async saveScripts(scripts: Script[]) {
@@ -104,24 +108,30 @@ export class Store {
 		}
 	}
 
-	async _save() {
+	private async _save() {
+		// save to chrome store
 		await save(SCRIPTS_KEY, this.scripts)
 
 		// create new object (so can set state in react)
 		this.scripts = Object.assign({}, this.scripts)
 
+		// alert subscribers
 		this._publish()
 	}
 
-	_publish() {
+	// alerts all store subscribers that the scripts have updated
+	private _publish() {
 		this._subs.forEach(sub => sub())
 	}
 
-	// currently unused
 	refresh() {
-		return this._fetchScripts().then(scripts => {
-			this.scripts = scripts
-		})
+		return this._fetchScripts()
+	}
+
+	// send message to background to refresh autorun scripts
+	private _triggerAutorunRefresh() {
+		const msg: MESSAGE_TYPES = { type: 'REFRESH_SCRIPTS' }
+		chrome.runtime.sendMessage(msg)
 	}
 }
 

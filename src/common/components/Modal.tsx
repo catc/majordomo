@@ -49,10 +49,4 @@ export default function Modal({ isOpen, children, onClose }: Props) {
 		</div>,
 		el,
 	)
-	return (
-		<div className={`modal ${isClosing ? 'state_closing' : ''}`}>
-			<div className="modal__bg" onClick={close}></div>
-			<div className="modal__content">{children({ close })}</div>
-		</div>
-	)
 }

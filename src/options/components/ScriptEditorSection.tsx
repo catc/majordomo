@@ -24,7 +24,7 @@ export default function ScriptPanel() {
 		}
 
 		// save
-		await store.saveScript(data)
+		await store.saveScript(data, true)
 
 		// close editor panel
 		setStatus({ status: STATUS.NONE })

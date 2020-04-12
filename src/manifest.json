@@ -1,13 +1,16 @@
 {
 	"name": "Majordomo",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "Execute scripts on any page",
 	"author": "catc",
 	"homepage_url": "https://github.com/catc/majordomo",
 	"permissions": [
 		"tabs",
 		"storage",
-		"activeTab"
+		"activeTab",
+		"webNavigation",
+		"http://*/*",
+		"https://*/*"
 	],
 	"options_page": "options.html",
 	"background": {
@@ -16,6 +19,7 @@
 		],
 		"persistent": false
 	},
+	"content_scripts": [],
 	"browser_action": {
 		"default_popup": "popup.html",
 		"default_title": "Majordomo"
