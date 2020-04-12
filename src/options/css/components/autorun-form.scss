@@ -1,7 +1,9 @@
-@import './form.scss';
+/* =====================================================================
+Trigger
+======================================================================*/
 
 .autorun-form-trigger {
-	margin-left: 2em;
+	margin-left: 1.5em;
 	flex-shrink: 0;
 	width: 75px;
 	text-align: center;
@@ -23,4 +25,116 @@
 			fill: $b1;
 		}
 	}
+}
+
+
+/* =====================================================================
+Main form
+======================================================================*/
+
+.autorun-modal {
+	width: 520px;
+	background: white;
+	border: 1px solid $light1;
+	border-radius: 2px;
+	padding: 1em 2em;
+}
+
+.autorun-form {
+	&__title {}
+
+	&__description {}
+
+	&__section-title {
+		font-weight: bold;
+		display: block;
+		margin-top: 2em;
+	}
+
+
+	&__toggle {
+		margin-top: 8px;
+		cursor: pointer;
+		display: inline-block;
+
+
+		span {
+			text-transform: uppercase;
+			font-size: 1.3rem;
+			color: $b4;
+			vertical-align: middle;
+
+			&.active {
+				font-weight: bold;
+				color: $b1;
+			}
+
+			&:first-child {
+				margin-right: 6px;
+			}
+
+			&:last-child {
+				margin-left: 8px;
+			}
+		}
+
+		&-off {
+			fill: lighten($b4, 5%);
+		}
+
+		&-on {
+			fill: $b1;
+		}
+	}
+
+	&__disabled {
+		opacity: 0.4;
+
+		label {
+			cursor: not-allowed;
+		}
+	}
+
+
+	&__actions {
+		margin-top: 2em;
+	}
+}
+
+
+/* =====================================================================
+Event types
+======================================================================*/
+
+.event-types-form {
+	&__description {
+		margin-top: 8px;
+
+		a {
+			color: $blue3;
+			font-weight: bold;
+		}
+	}
+
+	&__options {
+		display: grid;
+		column-count: 2;
+		grid-gap: 8px 1rem;
+		grid-template-columns: 50% 50%;
+		margin-top: 1em;
+	}
+
+	&__option {
+		cursor: pointer;
+
+		svg {
+			$size: 18px;
+			width: $size;
+			height: $size;
+			margin-right: 8px;
+			fill: $b2;
+			vertical-align: -5px;
+		}
+	}
+
 }

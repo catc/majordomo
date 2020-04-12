@@ -1,6 +1,7 @@
-import React, { useCallback, ReactNode } from 'react'
+import React, { useCallback, ReactNode, useRef } from 'react'
 import useBoolean from '@common/hooks/useBoolean'
 import '../css/components/modal.scss'
+import { createPortal } from 'react-dom'
 
 const BACKGROUND_HIDE_DELAY = 305
 
@@ -12,8 +13,21 @@ type Props = {
 	children: ({ close }: { close: CloseFn }) => ReactNode
 }
 
+function getModalRoot() {
+	const modal = document.getElementById('modal')
+	if (modal) {
+		return modal
+	}
+	const el = document.createElement('div')
+	el.id = 'modal'
+	document.body.appendChild(el)
+	return el
+}
+
 export default function Modal({ isOpen, children, onClose }: Props) {
 	const { value: isClosing, setTrue: startClose, setFalse: reset } = useBoolean(false)
+
+	const { current: el } = useRef(getModalRoot())
 
 	const close = useCallback(() => {
 		startClose()
@@ -28,6 +42,13 @@ export default function Modal({ isOpen, children, onClose }: Props) {
 		return null
 	}
 
+	return createPortal(
+		<div className={`modal ${isClosing ? 'state_closing' : ''}`}>
+			<div className="modal__bg" onClick={close}></div>
+			<div className="modal__content">{children({ close })}</div>
+		</div>,
+		el,
+	)
 	return (
 		<div className={`modal ${isClosing ? 'state_closing' : ''}`}>
 			<div className="modal__bg" onClick={close}></div>

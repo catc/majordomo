@@ -9,7 +9,13 @@ export enum EVENT_TYPES {
 	// https://developer.chrome.com/extensions/webNavigation
 	onDOMContentLoaded = 'onDOMContentLoaded',
 	onCompleted = 'onCompleted',
-	// TODO - add remaining
+	onBeforeNavigate = 'onBeforeNavigate',
+	onCommitted = 'onCommitted',
+	onErrorOccurred = 'onErrorOccurred',
+	onCreatedNavigationTarget = 'onCreatedNavigationTarget',
+	onReferenceFragmentUpdated = 'onReferenceFragmentUpdated',
+	onTabReplaced = 'onTabReplaced',
+	onHistoryStateUpdated = 'onHistoryStateUpdated',
 }
 
 export type ScriptV1 = {

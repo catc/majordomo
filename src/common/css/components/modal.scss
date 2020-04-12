@@ -31,7 +31,7 @@
 		height: 100%;
 		padding: 2em;
 
-		> div {
+		> * {
 			animation: fadeIn 0.3s 0.1s ease-out both;
 			z-index: 8;
 			overflow: auto;

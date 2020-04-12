@@ -9,7 +9,7 @@ interface Props {
 export default function Title({ close }: Props) {
 	const { currentScript } = useAppContext()
 	return (
-		<h2 className="panel__title main-form__title" style={{ marginBottom: '2em' }}>
+		<h2 className="panel__title form-title" style={{ marginBottom: '2em' }}>
 			{currentScript?.id ? currentScript?.name : 'Add new script'}
 
 			<button type="button" className="main-form__close" onClick={close}>

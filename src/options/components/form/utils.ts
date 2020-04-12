@@ -1,9 +1,19 @@
 import { getScriptDefaults, Script } from '@common/utils/scripts'
-import { FormFields } from './types'
+import { FormFields, AutorunFormFields } from './types'
 
 export function constructInitialValues(current: Script | null): FormFields {
 	return {
 		...getScriptDefaults(),
 		...current,
+	}
+}
+
+export function constructAutorunInitialValues(current: FormFields): AutorunFormFields {
+	return {
+		autorun: current.autorun,
+		on: { ...current.on },
+		filters: {
+			// ...
+		},
 	}
 }

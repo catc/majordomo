@@ -1,6 +1,12 @@
 @mixin button-item {
 	cursor: pointer;
 	border: 2px solid lighten($b1, 15%);
-	height: 24px;
+	height: 25px;
 	border-radius: 2px;
+	width: 74px;
+}
+
+.form-title {
+	display: flex;
+	justify-content: space-between;
 }

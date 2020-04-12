@@ -1,13 +1,10 @@
-@import './form.scss';
-
 .color-picker {
-	margin-left: 5px;
+	margin-left: 1em;
 	flex-shrink: 0;
-	width: 70px;
 	position: relative;
 
 	&__selected {
-		text-align: right;
+		text-align: center;
 	}
 
 	$size: 22px;
@@ -15,9 +12,7 @@
 	&__selected-color {
 		// height: $size + 2;
 		@include button-item;
-		width: 54px;
 		display: inline-block;
-		text-align: right;
 
 		span {
 			display: inline-block;
