@@ -2,15 +2,11 @@ import { useReducer, useCallback } from 'react'
 import { StateFromObject } from '@common/types/utils'
 import { STATUS, Permissions } from '@common/types/state'
 import { Script } from '@common/utils/scripts'
-
-function isStateNew() {
-	const params = new URLSearchParams(window.location.search)
-	const status = params.get('status')
-	return status === 'new'
-}
+import { QUERY_TYPE, parseOptionsPageParams } from '@common/utils/link'
 
 export const initialState = {
-	editorStatus: isStateNew() ? STATUS.NEW : STATUS.NONE,
+	editorStatus:
+		parseOptionsPageParams()?.type === QUERY_TYPE.new ? STATUS.NEW : STATUS.NONE,
 	currentScript: null,
 	permissions: {} as Permissions,
 }

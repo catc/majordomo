@@ -1,4 +1,4 @@
-import { openOptionsPage } from '@common/utils/link'
+import { openOptionsPage, QUERY_TYPE } from '@common/utils/link'
 import migrate from './migrate'
 import { setup } from '@common/utils/scripts'
 import AutoRun from './autorun-scripts'
@@ -13,7 +13,7 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
 	}
 
 	if (reason === 'install') {
-		openOptionsPage('intro')
+		openOptionsPage(QUERY_TYPE.intro)
 	}
 
 	// setup autorun scripts

@@ -6,6 +6,7 @@ import AddNewScriptPrompt from '@common/components/AddNewScriptPrompt'
 import { STATUS } from '@common/types/state'
 
 import ScriptList from '@common/components/ScriptList'
+import { QUERY_TYPE, parseOptionsPageParams } from '@common/utils/link'
 
 export default function ScriptListWrapper() {
 	const { scripts, isInitialFetching } = useScripts()
@@ -17,9 +18,8 @@ export default function ScriptListWrapper() {
 	useEffect(() => {
 		if (initialLoad.current && !isInitialFetching) {
 			initialLoad.current = false
-			const params = new URLSearchParams(window.location.search)
-			const id = params.get('edit')
-			if (id) {
+			const { type, id } = parseOptionsPageParams() || {}
+			if (type === QUERY_TYPE.edit && id) {
 				const script = scripts.find(s => s.id === id)
 				if (script) setStatus({ status: STATUS.EDIT, script })
 			}

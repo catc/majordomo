@@ -3,7 +3,7 @@ import '@common/css/components/script-list.scss'
 import useScripts from '@common/hooks/useScripts'
 import AddNewScriptPrompt from '@common/components/AddNewScriptPrompt'
 import ScriptList from '@common/components/ScriptList'
-import { openOptionsPage } from '@common/utils/link'
+import { openOptionsPage, QUERY_TYPE } from '@common/utils/link'
 
 export default function ScriptListWrapper() {
 	const { scripts, isInitialFetching } = useScripts()
@@ -19,7 +19,9 @@ export default function ScriptListWrapper() {
 			break
 
 		default:
-			component = <AddNewScriptPrompt onClick={() => openOptionsPage('new')} />
+			component = (
+				<AddNewScriptPrompt onClick={() => openOptionsPage(QUERY_TYPE.new)} />
+			)
 	}
 
 	return <div className="script-list-wrapper">{component}</div>

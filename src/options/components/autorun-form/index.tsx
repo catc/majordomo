@@ -7,7 +7,7 @@ import Modal from '@common/components/Modal'
 import useBoolean from '@common/hooks/useBoolean'
 
 export default function AutorunForm() {
-	const { value: showModal, setTrue: open, setFalse: close } = useBoolean(true)
+	const { value: showModal, setTrue: open, setFalse: close } = useBoolean(false)
 	const {
 		input: { value: autorunEnabled },
 	} = useField('autorun', { subscription: { value: true } })
