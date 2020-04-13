@@ -90,6 +90,7 @@ export class Store {
 		this.scripts[script.id] = script
 		await this._save()
 
+		// notify background process that scripts have changed
 		if (shouldTriggerAutorunRefresh) {
 			this._triggerAutorunRefresh()
 		}

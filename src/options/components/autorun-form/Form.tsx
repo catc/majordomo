@@ -1,7 +1,10 @@
 import React, { useRef } from 'react'
 import { Form as FinalForm, useFormState, useForm } from 'react-final-form'
-import { constructAutorunInitialValues } from '../form/utils'
-import { AutorunFormFields, FormFields } from '../form/types'
+import {
+	constructAutorunInitialValues,
+	AutorunFormFields,
+	FormFields,
+} from '../form/utils'
 import FormContent from './FormContent'
 
 interface Props {

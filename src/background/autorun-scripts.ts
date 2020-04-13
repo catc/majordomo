@@ -77,7 +77,10 @@ export default class AutoRun {
 		// remove old event listeners
 		this._cleanup()
 
-		// force store to update scripts
+		/*
+			force store to update scripts, this is required
+			since background has it's own store
+		*/
 		await store.refresh()
 
 		// add event listeners

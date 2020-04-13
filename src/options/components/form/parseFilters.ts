@@ -72,7 +72,7 @@ export function validate(data: any): string | null {
 		return 'URL filters should be an array'
 	}
 
-	// check each filter item
+	// validate each filter item
 	for (const filterItem of data as any[]) {
 		const keys = Object.keys(filterItem)
 
@@ -80,7 +80,7 @@ export function validate(data: any): string | null {
 			return `object can not be empty`
 		}
 
-		// check keys in each object
+		// validate keys in each object
 		for (const key of keys) {
 			const validate = schema[key]
 			if (!validate) {

@@ -1,6 +1,6 @@
 import React from 'react'
 import UrlFiltersEditor from './UrlFiltersEditor'
-import { validateFilters } from '../form/validate'
+import { validateUrlFilters } from '../form/utils'
 import { Field } from 'react-final-form'
 
 const URL = 'https://developer.chrome.com/extensions/events#type-UrlFilter'
@@ -28,7 +28,7 @@ export default function UrlFilters({ autorunEnabled }: Props) {
 				Filters must be an array of objects containing filter criteria.
 			</p>
 
-			<Field name="filters" validate={validateFilters}>
+			<Field name="filters" validate={validateUrlFilters}>
 				{({ meta: { error } }) => (
 					<>
 						{error && <div className="autorun-filters__error">{error}</div>}

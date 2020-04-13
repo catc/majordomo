@@ -1,6 +1,12 @@
 import { getScriptDefaults, Script } from '@common/utils/scripts'
-import { FormFields, AutorunFormFields } from './types'
 import cloneDeep from 'lodash/cloneDeep'
+import { validate as validateFilters } from './parseFilters'
+import { FieldValidator } from 'final-form'
+import { UrlFilter } from '@common/types/url-filters'
+
+export type FormFields = Omit<Script, 'lastModified' | 'id'> & { id?: string }
+
+export type AutorunFormFields = Pick<Script, 'on' | 'filters' | 'autorun'>
 
 export function constructInitialValues(current: Script | null): FormFields {
 	return {
@@ -15,4 +21,19 @@ export function constructAutorunInitialValues(current: FormFields): AutorunFormF
 		on: { ...current.on },
 		filters: cloneDeep(current.filters) || [],
 	}
+}
+
+export const validateName: FieldValidator<null | string> = val => {
+	return !val
+}
+
+// @ts-ignore
+export const validateUrlFilters: FieldValidator<UrlFilter[]> = (
+	val,
+	fields: AutorunFormFields,
+) => {
+	if (!fields.autorun) {
+		return
+	}
+	return validateFilters(val)
 }
