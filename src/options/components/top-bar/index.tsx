@@ -1,6 +1,6 @@
 import React from 'react'
 import { Field } from 'react-final-form'
-import { validateName } from '../form/validate'
+import { validateName } from '../form/utils'
 import Title from './Title'
 import ExpandingTextArea from '@common/components/ExpandingTextarea'
 import ColorPicker from './ColorPicker'
