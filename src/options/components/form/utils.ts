@@ -1,5 +1,6 @@
 import { getScriptDefaults, Script } from '@common/utils/scripts'
 import { FormFields, AutorunFormFields } from './types'
+import cloneDeep from 'lodash/cloneDeep'
 
 export function constructInitialValues(current: Script | null): FormFields {
 	return {
@@ -12,8 +13,6 @@ export function constructAutorunInitialValues(current: FormFields): AutorunFormF
 	return {
 		autorun: current.autorun,
 		on: { ...current.on },
-		filters: {
-			// ...
-		},
+		filters: cloneDeep(current.filters) || [],
 	}
 }

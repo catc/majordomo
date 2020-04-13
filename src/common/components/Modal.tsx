@@ -50,3 +50,25 @@ export default function Modal({ isOpen, children, onClose }: Props) {
 		el,
 	)
 }
+
+type ModalSectionProps = Partial<React.HTMLAttributes<HTMLDivElement>> & {
+	children: React.ReactNode
+}
+
+function createModalPart(sectionClassName: string) {
+	return function ModalFooter({
+		children,
+		className = '',
+		...rest
+	}: ModalSectionProps) {
+		return (
+			<div {...rest} className={`${sectionClassName} ${className}`}>
+				{children}
+			</div>
+		)
+	}
+}
+
+export const ModalHeader = createModalPart('modal__header')
+export const ModalFooter = createModalPart('modal__footer')
+export const ModalBody = createModalPart('modal__body')

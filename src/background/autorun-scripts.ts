@@ -48,6 +48,8 @@ export default class AutoRun {
 							chrome.tabs.executeScript({
 								code: script.code,
 							})
+
+						// TODO - add try/catch in case bad filter/fn is supplied
 						chrome.webNavigation[eventType].addListener(fn, filters)
 						return { fn, eventType }
 					})

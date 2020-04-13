@@ -14,7 +14,7 @@ export default function EventFields({ autorunEnabled }: Props) {
 	return (
 		<div className={!autorunEnabled ? 'autorun-form__disabled' : ''}>
 			<div className="autorun-form__section-title">Page events</div>
-			<div className="event-types-form__description">
+			<div className="autorun-form__description">
 				Select page events to execute script on. See{' '}
 				<a href={URL} target="_blank" rel="noopener noreferrer">
 					chrome docs

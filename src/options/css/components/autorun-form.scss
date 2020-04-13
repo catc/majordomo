@@ -33,22 +33,42 @@ Main form
 ======================================================================*/
 
 .autorun-modal {
-	width: 520px;
+	width: 580px;
 	background: white;
 	border: 1px solid $light1;
 	border-radius: 2px;
-	padding: 1em 2em;
+
+	$side-padding: 2em;
+
+	&__head {
+		padding: 0 $side-padding;
+	}
+
+	&__actions {
+		padding: 1em $side-padding;
+	}
+
+	&__body {
+		padding: 1em $side-padding;
+	}
 }
 
-.autorun-form {
-	&__title {}
 
-	&__description {}
+.autorun-form {
+
+	&__description {
+		margin-top: 8px;
+
+		a {
+			color: $blue3;
+			font-weight: bold;
+		}
+	}
 
 	&__section-title {
 		font-weight: bold;
 		display: block;
-		margin-top: 2em;
+		margin-top: 2.5em;
 	}
 
 
@@ -96,9 +116,7 @@ Main form
 	}
 
 
-	&__actions {
-		margin-top: 2em;
-	}
+
 }
 
 
@@ -107,15 +125,6 @@ Event types
 ======================================================================*/
 
 .event-types-form {
-	&__description {
-		margin-top: 8px;
-
-		a {
-			color: $blue3;
-			font-weight: bold;
-		}
-	}
-
 	&__options {
 		display: grid;
 		column-count: 2;

@@ -14,7 +14,7 @@ export default function Form({ close }: Props) {
 	const { current: initialValues } = useRef(constructAutorunInitialValues(values))
 
 	const submit = (values: AutorunFormFields) => {
-		console.log('values are', values)
+		console.log('auto values to save on main are:', values)
 
 		batch(() => {
 			change('autorun', values.autorun)
@@ -27,7 +27,10 @@ export default function Form({ close }: Props) {
 	return (
 		<FinalForm onSubmit={submit} initialValues={initialValues}>
 			{({ handleSubmit }) => (
-				<form onSubmit={handleSubmit} className="autorun-modal">
+				<form
+					onSubmit={handleSubmit}
+					className="autorun-modal modal__with-sections"
+				>
 					<FormContent close={close} />
 				</form>
 			)}

@@ -1,6 +1,7 @@
 import { save } from './storage'
 import keyBy from 'lodash/keyBy'
 import { MESSAGE_TYPES } from '@background/autorun-scripts'
+import { UrlFilter } from '@common/types/url-filters'
 
 /*
 	TODO - error handling
@@ -49,9 +50,7 @@ export type Script = {
 	description: string
 	order: number
 	autorun: boolean
-	filters: {
-		/* TODO */
-	}
+	filters: UrlFilter[]
 	on: {
 		[key in EventType]?: boolean
 	}
@@ -161,7 +160,7 @@ export const getScriptDefaults = () => ({
 	color: '#fff',
 	code: '',
 	description: '',
-	filters: {},
+	filters: [],
 	on: {},
 	autorun: false,
 	order: 999,
