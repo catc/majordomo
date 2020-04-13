@@ -22,7 +22,7 @@ export default function UrlFilters({ autorunEnabled }: Props) {
 				<br />
 				Filters should be an array of objects containing filter info.
 			</p>
-			<UrlFiltersEditor />
+			<UrlFiltersEditor autorunEnabled={autorunEnabled} />
 		</div>
 	)
 }

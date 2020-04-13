@@ -1,7 +1,5 @@
 const PLACEHOLDER = `[
 	// { urlContains: 'github' }
-{ foo: 'this is foo'},
-	{foo: 'this is better'}
 ]
 `
 

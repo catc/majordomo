@@ -1,65 +1,41 @@
 import React, { useEffect, useRef } from 'react'
-import { editor } from 'monaco-editor/esm/vs/editor/editor.api'
 import { useForm, useField } from 'react-final-form'
 import { jsToCode, codeToJS } from './parseFilters'
-
-import theme from '../../monaco-themes/devtools'
-// @ts-ignore
-editor.defineTheme('chrome-devtools', theme)
-
-const PLACEHOLDER = `[
-	// { urlContains: 'github' }
-{ foo: 'this is foo'},
-	{foo: 'this is better'}
-]
-`
+import { editor } from 'monaco-editor'
+import MonacoEditor from '../form/MonacoEditor'
 
 /*
 	TODO
-	- make monaco reusable
-*/
-
-/*
-	TODO
-	- add disabled state
 	- add validation
 		- check before setting
-	- format
-	- sticker header + footer
+		- add error if invalid
+		- tests
 */
 
-export default function UrlFiltersEditor() {
+type Props = {
+	autorunEnabled: boolean
+}
+
+export default function UrlFiltersEditor({ autorunEnabled }: Props) {
 	const {
 		meta: { initial },
 	} = useField('filters', { subscription: { initial: true } })
 	const { change } = useForm()
-	const editorRef = useRef<HTMLDivElement>(null)
+
+	const editorRef = useRef<editor.IStandaloneCodeEditor>(null)
+
+	const { current: initialValue } = useRef(jsToCode(initial))
 
 	useEffect(() => {
 		if (editorRef.current) {
-			// const initialValue = initial ? JSON.stringify(initial) : PLACEHOLDER
-			const e = editor.create(editorRef.current, {
-				// value: initial || PLACEHOLDER,
-				// value: PLACEHOLDER,
-				// value: initialValue,
-				value: jsToCode(initial),
-				language: 'javascript',
-				theme: 'chrome-devtools',
-				formatOnPaste: true,
-				minimap: {
-					enabled: false,
-				},
-			})
-			e?.getModel()?.updateOptions({
-				insertSpaces: false,
-			})
+			const { current: e } = editorRef
 
 			// poor mans 'onLoad'
 			const didScrollChangeDisposable = e.onDidScrollChange(_ => {
 				didScrollChangeDisposable.dispose()
 				setTimeout(() => {
 					e.getAction('editor.action.formatDocument').run()
-				}, 150)
+				}, 250)
 			})
 
 			const getCode = () => codeToJS(e?.getModel()?.getValue())
@@ -67,24 +43,25 @@ export default function UrlFiltersEditor() {
 			// set field initial (if it has nothing, set placeholder)
 			change('filters', getCode())
 			const blur = e.onDidBlurEditorText(() => {
-				// const code = e?.getModel()?.getValue() || ''
 				const code = getCode()
-				change('code', code)
+				change('filters', code)
 			})
 
 			return () => {
 				blur.dispose()
-				e?.dispose()
 			}
 		}
-	}, [change, editorRef, initial])
+	}, [change])
+
+	useEffect(() => {
+		if (editorRef.current) {
+			editorRef.current.updateOptions({ readOnly: !autorunEnabled })
+		}
+	}, [autorunEnabled])
 
 	return (
-		<div className="monaco-editor-wrapper">
-			<div
-				ref={editorRef}
-				style={{ height: 260, width: '100%', border: '1px solid red' }}
-			></div>
+		<div className={`autorun-filters__editor ${!autorunEnabled ? 'disabled' : ''}`}>
+			<MonacoEditor editorRef={editorRef} initialValue={initialValue} />
 		</div>
 	)
 }

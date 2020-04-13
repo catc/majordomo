@@ -1,7 +1,7 @@
 import React from 'react'
 
 import TopBar from './top-bar/index'
-import MonacoEditor from './monaco-editor/index'
+import CodeEditor from './code-editor/index'
 import FormActions from './form-actions/index'
 
 interface Props {
@@ -12,7 +12,7 @@ export default function Form({ close }: Props) {
 	return (
 		<>
 			<TopBar close={close} />
-			<MonacoEditor />
+			<CodeEditor />
 			<FormActions />
 		</>
 	)

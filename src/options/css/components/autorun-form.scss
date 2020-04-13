@@ -55,7 +55,6 @@ Main form
 
 
 .autorun-form {
-
 	&__description {
 		margin-top: 8px;
 
@@ -77,10 +76,8 @@ Main form
 		cursor: pointer;
 		display: inline-block;
 
-
 		span {
 			text-transform: uppercase;
-			font-size: 1.3rem;
 			color: $b4;
 			vertical-align: middle;
 
@@ -114,9 +111,6 @@ Main form
 			cursor: not-allowed;
 		}
 	}
-
-
-
 }
 
 
@@ -146,4 +140,25 @@ Event types
 		}
 	}
 
+}
+
+
+/* =====================================================================
+Url filters
+======================================================================*/
+
+.autorun-filters {
+	&__editor {
+		height: 300px;
+		margin-top: 1em;
+		border: 1px solid $light1;
+
+		&.disabled {
+			cursor: not-allowed;
+
+			* {
+				pointer-events: none;
+			}
+		}
+	}
 }
