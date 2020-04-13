@@ -25,7 +25,7 @@ export default function ColorPicker({ color, change }: Props) {
 	return (
 		<div className="color-picker">
 			<div className="input-wrapper color-picker__selected" ref={selectedContainer}>
-				<label>Tag Color</label>
+				<label>Color</label>
 				<div
 					className="color-picker__selected-color"
 					onClick={() => (isOpen ? close() : open())}

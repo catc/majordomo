@@ -12,7 +12,9 @@
 	&__selected-color {
 		// height: $size + 2;
 		@include button-item;
+		border: 2px solid lighten($b1, 15%);
 		display: inline-block;
+		width: 44px;
 
 		span {
 			display: inline-block;

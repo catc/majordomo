@@ -7,6 +7,7 @@ import PrimaryButton from '@common/components/PrimaryButton'
 import EventFields from './EventFields'
 import UrlFiltersField from './UrlFiltersField'
 import { ModalHeader, ModalFooter, ModalBody } from '@common/components/Modal'
+import Zap from '@common/components/icons/Zap'
 
 interface Props {
 	close: () => void
@@ -20,12 +21,13 @@ export default function FormContent({ close }: Props) {
 	return (
 		<>
 			<ModalHeader className="autorun-modal__head">
-				<h2 className="panel__title form-title">
+				<h2 className="panel__title autorun-modal__title">
+					<Zap />
 					Auto-execute script
-					<button type="button" className="main-form__close" onClick={close}>
-						<X />
-					</button>
 				</h2>
+				<button type="button" className="main-form__close" onClick={close}>
+					<X />
+				</button>
 			</ModalHeader>
 
 			<ModalBody className="autorun-modal__body">

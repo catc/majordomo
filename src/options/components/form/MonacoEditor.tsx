@@ -36,7 +36,6 @@ export default function MonacoEditor({ editorRef, initialValue }: Props) {
 			editorRef.current = e
 
 			return () => {
-				console.log('disposing!')
 				e?.dispose()
 			}
 		}

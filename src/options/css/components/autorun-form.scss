@@ -13,16 +13,22 @@ Trigger
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		transition: 0.15s ease;
 
 		svg {
-			$size: 14px;
+			$size: 16px;
 			width: $size;
 			height: $size;
 			fill: $b3;
 		}
 
+		&:hover {
+			background: $light1;
+			box-shadow: 0 0 1px rgba(black, 0.5);
+		}
+
 		&.active svg {
-			fill: $b1;
+			fill: lighten($b1, 10%);
 		}
 	}
 }
@@ -42,6 +48,8 @@ Main form
 
 	&__head {
 		padding: 0 $side-padding;
+		display: flex;
+		justify-content: space-between;
 	}
 
 	&__actions {
@@ -50,6 +58,16 @@ Main form
 
 	&__body {
 		padding: 1em $side-padding;
+	}
+
+	&__title {
+		svg {
+			fill: $b3;
+			$size: 16px;
+			width: $size;
+			height: $size;
+			margin-right: 8px;
+		}
 	}
 }
 
@@ -148,10 +166,19 @@ Url filters
 ======================================================================*/
 
 .autorun-filters {
+	&__error {
+		text-align: center;
+		background: $red1;
+		color: white;
+		// font-weight: bold;
+		padding: 3px 1em;
+	}
+
 	&__editor {
-		height: 300px;
+		height: 220px;
 		margin-top: 1em;
 		border: 1px solid $light1;
+		overflow: hidden;
 
 		&.disabled {
 			cursor: not-allowed;
@@ -159,6 +186,10 @@ Url filters
 			* {
 				pointer-events: none;
 			}
+		}
+
+		&.error {
+			border-color: $red1;
 		}
 	}
 }

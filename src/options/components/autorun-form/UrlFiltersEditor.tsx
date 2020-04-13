@@ -1,16 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import { useForm, useField } from 'react-final-form'
-import { jsToCode, codeToJS } from './parseFilters'
+import { jsToCode, codeToJS } from '../form/parseFilters'
 import { editor } from 'monaco-editor'
 import MonacoEditor from '../form/MonacoEditor'
-
-/*
-	TODO
-	- add validation
-		- check before setting
-		- add error if invalid
-		- tests
-*/
 
 type Props = {
 	autorunEnabled: boolean
@@ -59,9 +51,5 @@ export default function UrlFiltersEditor({ autorunEnabled }: Props) {
 		}
 	}, [autorunEnabled])
 
-	return (
-		<div className={`autorun-filters__editor ${!autorunEnabled ? 'disabled' : ''}`}>
-			<MonacoEditor editorRef={editorRef} initialValue={initialValue} />
-		</div>
-	)
+	return <MonacoEditor editorRef={editorRef} initialValue={initialValue} />
 }
