@@ -4,6 +4,7 @@ import '../css/components/header.scss'
 import useAppContext from '@common/hooks/useAppContext'
 import SettingsIcon from '@common/components/icons/Settings'
 import { openOptionsPage } from '@common/utils/link'
+import Intro from '@options/components/Intro'
 
 export default function Header() {
 	const {
@@ -17,17 +18,20 @@ export default function Header() {
 				<span className="header__title">Majordomo</span>
 			</div>
 
-			{/* options */}
-			{canOpenOptions && (
-				<div className="header__right">
+			<div className="header__right">
+				{/* options */}
+				{canOpenOptions && (
 					<button
 						onClick={() => openOptionsPage()}
 						className="no-outline header__settings-btn"
 					>
 						<SettingsIcon />
 					</button>
-				</div>
-			)}
+				)}
+
+				{/* intro */}
+				{!canOpenOptions && <Intro />}
+			</div>
 		</div>
 	)
 }

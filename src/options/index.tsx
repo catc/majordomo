@@ -6,7 +6,6 @@ import { Provider } from '@common/hooks/useAppContext'
 import Header from '@common/components/Header'
 import ScriptListWrapper from './components/ScriptListWrapper'
 import ScriptEditorSection from './components/ScriptEditorSection'
-import Intro from './components/Intro'
 
 const permissions = {
 	canFav: true,
@@ -24,7 +23,6 @@ function App() {
 			<div className="main">
 				<ScriptListWrapper />
 				<ScriptEditorSection />
-				<Intro />
 			</div>
 		</Provider>
 	)
