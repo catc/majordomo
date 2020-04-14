@@ -3,15 +3,9 @@ import map from 'lodash/map'
 import pickBy from 'lodash/pickBy'
 import flatten from 'lodash/flatten'
 
-// TEMP FOR TESTING
-const filters = {
-	url: [{ urlContains: 'git' }],
-}
-
 /*
 	TODO
 	- add tests
-	- add proper filter support
 */
 
 type DisposeType = { fn: () => any; eventType: EventType }
@@ -37,9 +31,15 @@ export default class AutoRun {
 		const cleanFunctionArrays = scripts
 			.map(script => {
 				if (script.on != null) {
-					const events = Object.keys(pickBy(script.on, val => val))
+					if (!Array.isArray(script.filters)) {
+						console.log(`Script "${script.name}" does not have valid filters`)
+						return null
+					}
+					const filters = {
+						url: script.filters,
+					}
 
-					// TODO - add filters
+					const events = Object.keys(pickBy(script.on, val => val))
 
 					// for each event, add a listener and return event name and function
 					const cleanupFunctions = events.map((e: string) => {
