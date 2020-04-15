@@ -7,7 +7,8 @@
 		"@babel/preset-env": "^7.7.7",
 		"@babel/preset-react": "^7.7.4",
 		"@babel/preset-typescript": "^7.7.7",
-		"@types/chrome": "0.0.91",
+		"@testing-library/react": "^10.0.2",
+		"@types/chrome": "0.0.104",
 		"@types/jest": "^25.2.1",
 		"@types/lodash": "^4.14.149",
 		"@types/react": "^16.9.16",
@@ -49,6 +50,7 @@
 		"lodash": "^4.17.15",
 		"monaco-editor": "^0.19.0",
 		"react": "^16.12.0",
+		"react-beautiful-dnd": "^13.0.0",
 		"react-dom": "^16.12.0",
 		"react-final-form": "^6.4.0"
 	},
@@ -72,7 +74,8 @@
 		"testRegex": "(.*)\\_spec\\.(t|j)sx?$",
 		"moduleNameMapper": {
 			"^@common/(.*)$": "<rootDir>/common/$1",
-			"^@background/(.*)$": "<rootDir>/background/$1"
+			"^@background/(.*)$": "<rootDir>/background/$1",
+			"\\.scss$": "<rootDir>/common/_test/empty.ts"
 		}
 	}
 }

@@ -17,7 +17,7 @@ export default function SearchField({ setFilter }: Props) {
 	}, [debounceSetTerm, debounceSetTerm.cancel])
 
 	return (
-		<div className="script-list__search-wrapper">
+		<div className="script-list__search-wrapper" data-testid="search-field">
 			<SearchIcon />
 			<input
 				placeholder="Search"

@@ -41,16 +41,16 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 		return unfilteredScripts
 	}, [term, unfilteredScripts])
 
-	const canShowSearch = unfilteredScripts.length > MIN_SCRIPTS_FOR_SEARCH
+	const canDisplaySearch = unfilteredScripts.length >= MIN_SCRIPTS_FOR_SEARCH
 
 	return (
-		<div className="script-list">
+		<div className="script-list" data-testid="script-list">
 			<div className={`script-list__top ${!topInView ? 'bottom-shadow' : ''}`}>
-				{canAddScript && !canShowSearch && (
+				{canAddScript && !canDisplaySearch && (
 					<h2 className="panel__title">Scripts</h2>
 				)}
 
-				{canShowSearch && <SearchField setFilter={setSearchTerm} />}
+				{canDisplaySearch && <SearchField setFilter={setSearchTerm} />}
 
 				{canAddScript && (
 					<PrimaryButton
