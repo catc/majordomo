@@ -24,24 +24,23 @@ export default function Intro() {
 					<div className="intro-modal">
 						<div className="intro-modal__title">🤵</div>
 						<p>
-							Welcome to Majordomo, your one-stop-shop for custom script
-							needs. This extension comes with a variety of features
+							Welcome to Majordomo - the one-stop-shop for all your custom
+							script needs. This extension comes with a variety of features
 							including:
 						</p>
 						<ul>
 							<li>
 								<FileText />
-								Add and save custom scripts to execute on any page
-							</li>
-							<li>
-								<Star />
-								Easily organize scripts via color tags and customized
-								sorting
+								Add and save scripts to execute on any page
 							</li>
 							<li>
 								<Zap />
-								Automatically execute scripts on pages based on custom url
+								Automatically execute scripts on pages based on custom URL
 								filters and page events
+							</li>
+							<li>
+								<Star />
+								Easily organize scripts via color tags and sorting
 							</li>
 						</ul>
 						<p>
@@ -51,7 +50,7 @@ export default function Intro() {
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								project on github
+								source code on github
 							</a>
 							.
 						</p>

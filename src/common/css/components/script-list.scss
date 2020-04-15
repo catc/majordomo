@@ -25,6 +25,10 @@
 			// @include shadowDreamy($b3);
 			@include shadowShort($b3);
 		}
+
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 
 	&__list {
@@ -38,6 +42,8 @@
 	&__search-wrapper {
 		padding-top: 1em;
 		padding-bottom: 1em;
+		width: 100%;
+		margin-bottom: -2px;
 
 		svg {
 			$size: 18px;

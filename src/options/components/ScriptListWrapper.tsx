@@ -36,6 +36,7 @@ export default function ScriptListWrapper() {
 			component = <ScriptList scripts={scripts} />
 			break
 
+		// state is in edit mode for new script
 		case editorStatus !== STATUS.NEW:
 			component = (
 				<AddNewScriptPrompt onClick={() => setStatus({ status: STATUS.NEW })} />

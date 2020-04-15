@@ -32,8 +32,8 @@ export default function FormContent({ close }: Props) {
 
 			<ModalBody className="autorun-modal__body">
 				<p className="autorun-form__description">
-					Enable your scripts to automatically run on pages based on specific
-					filter criteria and page events.
+					Enable your scripts to autmoatically run on pages by adding URL filter
+					criteria and selecting page events.
 				</p>
 				<Field name="autorun" type="checkbox">
 					{({ input }) => (

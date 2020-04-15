@@ -1,13 +1,12 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react'
-import debounce from 'lodash/debounce'
+import React, { useState, useMemo } from 'react'
 import ScriptItem from './ScriptItem'
 import PrimaryButton from '@common/components/PrimaryButton'
 import { STATUS } from '@common/types/state'
 import useAppContext from '@common/hooks/useAppContext'
-import SearchIcon from '@common/components/icons/Search'
 import PlusIcon from '@common/components/icons/Plus'
 import useInView from '@common/hooks/inView'
 import { Script } from '@common/utils/scripts'
+import SearchField from './SearchField'
 
 type Props = {
 	scripts: Script[]
@@ -17,6 +16,8 @@ type Props = {
 	- renders all scripts
 	- displays search bar if more than 3 scripts
 */
+
+const MIN_SCRIPTS_FOR_SEARCH = 5
 
 export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 	const {
@@ -32,10 +33,6 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 	const [term, setSearchTerm] = useState('')
 	const [topInView, bind] = useInView(true)
 
-	const { current: debounceSetTerm } = useRef(
-		debounce((val: string) => setSearchTerm(val), 450),
-	)
-
 	const scripts = useMemo(() => {
 		if (term.length > 2) {
 			const regex = new RegExp(term, 'i')
@@ -44,48 +41,28 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 		return unfilteredScripts
 	}, [term, unfilteredScripts])
 
-	// cleanup
-	useEffect(() => {
-		return () => debounceSetTerm.cancel()
-	}, [debounceSetTerm, debounceSetTerm.cancel])
-
-	const displaySearch = unfilteredScripts.length > 3
-	const displayTop = canAddScript || displaySearch
+	const canShowSearch = unfilteredScripts.length > MIN_SCRIPTS_FOR_SEARCH
 
 	return (
 		<div className="script-list">
-			{displayTop && (
-				<div className={`script-list__top ${!topInView ? 'bottom-shadow' : ''}`}>
-					{canAddScript && (
-						<h2 className="panel__title">
-							Scripts
-							<PrimaryButton
-								icon="with-text"
-								style={{ float: 'right' }}
-								onClick={() => setStatus({ status: STATUS.NEW })}
-							>
-								<PlusIcon />
-								New
-							</PrimaryButton>
-						</h2>
-					)}
+			<div className={`script-list__top ${!topInView ? 'bottom-shadow' : ''}`}>
+				{canAddScript && !canShowSearch && (
+					<h2 className="panel__title">Scripts</h2>
+				)}
 
-					<div
-						className="script-list__search-wrapper"
-						style={{ display: !displaySearch ? 'none' : '' }}
+				{canShowSearch && <SearchField setFilter={setSearchTerm} />}
+
+				{canAddScript && (
+					<PrimaryButton
+						icon="with-text"
+						style={{ flexShrink: 0, marginLeft: '2em' }}
+						onClick={() => setStatus({ status: STATUS.NEW })}
 					>
-						<SearchIcon />
-						<input
-							placeholder="Search"
-							autoComplete="off"
-							className="input"
-							onChange={e => debounceSetTerm(e.target.value)}
-							type="text"
-						/>
-					</div>
-				</div>
-			)}
-
+						<PlusIcon />
+						New
+					</PrimaryButton>
+				)}
+			</div>
 			<ul className="script-list__list">
 				<li {...bind}></li>
 
