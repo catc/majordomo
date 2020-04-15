@@ -61,4 +61,19 @@
 	&__body {
 		overflow-y: auto;
 	}
+
+	&__close {
+		svg {
+			color: $b3;
+			$size: 24px;
+			width: $size;
+			height: $size;
+		}
+
+		&.small svg {
+			$size: 16px;
+			width: $size;
+			height: $size;
+		}
+	}
 }

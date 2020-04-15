@@ -17,7 +17,6 @@ export default function Form({ close }: Props) {
 	const { current: initialValues } = useRef(constructAutorunInitialValues(values))
 
 	const submit = (values: AutorunFormFields) => {
-		console.log('auto values to save on main are:', values)
 		batch(() => {
 			change('autorun', values.autorun)
 			change('on', values.on)

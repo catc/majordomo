@@ -28,8 +28,16 @@ Trigger
 			background: darken($light1, 3%);
 		}
 
-		&.active svg {
-			fill: lighten($b1, 10%);
+		// &.active svg {
+		// 	fill: lighten($b1, 10%);
+		// }
+		&.active {
+			background: lighten(black, 20%);
+			background: #404040;
+
+			svg {
+				fill: $light1;
+			}
 		}
 	}
 }
@@ -188,4 +196,52 @@ Url filters
 			border-color: $red1;
 		}
 	}
+
+	&__info-trigger {
+		cursor: pointer;
+
+		svg {
+			$size: 16px;
+			width: $size;
+			height: $size;
+			fill: $b2;
+			vertical-align: -3px;
+		}
+	}
+}
+
+
+.url-filters-popup {
+	max-width: 800px;
+	border: 1px solid $light1;
+	border-radius: 2px;
+
+	$side-padding: 1.5em;
+
+	&__header {
+		padding: 1em $side-padding 0.8em;
+		font-size: 1.6rem;
+		display: flex;
+		justify-content: space-between;
+		font-weight: bold;
+	}
+
+	&__body {
+		padding: 0.5em $side-padding 1em;
+	}
+
+	&__name {
+		font-weight: bold;
+		color: $b1;
+	}
+
+	&__type {
+		font-weight: bold;
+		color: lighten($b3, 5%);
+	}
+
+	li {
+		margin: 12px;
+	}
+
 }
