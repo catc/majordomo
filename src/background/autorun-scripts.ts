@@ -3,23 +3,15 @@ import map from 'lodash/map'
 import pickBy from 'lodash/pickBy'
 import flatten from 'lodash/flatten'
 
-/*
-	TODO
-	- add tests
-*/
-
 type DisposeType = { fn: () => any; eventType: EventType }
 
 export type MESSAGE_TYPES = { type: 'REFRESH_SCRIPTS' }
 
 export default class AutoRun {
-	// private queue = []
-	// private _reloading = true
 	private _toClean: DisposeType[] = []
 
 	constructor() {
 		this.addEventListeners()
-
 		this._subscribeToUpdates()
 	}
 
@@ -44,13 +36,17 @@ export default class AutoRun {
 					// for each event, add a listener and return event name and function
 					const cleanupFunctions = events.map((e: string) => {
 						const eventType = e as EventType
-						const fn = () =>
-							chrome.tabs.executeScript({
-								code: script.code,
-							})
+						const fn = (
+							e: chrome.webNavigation.WebNavigationFramedCallbackDetails,
+						) => {
+							if (e.frameId === 0) {
+								chrome.tabs.executeScript({
+									code: script.code,
+								})
+							}
+						}
 
-						// TODO - add try/catch in case bad filter/fn is supplied
-						chrome.webNavigation[eventType].addListener(fn, filters)
+						chrome.webNavigation[eventType].addListener(fn as any, filters)
 						return { fn, eventType }
 					})
 

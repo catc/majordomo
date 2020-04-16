@@ -1,8 +1,7 @@
 import React, { useRef } from 'react'
 import { Form as FinalForm } from 'react-final-form'
-import { constructInitialValues } from './form/utils'
+import { constructInitialValues, FormFields } from './form/utils'
 import Form from './Form'
-import { FormFields } from './form/types'
 import { Script } from '@common/utils/scripts'
 
 interface Props {

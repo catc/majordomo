@@ -34,36 +34,42 @@ describe('ScriptList', () => {
 		expect(wrapper.queryAllByTestId('script-item')).toHaveLength(3)
 	})
 
+	// options page with scripts <5
 	it('displays "new" script button if addScript is true', () => {
 		mockPermissions({ canAddScript: true } as Permissions)
 		const wrapper = render(<ScriptList scripts={[]} />)
-		expect(wrapper.queryByText(/new/i)).toBeTruthy()
+		expect(wrapper.queryByRole('button', { name: /new/i })).toBeTruthy()
+		expect(wrapper.queryByTestId('search-field')).toBeNull()
+		expect(wrapper.queryByRole('heading', { name: /scripts/i })).toBeTruthy()
 	})
 
+	// popup page with scripts <5
 	it('hides "new" script button if addScript is false', () => {
 		mockPermissions({ canAddScript: false } as Permissions)
 		const wrapper = render(<ScriptList scripts={[]} />)
 
-		expect(wrapper.queryByText(/new/i)).toBeNull()
+		expect(wrapper.queryByRole('button', { name: /new/i })).toBeNull()
 		// if can't add script, Scripts heading shouldnt be visible
 		expect(wrapper.queryByRole('heading', { name: /scripts/i })).toBeNull()
 	})
 
+	// options page with 5+ scripts
 	it('correctly displays the search bar if there 5+ scripts', () => {
 		mockPermissions({ canAddScript: true } as Permissions)
 		const wrapper = render(<ScriptList scripts={generateScripts(5)} />)
 
+		expect(wrapper.queryByRole('button', { name: /new/i })).toBeTruthy()
 		expect(wrapper.queryByTestId('search-field')).toBeTruthy()
 		// if search field is visible, scripts h2 shouldnt be visibles
 		expect(wrapper.queryByRole('heading', { name: /scripts/i })).toBeNull()
 	})
 
+	// popup page with 5+ scripts
 	it('correctly hides the search bar if there <5 scripts', () => {
-		mockPermissions({ canAddScript: true } as Permissions)
-		const wrapper = render(<ScriptList scripts={generateScripts(3)} />)
-
-		expect(wrapper.queryByTestId('search-field')).toBeNull()
-		// if search field is hidden, scripts heading should be vsibile if can add script
-		expect(wrapper.queryByRole('heading', { name: /scripts/i })).toBeTruthy()
+		mockPermissions({ canAddScript: false } as Permissions)
+		const wrapper = render(<ScriptList scripts={generateScripts(5)} />)
+		expect(wrapper.queryByTestId('search-field')).toBeTruthy()
+		expect(wrapper.queryByRole('button', { name: /new/i })).toBeNull()
+		expect(wrapper.queryByRole('heading', { name: /scripts/i })).toBeNull()
 	})
 })

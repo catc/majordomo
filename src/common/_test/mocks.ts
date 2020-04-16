@@ -14,11 +14,11 @@ export const generateScript = (
 		color: '#fff',
 		description: '',
 		autorun: false,
-		...overrides,
 		filters: [],
 		code: '',
 		order: 5,
 		on: {},
+		...overrides,
 	}
 }
 

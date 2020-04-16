@@ -43,6 +43,7 @@
 		},
 	},
 	"include": [
+		"global.d.ts",
 		"src/popup",
 		"src/background",
 		"src/options",
