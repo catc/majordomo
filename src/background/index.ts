@@ -1,6 +1,6 @@
 import { openOptionsPage, QUERY_TYPE } from '@common/utils/link'
 import migrate from './migrate'
-import { setup } from '@common/utils/scripts'
+import { setup, store } from '@common/utils/scripts'
 import AutoRun from './autorun-scripts'
 import { dev_reloadOnPageRefresh } from './_dev/utils'
 
@@ -17,7 +17,7 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
 	}
 
 	// setup autorun scripts
-	new AutoRun()
+	new AutoRun(store)
 
 	// FOR DEV TESTING
 	// dev_reloadOnPageRefresh

@@ -1,5 +1,5 @@
 import Autorun from '../autorun-scripts'
-import { store, setup, SUPPORTED_EVENTS } from '@common/utils/scripts'
+import { SUPPORTED_EVENTS, Store } from '@common/utils/scripts'
 import { generateScript } from '@common/_test/mocks'
 
 const script1 = generateScript(undefined, {
@@ -43,9 +43,9 @@ describe('autorun-scripts', () => {
 	})
 
 	it('setups', async () => {
-		await setup()
-
-		const autorun = new Autorun()
+		const store = new Store()
+		await store.ready
+		const autorun = new Autorun(store)
 
 		// first argument was is the bound event type
 		expect(addListenerMock).toHaveBeenCalledWith(
@@ -85,8 +85,9 @@ describe('autorun-scripts', () => {
 	})
 
 	it('handles script updates correctly', async () => {
-		await setup()
-		const autorun = new Autorun()
+		const store = new Store()
+		await store.ready
+		const autorun = new Autorun(store)
 
 		const messageHandler =
 			global.chrome.runtime.onMessage.addListener.mock.calls[0][0]

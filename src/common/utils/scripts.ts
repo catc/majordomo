@@ -88,12 +88,7 @@ export class Store {
 			throw new Error('script has no id ')
 		}
 		this.scripts[script.id] = script
-		await this._save()
-
-		// notify background process that scripts have changed
-		if (shouldTriggerAutorunRefresh) {
-			this._triggerAutorunRefresh()
-		}
+		await this._save(shouldTriggerAutorunRefresh)
 	}
 
 	async saveScripts(scripts: Script[]) {
@@ -119,7 +114,7 @@ export class Store {
 		}
 	}
 
-	private async _save() {
+	private async _save(alertBackgroundScript?: boolean) {
 		// save to chrome store
 		await save(SCRIPTS_KEY, this.scripts)
 
@@ -127,30 +122,28 @@ export class Store {
 		this.scripts = Object.assign({}, this.scripts)
 
 		// alert subscribers
-		this._publish()
+		this._publishToReact()
+
+		// notify background process that scripts have changed
+		if (alertBackgroundScript) {
+			const msg: MESSAGE_TYPES = { type: 'REFRESH_SCRIPTS' }
+			chrome.runtime.sendMessage(msg)
+		}
 	}
 
-	// alerts all store subscribers that the scripts have updated
-	private _publish() {
+	// publishes event to all react subscribers that scripts have updated
+	private _publishToReact() {
 		this._subs.forEach(sub => sub())
 	}
 
 	refresh() {
 		return this._fetchScripts()
 	}
-
-	// send message to background to refresh autorun scripts
-	private _triggerAutorunRefresh() {
-		const msg: MESSAGE_TYPES = { type: 'REFRESH_SCRIPTS' }
-		chrome.runtime.sendMessage(msg)
-	}
 }
-
-const isTesting = process.env.NODE_ENV === 'test'
 
 // should only be called once per app
 export async function setup() {
-	if (store != null && !isTesting) {
+	if (store != null) {
 		throw new Error('Re-initializing state')
 	}
 

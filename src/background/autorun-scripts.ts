@@ -1,4 +1,4 @@
-import { store, EventType } from '@common/utils/scripts'
+import { Store, EventType } from '@common/utils/scripts'
 import map from 'lodash/map'
 import pickBy from 'lodash/pickBy'
 import flatten from 'lodash/flatten'
@@ -9,13 +9,18 @@ export type MESSAGE_TYPES = { type: 'REFRESH_SCRIPTS' }
 
 export default class AutoRun {
 	private _toClean: DisposeType[] = []
+	private store: Store
 
-	constructor() {
+	constructor(store: Store) {
+		this.store = store
+
 		this.addEventListeners()
 		this._subscribeToUpdates()
 	}
 
 	private addEventListeners() {
+		const store = this.store
+
 		// get all scripts with autorun enabled
 		const scripts = map(store.scripts).filter(s => s.autorun)
 
@@ -77,7 +82,7 @@ export default class AutoRun {
 			force store to update scripts, this is required
 			since background has it's own store
 		*/
-		await store.refresh()
+		await this.store.refresh()
 
 		// add event listeners
 		this.addEventListeners()
