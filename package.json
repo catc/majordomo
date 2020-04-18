@@ -68,14 +68,16 @@
 			"jest-watch-typeahead/testname"
 		],
 		"setupFilesAfterEnv": [
-			"./common/_test/setup.ts"
+			"./test/setup.ts"
 		],
 		"rootDir": "src/",
 		"testRegex": "(.*)\\_spec\\.(t|j)sx?$",
 		"moduleNameMapper": {
 			"^@common/(.*)$": "<rootDir>/common/$1",
 			"^@background/(.*)$": "<rootDir>/background/$1",
-			"\\.scss$": "<rootDir>/common/_test/empty.ts"
+			"^@options/(.*)$": "<rootDir>/options/$1",
+			"^@popup/(.*)$": "<rootDir>/popup/$1",
+			"\\.scss$": "<rootDir>/test/empty.ts"
 		}
 	}
 }

@@ -1,4 +1,4 @@
-import migrate_v1, { newScript } from '../migrate'
+import migrate_v1, { newScript } from '../../background/migrate'
 import { createID } from '@common/utils/storage_v1'
 import { setup, store } from '@common/utils/scripts'
 

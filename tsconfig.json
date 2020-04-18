@@ -47,7 +47,8 @@
 		"src/popup",
 		"src/background",
 		"src/options",
-		"src/common"
+		"src/common",
+		"src/test",
 	],
 	"exclude": [
 		"node_modules",

@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 import ScriptList from '@common/components/ScriptList'
 import useAppContext from '@common/hooks/useAppContext'
 import { Permissions } from '@common/types/state'
-import { generateScripts } from '../mocks'
+import { generateScripts } from '../../../test/mocks'
 
 jest.mock('@common/hooks/useAppContext')
 jest.mock('@common/components/ScriptItem', () => () => <div data-testid="script-item" />)

@@ -1,4 +1,4 @@
-import { jsToCode, codeToJS, validate } from '../components/form/parseFilters'
+import { jsToCode, codeToJS, validate } from '@options/components/form/parseFilters'
 
 describe('jsToCode', () => {
 	it('returns code string if filters are null', () => {

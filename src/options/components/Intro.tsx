@@ -24,7 +24,7 @@ export default function Intro() {
 					<div className="intro-modal">
 						<div className="intro-modal__title">🤵</div>
 						<p>
-							Welcome to Majordomo - the one-stop-shop for all your custom
+							Welcome to Majordomo - the one-stop shop for all your custom
 							script needs. This extension comes with a variety of features
 							including:
 						</p>
@@ -43,7 +43,7 @@ export default function Intro() {
 								Easily organize scripts via color tags and sorting
 							</li>
 						</ul>
-						<p>
+						<p className="intro-modal__git">
 							Find a bug or want to contribute to the project? See the{' '}
 							<a
 								href="https://github.com/catc/majordomo"

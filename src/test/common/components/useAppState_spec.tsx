@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/react'
 import { Permissions, STATUS } from '@common/types/state'
 import useAppContext, { Provider } from '@common/hooks/useAppContext'
 import { act } from 'react-dom/test-utils'
-import { generateScript } from '../mocks'
+import { generateScript } from '../../../test/mocks'
 import { Script } from '@common/utils/scripts'
 import * as scriptUtils from '@common/utils/scripts'
 

@@ -1,6 +1,6 @@
-import Autorun from '../autorun-scripts'
+import Autorun from '@background/autorun-scripts'
 import { SUPPORTED_EVENTS, Store } from '@common/utils/scripts'
-import { generateScript } from '@common/_test/mocks'
+import { generateScript } from '../mocks'
 
 const script1 = generateScript(undefined, {
 	autorun: true,
