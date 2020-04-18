@@ -141,9 +141,11 @@ export class Store {
 	}
 }
 
+const isTestEnv = process.env.NODE_ENV === 'test'
+
 // should only be called once per app
 export async function setup() {
-	if (store != null) {
+	if (store != null && !isTestEnv) {
 		throw new Error('Re-initializing state')
 	}
 

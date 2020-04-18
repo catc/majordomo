@@ -67,7 +67,7 @@
 			"jest-watch-typeahead/filename",
 			"jest-watch-typeahead/testname"
 		],
-		"setupFiles": [
+		"setupFilesAfterEnv": [
 			"./common/_test/setup.ts"
 		],
 		"rootDir": "src/",
