@@ -10,14 +10,30 @@ import * as scriptUtils from '@common/utils/scripts'
 describe('useAppContext', () => {
 	it('waits for store to startup', async () => {
 		const setupMock = jest.spyOn(scriptUtils, 'setup')
-		render(
+
+		/*
+			mock chrome storage get, essentially pausing `_fetchScripts`
+			method on store to verify content isnt loaded until store setup
+		 */
+		let resolve: any
+		jest.spyOn(chrome.storage.sync, 'get').mockImplementationOnce((_, cb) => {
+			resolve = cb
+		})
+
+		const wrapper = render(
 			<Provider permissions={{} as Permissions}>
-				<div />
+				<div data-testid="content" />
 			</Provider>,
 		)
+
+		// should render nothing until promise resolves
+		expect(wrapper.queryByTestId('content')).toBeNull()
+		await act(async () => resolve())
+		expect(wrapper.queryByTestId('content')).toBeTruthy()
+
+		// store should be setup - this is more of a sanity check
 		expect(setupMock).toHaveBeenCalled()
 		expect(scriptUtils.store).toBeInstanceOf(scriptUtils.Store)
-		await act(async () => {})
 	})
 
 	it('renders with permissions', async () => {
