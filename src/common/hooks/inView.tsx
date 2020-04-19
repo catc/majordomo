@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect, RefObject } from 'react'
+import { useState, useRef, useCallback } from 'react'
 
-export type InViewRefBind = { ref: RefObject<any> }
+// TODO - fix me to use generic HTMLElement
+export type InViewRefBind = { ref: (node: any) => void }
 
 export default function useInView(
 	initialVal = false,
@@ -9,19 +10,28 @@ export default function useInView(
 	const [isInView, setIsInView] = useState(initialVal)
 
 	const ref = useRef<HTMLElement>()
-
 	const { current: observer } = useRef(
 		new window.IntersectionObserver(([entry]) => {
 			setIsInView(entry.isIntersecting)
 		}, opts),
 	)
 
-	useEffect(() => {
-		if (ref && ref.current) {
-			observer.observe(ref.current)
-		}
-		return () => observer.disconnect()
-	}, [observer])
+	// https://medium.com/@teh_builder/ref-objects-inside-useeffect-hooks-eb7c15198780
+	const setRef = useCallback(
+		node => {
+			if (ref.current) {
+				// remove old listener
+				observer.disconnect()
+			}
 
-	return [isInView, { ref } as InViewRefBind]
+			if (node) {
+				observer.observe(node)
+			}
+
+			ref.current = node
+		},
+		[observer],
+	)
+
+	return [isInView, { ref: setRef } as InViewRefBind]
 }

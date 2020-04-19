@@ -31,7 +31,7 @@ export default function ScriptListContainer({
 }: Props) {
 	const { setStatus, permissions } = useAppContext()
 	const [term, setSearchTerm] = useState('')
-	const [topInView, bind] = useInView(true) // TODO - fix and move down this
+	const [topInView, bind] = useInView(true)
 
 	const scripts = useMemo(() => {
 		if (term.length > 2) {
