@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import '@common/css/components/script-list.scss'
 import useScripts from '@common/hooks/useScripts'
 import useAppContext from '@common/hooks/useAppContext'
 import AddNewScriptPrompt from '@common/components/AddNewScriptPrompt'

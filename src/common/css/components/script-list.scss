@@ -8,10 +8,13 @@
 }
 
 .script-list {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	overflow: hidden; // for __top shadow not to spill over
+
+	&__container {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		overflow: hidden; // for __top shadow not to spill over
+	}
 
 	&__top {
 		flex-shrink: 0;

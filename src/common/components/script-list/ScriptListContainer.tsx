@@ -42,6 +42,8 @@ export default function ScriptListContainer({
 	}, [term, unfilteredScripts])
 
 	const canDisplaySearch = unfilteredScripts.length >= MIN_SCRIPTS_FOR_SEARCH
+	const canDisplayTitle = permissions.canAddScript && !canDisplaySearch
+	const canShowNewButton = permissions.canAddScript
 
 	let component
 	if (supportDrag) {
@@ -69,26 +71,30 @@ export default function ScriptListContainer({
 	}
 
 	return (
-		<div className="script-list" data-testid="script-list">
-			{/* TODO - add whether to display top or not, bugs out in popup, fix tests */}
-			<div className={`script-list__top ${!topInView ? 'bottom-shadow' : ''}`}>
-				{permissions.canAddScript && !canDisplaySearch && (
-					<h2 className="panel__title">Scripts</h2>
-				)}
+		<div className="script-list__container" data-testid="script-list-container">
+			{(canDisplayTitle || canDisplaySearch || canShowNewButton) && (
+				<div
+					className={`script-list__top ${!topInView ? 'bottom-shadow' : ''}`}
+					data-testid="script-list-top-bar"
+				>
+					{canDisplayTitle && <h2 className="panel__title">Scripts</h2>}
 
-				{canDisplaySearch && <SearchField setFilter={setSearchTerm} />}
+					{canDisplaySearch && <SearchField setFilter={setSearchTerm} />}
 
-				{permissions.canAddScript && (
-					<PrimaryButton
-						icon="with-text"
-						style={{ flexShrink: 0, marginLeft: '2em' }}
-						onClick={() => setStatus({ status: STATUS.NEW })}
-					>
-						<PlusIcon />
-						New
-					</PrimaryButton>
-				)}
-			</div>
+					{canShowNewButton && (
+						<PrimaryButton
+							icon="with-text"
+							style={{ flexShrink: 0, marginLeft: '2em' }}
+							onClick={() => setStatus({ status: STATUS.NEW })}
+						>
+							<PlusIcon />
+							New
+						</PrimaryButton>
+					)}
+				</div>
+			)}
+
+			{/* actual list */}
 			{component}
 		</div>
 	)

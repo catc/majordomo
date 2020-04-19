@@ -1,5 +1,4 @@
 import React from 'react'
-import '@common/css/components/script-list.scss'
 import useScripts from '@common/hooks/useScripts'
 import AddNewScriptPrompt from '@common/components/AddNewScriptPrompt'
 import ScriptListContainer from '@common/components/script-list/ScriptListContainer'

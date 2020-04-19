@@ -15,11 +15,12 @@ export default function ScriptListWrapper({
 }: Props) {
 	return (
 		<ul
+			data-testid="script-list"
 			className="script-list__list"
 			ref={provided.innerRef}
 			{...provided.droppableProps}
 		>
-			<li {...bindInView}></li>
+			<li {...bindInView} />
 
 			{children}
 		</ul>

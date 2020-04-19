@@ -1,5 +1,4 @@
 import React, { useMemo, useCallback, useState } from 'react'
-import '@common/css/components/script-item.scss'
 import { formatDate } from '@common/utils/date'
 import { SetStatusActionProps } from '@common/hooks/state'
 import { STATUS, Permissions } from '@common/types/state'
