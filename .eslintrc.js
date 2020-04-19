@@ -78,6 +78,10 @@ module.exports = {
 		'react/no-array-index-key': 1,
 		'react/jsx-curly-brace-presence': 1,
 		'react/no-typos': 'warn',
+		'react/self-closing-comp': [1, {
+			'component': true,
+			'html': true
+		}],
 		// TODO - breaks jsx with prettier sometimes? investigate
 		// 'react/jsx-wrap-multilines': [
 		// 	1,
@@ -95,7 +99,7 @@ module.exports = {
 		// 'react/jsx-first-prop-new-line': ['error', 'multiline-multiprop'], // MIGHT interferes with prettier
 		// 'react/jsx-equals-spacing': ['error', 'never'], // MIGHT interferes with prettier
 		// 'react/jsx-tag-spacing': [ // MIGHT interferes with prettier
-		// 	'error',
+		// 	1,
 		// 	{
 		// 		closingSlash: 'never',
 		// 		beforeSelfClosing: 'always',
