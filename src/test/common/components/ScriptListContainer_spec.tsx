@@ -6,6 +6,7 @@ import { Permissions } from '@common/types/state'
 import { generateScripts } from '../../../test/mocks'
 
 jest.mock('@common/hooks/useAppContext')
+jest.mock('@common/hooks/inView', () => () => [false, {}])
 jest.mock('@common/components/script-item/ScriptItemContent', () => () => (
 	<div data-testid="script-item" />
 ))
@@ -16,12 +17,6 @@ const mockPermissions = (permissions: Permissions = {} as Permissions) => {
 		return { permissions }
 	})
 }
-
-// @ts-ignore
-window.IntersectionObserver = jest.fn(() => ({
-	observe: jest.fn(),
-	disconnect: jest.fn(),
-}))
 
 describe('ScriptListContainer', () => {
 	beforeEach(() => {

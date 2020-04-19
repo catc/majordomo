@@ -79,7 +79,7 @@ export class Store {
 				const scripts: ScriptsMap = data[SCRIPTS_KEY] || {}
 				this.scripts = scripts
 				if (fetchOrder) {
-					this.order = getOrder(scripts, data[SCRIPT_ORDER_KEY]).slice(0, 3)
+					this.order = getOrder(scripts, data[SCRIPT_ORDER_KEY])
 				}
 				res()
 			})

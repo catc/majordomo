@@ -42,7 +42,7 @@
 		height: 100%;
 
 		// ignore li placeholder for inview
-		> li:not(:first-child) {
+		> li:not(:first-child):not(:last-child) {
 			// TODO - consider changing this to a class
 			margin-bottom: 1em;
 		}
