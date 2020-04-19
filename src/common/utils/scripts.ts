@@ -2,6 +2,7 @@ import { save } from './storage'
 import keyBy from 'lodash/keyBy'
 import { MESSAGE_TYPES } from '@background/autorun-scripts'
 import { UrlFilter } from '@common/types/url-filters'
+import uniq from 'lodash/uniq'
 
 /*
 	TODO - error handling
@@ -61,23 +62,36 @@ export type ScriptsMap = { [id: string]: Script }
 type StoreSubscriber = () => void
 
 const SCRIPTS_KEY = 'scripts'
+const SCRIPT_ORDER_KEY = 'script_order'
 
 export let store: NonNullable<Store>
+
+export function getOrder(scripts: ScriptsMap, raworder: string[]) {
+	return uniq([...raworder, ...Object.keys(scripts)]).filter(id => scripts[id] != null)
+}
 
 export class Store {
 	ready: Promise<void>
 	scripts: ScriptsMap = {}
+	order: string[] = []
 	private _subs: Set<StoreSubscriber> = new Set()
 
 	constructor() {
-		this.ready = this._fetchScripts()
+		this.ready = this._fetchScripts(true)
 	}
 
-	private _fetchScripts() {
+	private _fetchScripts(fetchOrder = false) {
 		return new Promise<void>(res => {
-			chrome.storage.sync.get(SCRIPTS_KEY, (data = {}) => {
+			const keys = [SCRIPTS_KEY]
+			if (fetchOrder) keys.push(SCRIPT_ORDER_KEY)
+
+			chrome.storage.sync.get(keys, (data = {}) => {
 				const scripts: ScriptsMap = data[SCRIPTS_KEY] || {}
 				this.scripts = scripts
+				if (fetchOrder) {
+					const order = data[SCRIPT_ORDER_KEY] || []
+					this.order = getOrder(scripts, order)
+				}
 				res()
 			})
 		})
@@ -89,6 +103,14 @@ export class Store {
 		}
 		this.scripts[script.id] = script
 		await this._save(shouldTriggerAutorunRefresh)
+	}
+
+	async updateOrder(start: number, end: number) {
+		const o = this.order
+		const [item] = o.splice(start, 1)
+		o.splice(end, 0, item)
+		this.order = Array.from(this.order)
+		await this._save()
 	}
 
 	async saveScripts(scripts: Script[]) {
@@ -115,14 +137,18 @@ export class Store {
 	}
 
 	private async _save(alertBackgroundScript?: boolean) {
-		// save to chrome store
-		await save(SCRIPTS_KEY, this.scripts)
-
 		// create new object (so can set state in react)
 		this.scripts = Object.assign({}, this.scripts)
+		this.order = Array.from(this.order)
 
 		// alert subscribers
 		this._publishToReact()
+
+		// save to chrome store
+		await Promise.all([
+			save(SCRIPTS_KEY, this.scripts),
+			save(SCRIPT_ORDER_KEY, this.order),
+		])
 
 		// notify background process that scripts have changed
 		if (alertBackgroundScript) {

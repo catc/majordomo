@@ -1,4 +1,4 @@
-import { Script, Store, setup, store } from '@common/utils/scripts'
+import { Script, Store, setup, store, getOrder } from '@common/utils/scripts'
 
 const scriptsMock = () => ({
 	aa: {
@@ -36,10 +36,12 @@ describe('storage', () => {
 
 	it('correctly fetches scripts', async () => {
 		const data = scriptsMock()
-		const { get, store } = await mock({ scripts: data })
+		const scriptOrder = ['aa', 'bb', 'cc']
+		const { get, store } = await mock({ scripts: data, script_order: scriptOrder })
 
-		expect(get).toBeCalledWith('scripts', expect.any(Function))
+		expect(get).toBeCalledWith(['scripts', 'script_order'], expect.any(Function))
 		expect(store.scripts).toMatchObject(data)
+		expect(store.order).toEqual(['aa', 'bb'])
 	})
 
 	it('correctly saves a new script', async () => {
@@ -139,4 +141,51 @@ it('setup', async () => {
 	await setup()
 	expect(store).not.toBeUndefined()
 	expect(store).toBeInstanceOf(Store)
+})
+
+describe('getOrder', () => {
+	it('correctly returns an array of script ids', () => {
+		const scripts = {
+			a: {} as Script,
+			b: {} as Script,
+			c: {} as Script,
+		}
+		const raworder = ['a', 'b', 'c']
+		expect(getOrder(scripts, raworder)).toEqual(['a', 'b', 'c'])
+	})
+	it('correctly dedupes array ids', () => {
+		const scripts = {
+			a: {} as Script,
+			b: {} as Script,
+			c: {} as Script,
+		}
+		const raworder = ['a', 'b', 'c', 'a', 'a', 'c']
+		expect(getOrder(scripts, raworder)).toEqual(['a', 'b', 'c'])
+	})
+	it('correctly adds any missing ids', () => {
+		const scripts = {
+			c: {} as Script,
+			a: {} as Script,
+			b: {} as Script,
+		}
+		const raworder = ['a', 'b']
+		expect(getOrder(scripts, raworder)).toEqual(['a', 'b', 'c'])
+	})
+	it('correctly removes any non script ids', () => {
+		const scripts = {
+			a: {} as Script,
+			b: {} as Script,
+		}
+		const raworder = ['a', 'b', 'c', 'a']
+		expect(getOrder(scripts, raworder)).toEqual(['a', 'b'])
+	})
+	it('correctly adds any missing and dedupes ids', () => {
+		const scripts = {
+			a: {} as Script,
+			b: {} as Script,
+			c: {} as Script,
+		}
+		const raworder = ['a', 'b', 'a', 'bb', 'd', 'a']
+		expect(getOrder(scripts, raworder)).toEqual(['a', 'b', 'c'])
+	})
 })

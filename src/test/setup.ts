@@ -7,6 +7,13 @@ global.chrome = {
 				if (!key) {
 					return cb(global.storage)
 				}
+				if (Array.isArray(key)) {
+					const data: { [key: string]: any } = {}
+					key.forEach(k => {
+						data[k] = global.storage[k]
+					})
+					return cb(data)
+				}
 				return cb({ [key]: global.storage[key] })
 			}),
 			set: jest.fn((data, cb) => {
