@@ -2,6 +2,7 @@ import { Store, EventType } from '@common/utils/scripts'
 import map from 'lodash/map'
 import pickBy from 'lodash/pickBy'
 import flatten from 'lodash/flatten'
+import { log } from './log'
 
 type DisposeType = { fn: () => any; eventType: EventType }
 
@@ -29,7 +30,7 @@ export default class AutoRun {
 			.map(script => {
 				if (script.on != null) {
 					if (!Array.isArray(script.filters)) {
-						console.log(`Script "${script.name}" does not have valid filters`)
+						log(`Script "${script.name}" does not have valid filters`)
 						return null
 					}
 					const filters = {
@@ -64,7 +65,7 @@ export default class AutoRun {
 		this._toClean = flatten(cleanFunctionArrays)
 
 		const len = this._toClean.length
-		console.log(`Added ${len} listener${len === 1 ? '' : 's'}`)
+		log(`🤵 Added ${len} listener${len === 1 ? '' : 's'}`, 'green_bold')
 	}
 
 	private _cleanup() {

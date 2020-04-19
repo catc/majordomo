@@ -32,16 +32,6 @@ export type EventType = keyof Pick<
 	ElementType<typeof SUPPORTED_EVENTS>
 >
 
-export type ScriptV1 = {
-	id: string
-	lastModified: number
-	name: string
-	color: string
-	code: string
-	description: string
-	fav: boolean
-}
-
 export type Script = {
 	id: string
 	lastModified: number
@@ -62,7 +52,7 @@ export type ScriptsMap = { [id: string]: Script }
 type StoreSubscriber = () => void
 
 const SCRIPTS_KEY = 'scripts'
-const SCRIPT_ORDER_KEY = 'script_order'
+export const SCRIPT_ORDER_KEY = 'script_order'
 
 export let store: NonNullable<Store>
 

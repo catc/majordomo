@@ -1,10 +1,12 @@
 import { getScripts as getScriptsV1 } from '@common/utils/storage_v1'
 import { store, Script, getScriptDefaults, genID } from '@common/utils/scripts'
 import { remove } from '@common/utils/storage'
+import { log } from './log'
 
 // migrate v1 scripts to v2
 export default async function migrate_v1() {
 	const scriptsv1 = await getScriptsV1()
+
 	if (scriptsv1.length) {
 		try {
 			// convert v1 scripts to v2
@@ -26,11 +28,11 @@ export default async function migrate_v1() {
 			const oldScriptKeys = scriptsv1.map(s => s.id).filter(a => a != null)
 			await remove(oldScriptKeys)
 
-			console.log(
-				`%cFinished migrating ${scriptsv2.length} script${
+			log(
+				`Finished migrating ${scriptsv2.length} script${
 					scriptsv2.length === 1 ? '' : 's'
 				} from v1 to v2`,
-				'font-weight: bold; color: #2196f3;',
+				'blue_bold',
 			)
 		} catch (err) {
 			console.error('Error migrating v1 scripts to v2', err)
