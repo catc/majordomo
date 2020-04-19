@@ -94,17 +94,18 @@ describe('autorun-scripts', () => {
 
 		// add listener to store when refresh scripts is triggered
 		const scriptRefreshSpy = jest.spyOn(store, 'refresh')
+		const autorunAddListenersSpy = jest.spyOn(autorun, 'addEventListeners')
 
+		// get all added listeners to verify they're cleaned later
 		const toClean = addListenerMock.mock.calls.map(mockCall => ({
 			eventType: mockCall[0],
 			fn: mockCall[1],
 		}))
 
-		const autorunAddListenersSpy = jest.spyOn(autorun, 'addEventListeners')
-
 		// trigger the refresh
 		messageHandler({ type: 'REFRESH_SCRIPTS' })
 
+		// ensure everything is cleaned
 		toClean.forEach(({ fn, eventType }) => {
 			expect(removeListenerMock).toHaveBeenCalledWith(eventType, fn)
 		})

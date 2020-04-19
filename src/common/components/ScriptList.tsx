@@ -14,7 +14,7 @@ type Props = {
 
 /*
 	- renders all scripts
-	- displays search bar if more than 3 scripts
+	- displays search bar if 5+ scripts
 */
 
 const MIN_SCRIPTS_FOR_SEARCH = 5
