@@ -5,7 +5,7 @@ import useAppContext from '@common/hooks/useAppContext'
 import AddNewScriptPrompt from '@common/components/AddNewScriptPrompt'
 import { STATUS } from '@common/types/state'
 
-import ScriptList from '@common/components/ScriptList'
+import ScriptListContainer from '@common/components/script-list/ScriptListContainer'
 import { QUERY_TYPE, parseOptionsPageParams } from '@common/utils/link'
 
 export default function ScriptListWrapper() {
@@ -33,7 +33,7 @@ export default function ScriptListWrapper() {
 			break
 
 		case scripts.length > 0:
-			component = <ScriptList scripts={scripts} />
+			component = <ScriptListContainer scripts={scripts} supportDrag />
 			break
 
 		// state is in edit mode for new script

@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react'
-import ScriptItem from './ScriptItem'
 import PrimaryButton from '@common/components/PrimaryButton'
 import { STATUS } from '@common/types/state'
 import useAppContext from '@common/hooks/useAppContext'
@@ -8,8 +7,15 @@ import useInView from '@common/hooks/inView'
 import { Script } from '@common/utils/scripts'
 import SearchField from './SearchField'
 
+const ScriptListWithDrag = React.lazy(() =>
+	import('@common/components/script-list/ScriptListWithDrag'),
+)
+
+const ScriptList = React.lazy(() => import('@common/components/script-list/ScriptList'))
+
 type Props = {
 	scripts: Script[]
+	supportDrag?: boolean
 }
 
 /*
@@ -19,19 +25,13 @@ type Props = {
 
 const MIN_SCRIPTS_FOR_SEARCH = 5
 
-export default function ScriptList({ scripts: unfilteredScripts }: Props) {
-	const {
-		setStatus,
-		permissions: {
-			canAddScript,
-			canFav,
-			canToggleDescription,
-			canExecute,
-			canEditScript,
-		},
-	} = useAppContext()
+export default function ScriptListContainer({
+	scripts: unfilteredScripts,
+	supportDrag,
+}: Props) {
+	const { setStatus, permissions } = useAppContext()
 	const [term, setSearchTerm] = useState('')
-	const [topInView, bind] = useInView(true)
+	const [topInView, bind] = useInView(true) // TODO - fix and move down this
 
 	const scripts = useMemo(() => {
 		if (term.length > 2) {
@@ -43,16 +43,42 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 
 	const canDisplaySearch = unfilteredScripts.length >= MIN_SCRIPTS_FOR_SEARCH
 
+	let component
+	if (supportDrag) {
+		component = (
+			<React.Suspense fallback={null}>
+				<ScriptListWithDrag
+					scripts={scripts}
+					bindInView={bind}
+					setStatus={setStatus}
+					permissions={permissions}
+				/>
+			</React.Suspense>
+		)
+	} else {
+		component = (
+			<React.Suspense fallback={null}>
+				<ScriptList
+					scripts={scripts}
+					bindInView={bind}
+					setStatus={setStatus}
+					permissions={permissions}
+				/>
+			</React.Suspense>
+		)
+	}
+
 	return (
 		<div className="script-list" data-testid="script-list">
+			{/* TODO - add whether to display top or not, bugs out in popup, fix tests */}
 			<div className={`script-list__top ${!topInView ? 'bottom-shadow' : ''}`}>
-				{canAddScript && !canDisplaySearch && (
+				{permissions.canAddScript && !canDisplaySearch && (
 					<h2 className="panel__title">Scripts</h2>
 				)}
 
 				{canDisplaySearch && <SearchField setFilter={setSearchTerm} />}
 
-				{canAddScript && (
+				{permissions.canAddScript && (
 					<PrimaryButton
 						icon="with-text"
 						style={{ flexShrink: 0, marginLeft: '2em' }}
@@ -63,22 +89,7 @@ export default function ScriptList({ scripts: unfilteredScripts }: Props) {
 					</PrimaryButton>
 				)}
 			</div>
-			<ul className="script-list__list">
-				<li {...bind}></li>
-
-				{scripts.map((s, i) => (
-					<ScriptItem
-						key={s.id}
-						script={s}
-						setStatus={setStatus}
-						// permissions
-						canFav={canFav}
-						canToggleDescription={canToggleDescription}
-						canExecute={canExecute}
-						canEditScript={canEditScript}
-					/>
-				))}
-			</ul>
+			{component}
 		</div>
 	)
 }

@@ -66,7 +66,7 @@ const SCRIPT_ORDER_KEY = 'script_order'
 
 export let store: NonNullable<Store>
 
-export function getOrder(scripts: ScriptsMap, raworder: string[]) {
+export function getOrder(scripts: ScriptsMap, raworder: string[] = []) {
 	return uniq([...raworder, ...Object.keys(scripts)]).filter(id => scripts[id] != null)
 }
 
@@ -89,8 +89,7 @@ export class Store {
 				const scripts: ScriptsMap = data[SCRIPTS_KEY] || {}
 				this.scripts = scripts
 				if (fetchOrder) {
-					const order = data[SCRIPT_ORDER_KEY] || []
-					this.order = getOrder(scripts, order)
+					this.order = getOrder(scripts, data[SCRIPT_ORDER_KEY])
 				}
 				res()
 			})
@@ -109,7 +108,6 @@ export class Store {
 		const o = this.order
 		const [item] = o.splice(start, 1)
 		o.splice(end, 0, item)
-		this.order = Array.from(this.order)
 		await this._save()
 	}
 
@@ -126,6 +124,8 @@ export class Store {
 
 	async remove(script: Script) {
 		delete store.scripts[script.id]
+		const ind = this.order.findIndex(a => a === script.id)
+		this.order.splice(ind, 1)
 		await this._save()
 	}
 
@@ -137,18 +137,18 @@ export class Store {
 	}
 
 	private async _save(alertBackgroundScript?: boolean) {
-		// create new object (so can set state in react)
+		// create new object/array (to trigger change in react after publishing)
 		this.scripts = Object.assign({}, this.scripts)
-		this.order = Array.from(this.order)
+		this.order = getOrder(this.scripts, this.order)
 
 		// alert subscribers
 		this._publishToReact()
 
 		// save to chrome store
-		await Promise.all([
-			save(SCRIPTS_KEY, this.scripts),
-			save(SCRIPT_ORDER_KEY, this.order),
-		])
+		await save({
+			[SCRIPTS_KEY]: this.scripts,
+			[SCRIPT_ORDER_KEY]: this.order,
+		})
 
 		// notify background process that scripts have changed
 		if (alertBackgroundScript) {

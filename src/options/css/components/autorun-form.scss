@@ -115,6 +115,10 @@ Main form
 			&:last-child {
 				margin-left: 8px;
 			}
+
+			svg {
+				vertical-align: -9px;
+			}
 		}
 
 		&-off {
@@ -127,7 +131,7 @@ Main form
 	}
 
 	&__disabled {
-		opacity: 0.4;
+		opacity: 0.3;
 
 		label {
 			cursor: not-allowed;

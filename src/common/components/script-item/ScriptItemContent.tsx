@@ -1,35 +1,25 @@
 import React, { useMemo, useCallback, useState } from 'react'
-import '../css/components/script-item.scss'
-import { ScriptV1 } from '@common/types/scripts'
+import '@common/css/components/script-item.scss'
 import { formatDate } from '@common/utils/date'
 import { SetStatusActionProps } from '@common/hooks/state'
-import { STATUS } from '@common/types/state'
-import { toggleFavourite } from '@common/utils/storage_v1'
+import { STATUS, Permissions } from '@common/types/state'
 import { runScript } from '@common/utils/execute'
 
 import AwardIcon from '@common/components/icons/Award'
 import PlayCircle from '@common/components/icons/PlayCircle'
 import ChevronDown from '@common/components/icons/ChevronDown'
 import ChevronUp from '@common/components/icons/ChevronUp'
-import { store } from '@common/utils/scripts'
+import { store, Script } from '@common/utils/scripts'
 
 type Props = {
-	script: ScriptV1
+	script: Script
 	setStatus: (p: SetStatusActionProps) => void
-	canFav: boolean
-	canToggleDescription: boolean
-	canExecute: boolean
-	canEditScript: boolean
+	permissions: Permissions
 }
 
-export default function ScriptItem({
-	script,
-	setStatus,
-	canFav,
-	canEditScript,
-	canExecute,
-	canToggleDescription,
-}: Props) {
+export default function ScriptItemContent({ script, setStatus, permissions }: Props) {
+	const { canFav, canToggleDescription, canExecute, canEditScript } = permissions
+
 	const [displayDescription, toggleDescription] = useState(false)
 	const date = useMemo(() => formatDate(script.lastModified), [script.lastModified])
 
@@ -39,12 +29,12 @@ export default function ScriptItem({
 
 	const favourite = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.stopPropagation()
-		toggleFavourite(script)
+		// toggleFavourite(script)
 	}
 
 	const color = script.color !== '#ffffff' ? script.color : ''
 	return (
-		<li
+		<div
 			className={`script-item ${canEditScript ? 'editable' : ''}`}
 			style={{ borderLeftColor: color }}
 			onClick={handleItemClick}
@@ -96,6 +86,6 @@ export default function ScriptItem({
 					</button>
 				)}
 			</div>
-		</li>
+		</div>
 	)
 }

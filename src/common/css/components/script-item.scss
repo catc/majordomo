@@ -1,11 +1,7 @@
 @import '@common/css/base/variables.scss';
 
 .script-item {
-	// margin-bottom: 1.5em;
-	// padding: 0.5em 1em;
-	// padding: 0.8em 1em;
 	position: relative;
-	margin-bottom: 1em;
 	$border-color: darken($light1, 3%);
 	border: 1px solid $border-color;
 	border-left: 4px solid $border-color;

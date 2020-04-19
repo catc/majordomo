@@ -1,12 +1,14 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, RefObject } from 'react'
+
+export type InViewRefBind = { ref: RefObject<any> }
 
 export default function useInView(
 	initialVal = false,
 	opts: IntersectionObserverInit = {},
-) {
+): [boolean, InViewRefBind] {
 	const [isInView, setIsInView] = useState(initialVal)
 
-	const ref = useRef<any>(null)
+	const ref = useRef<HTMLElement>()
 
 	const { current: observer } = useRef(
 		new window.IntersectionObserver(([entry]) => {
@@ -21,5 +23,5 @@ export default function useInView(
 		return () => observer.disconnect()
 	}, [observer])
 
-	return [isInView, { ref } as any]
+	return [isInView, { ref } as InViewRefBind]
 }

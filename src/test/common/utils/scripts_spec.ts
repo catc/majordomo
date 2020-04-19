@@ -36,7 +36,7 @@ describe('storage', () => {
 
 	it('correctly fetches scripts', async () => {
 		const data = scriptsMock()
-		const scriptOrder = ['aa', 'bb', 'cc']
+		const scriptOrder = ['aa', 'bb', 'cc'] // cc doesn't existed and is removed
 		const { get, store } = await mock({ scripts: data, script_order: scriptOrder })
 
 		expect(get).toBeCalledWith(['scripts', 'script_order'], expect.any(Function))
@@ -51,15 +51,18 @@ describe('storage', () => {
 		const script = { id: 'cc', name: 'this is c' } as Script
 		await store.saveScript(script)
 
-		const fin = {
+		const scriptsFin = {
 			...data,
 			[script.id]: script,
 		}
+		const orderFin = ['aa', 'bb', 'cc']
 
-		expect(store.scripts).toMatchObject(fin)
+		expect(store.scripts).toMatchObject(scriptsFin)
+		expect(store.order).toEqual(orderFin)
 		expect(set).toHaveBeenCalledWith(
 			expect.objectContaining({
-				scripts: fin,
+				scripts: scriptsFin,
+				script_order: orderFin,
 			}),
 			expect.any(Function),
 		)
@@ -78,15 +81,18 @@ describe('storage', () => {
 		const script = { id: 'aa', name: 'new value!' } as Script
 		await store.saveScript(script)
 
-		const fin = {
+		const scriptsFin = {
 			bb: data.bb,
 			aa: script,
 		}
+		const orderFin = ['aa', 'bb']
 
-		expect(store.scripts).toMatchObject(fin)
+		expect(store.scripts).toMatchObject(scriptsFin)
+		expect(store.order).toEqual(orderFin)
 		expect(set).toHaveBeenCalledWith(
 			expect.objectContaining({
-				scripts: fin,
+				scripts: scriptsFin,
+				script_order: orderFin,
 			}),
 			expect.any(Function),
 		)
@@ -108,15 +114,20 @@ describe('storage', () => {
 		]
 		await store.saveScripts(scripts)
 
-		const fin = {
+		const scriptsFin = {
 			...data,
 			[scripts[0].id]: scripts[0],
 			[scripts[1].id]: scripts[1],
 		}
+		const orderFin = ['aa', 'bb', 'cc', 'dd']
 
-		expect(store.scripts).toMatchObject(fin)
+		expect(store.scripts).toMatchObject(scriptsFin)
+		expect(store.order).toEqual(orderFin)
 		expect(set).toHaveBeenCalledWith(
-			expect.objectContaining({ scripts: fin }),
+			expect.objectContaining({
+				scripts: scriptsFin,
+				script_order: orderFin,
+			}),
 			expect.any(Function),
 		)
 	})

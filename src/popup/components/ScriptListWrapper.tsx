@@ -2,7 +2,7 @@ import React from 'react'
 import '@common/css/components/script-list.scss'
 import useScripts from '@common/hooks/useScripts'
 import AddNewScriptPrompt from '@common/components/AddNewScriptPrompt'
-import ScriptList from '@common/components/ScriptList'
+import ScriptListContainer from '@common/components/script-list/ScriptListContainer'
 import { openOptionsPage, QUERY_TYPE } from '@common/utils/link'
 
 export default function ScriptListWrapper() {
@@ -15,7 +15,7 @@ export default function ScriptListWrapper() {
 			break
 
 		case scripts.length > 0:
-			component = <ScriptList scripts={scripts} />
+			component = <ScriptListContainer scripts={scripts} />
 			break
 
 		default:

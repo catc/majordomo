@@ -6,7 +6,9 @@ import { Permissions } from '@common/types/state'
 import { generateScripts } from '../../../test/mocks'
 
 jest.mock('@common/hooks/useAppContext')
-jest.mock('@common/components/ScriptItem', () => () => <div data-testid="script-item" />)
+jest.mock('@common/components/script-item/ScriptItem', () => () => (
+	<div data-testid="script-item" />
+))
 
 const mockPermissions = (permissions: Permissions = {} as Permissions) => {
 	// @ts-ignore

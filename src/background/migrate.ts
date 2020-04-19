@@ -23,7 +23,7 @@ export default async function migrate_v1() {
 			await store.saveScripts(scriptsv2)
 
 			// remove old scripts
-			const oldScriptKeys = scriptsv1.map(s => s.id)
+			const oldScriptKeys = scriptsv1.map(s => s.id).filter(a => a != null)
 			await remove(oldScriptKeys)
 
 			console.log(

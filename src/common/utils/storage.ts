@@ -4,8 +4,8 @@ export function remove(key: string | string[]) {
 	})
 }
 
-export function save(key: string, data: any) {
+export function save(data: { [key: string]: any }) {
 	return new Promise(res => {
-		chrome.storage.sync.set({ [key]: data }, res)
+		chrome.storage.sync.set(data, res)
 	})
 }
