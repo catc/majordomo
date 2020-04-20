@@ -34,8 +34,9 @@ describe('ScriptListContainer', () => {
 	})
 
 	it('renders drag list', async () => {
+		mockPermissions({ canReorder: true } as Permissions)
 		const scripts = generateScripts(3)
-		const wrapper = render(<ScriptListContainer scripts={scripts} supportDrag />)
+		const wrapper = render(<ScriptListContainer scripts={scripts} />)
 
 		await wrapper.findByTestId('script-list')
 		expect(wrapper.queryByTestId('script-list-container')).toBeTruthy()

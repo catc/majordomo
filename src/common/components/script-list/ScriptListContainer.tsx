@@ -15,7 +15,6 @@ const ScriptList = React.lazy(() => import('@common/components/script-list/Scrip
 
 type Props = {
 	scripts: Script[]
-	supportDrag?: boolean
 	className?: string
 }
 
@@ -28,7 +27,6 @@ const MIN_SCRIPTS_FOR_SEARCH = 5
 
 export default function ScriptListContainer({
 	scripts: unfilteredScripts,
-	supportDrag,
 	className = '',
 }: Props) {
 	const { setStatus, permissions } = useAppContext()
@@ -48,7 +46,7 @@ export default function ScriptListContainer({
 	const canShowNewButton = permissions.canAddScript
 
 	let component
-	if (supportDrag) {
+	if (permissions.canReorder) {
 		component = (
 			<React.Suspense fallback={null}>
 				<ScriptListWithDrag

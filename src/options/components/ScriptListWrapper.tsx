@@ -32,7 +32,7 @@ export default function ScriptListWrapper() {
 			break
 
 		case scripts.length > 0:
-			component = <ScriptListContainer scripts={scripts} supportDrag />
+			component = <ScriptListContainer scripts={scripts} />
 			break
 
 		// state is in edit mode for new script

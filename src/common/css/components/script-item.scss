@@ -35,16 +35,6 @@
 	}
 
 
-	&__fav-badge {
-		$size: 18px;
-		height: $size;
-		width: $size;
-		fill: #fbc02d;
-		margin-right: 5px;
-		vertical-align: sub;
-	}
-
-
 	&__name {
 		white-space: nowrap;
 		overflow: hidden;
@@ -52,6 +42,15 @@
 		display: inline-block;
 		font-weight: bold;
 		max-width: 100%;
+
+		svg {
+			fill: $b4;
+			$size: 14px;
+			width: $size;
+			height: $size;
+			margin-right: 5px;
+			margin-top: -2px;
+		}
 	}
 
 	&__date {
@@ -71,63 +70,42 @@
 		align-self: stretch;
 	}
 
-	&:hover &__fav {
-		visibility: visible;
-	}
-
-	&__fav {
-		animation: 0.15s fadeIn ease;
-		padding: 1em;
-		height: 100%;
-		margin-right: 1em;
-
-		&:not(.selected) {
-			visibility: hidden;
-		}
-
-		svg {
-			fill: lighten($b3, 15%);
-			$size: 18px;
-			width: $size;
-			height: $size;
-			vertical-align: middle;
-			margin-bottom: 2px;
-			transition: 0.15s ease;
-		}
-
-		&:hover svg {
-			fill: $b2;
-		}
-
-		&.selected svg {
-			fill: #fbc02d;
-		}
-	}
-
 	&__execute-btn {
 		$size: 70px;
 		width: $size;
 		min-height: 100%;
 		border-left: 1px solid $light1;
+	}
 
-		svg {
-			fill: lighten($b4, 10%);
-			transition: 0.15s ease;
-		}
+	&__execute-run {
+		fill: lighten($b4, 10%);
+		transition: 0.15s ease;
 
-		&:hover svg {
+		&:hover {
 			fill: $b2;
+
+		}
+	}
+
+	&__execute-success {
+		fill: #43a047;
+		background: white;
+		position: absolute;
+		opacity: 0;
+		transition: 0.2s ease;
+
+		&.active {
+			transition: 0.3s ease-out;
+			opacity: 1;
 		}
 	}
 
 	&__toggle-description {
-		position: absolute;
-		left: 50%;
-		background: 0;
-		display: none;
+		margin-left: 2px;
+		vertical-align: 1px;
 
 		svg {
-			$size: 18px;
+			$size: 16px;
 			width: $size;
 			height: $size;
 			fill: $b4;
