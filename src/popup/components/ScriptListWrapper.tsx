@@ -7,21 +7,14 @@ import { openOptionsPage, QUERY_TYPE } from '@common/utils/link'
 export default function ScriptListWrapper() {
 	const { scripts, isInitialFetching } = useScripts()
 
-	let component = null
 	switch (true) {
 		case isInitialFetching:
-			component = null
-			break
+			return null
 
-		case scripts.length > 0:
-			component = <ScriptListContainer scripts={scripts} />
-			break
+		case scripts.length === 0:
+			return <AddNewScriptPrompt onClick={() => openOptionsPage(QUERY_TYPE.new)} />
 
 		default:
-			component = (
-				<AddNewScriptPrompt onClick={() => openOptionsPage(QUERY_TYPE.new)} />
-			)
+			return <ScriptListContainer scripts={scripts} className="popup-script-list" />
 	}
-
-	return <div className="script-list-wrapper">{component}</div>
 }

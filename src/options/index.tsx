@@ -8,12 +8,12 @@ import ScriptListWrapper from './components/ScriptListWrapper'
 import ScriptEditorSection from './components/ScriptEditorSection'
 
 const permissions = {
-	canFav: true,
 	canEditScript: true,
 	canAddScript: true,
 	canExecute: false,
 	canOpenOptions: false,
 	canToggleDescription: false,
+	canReorder: true,
 }
 
 function App() {

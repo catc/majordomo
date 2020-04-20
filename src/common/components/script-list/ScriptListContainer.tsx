@@ -16,6 +16,7 @@ const ScriptList = React.lazy(() => import('@common/components/script-list/Scrip
 type Props = {
 	scripts: Script[]
 	supportDrag?: boolean
+	className?: string
 }
 
 /*
@@ -28,6 +29,7 @@ const MIN_SCRIPTS_FOR_SEARCH = 5
 export default function ScriptListContainer({
 	scripts: unfilteredScripts,
 	supportDrag,
+	className = '',
 }: Props) {
 	const { setStatus, permissions } = useAppContext()
 	const [term, setSearchTerm] = useState('')
@@ -71,7 +73,10 @@ export default function ScriptListContainer({
 	}
 
 	return (
-		<div className="script-list__container" data-testid="script-list-container">
+		<div
+			className={`script-list__container ${className}`}
+			data-testid="script-list-container"
+		>
 			{(canDisplayTitle || canDisplaySearch || canShowNewButton) && (
 				<div
 					className={`script-list__top ${!topInView ? 'bottom-shadow' : ''}`}

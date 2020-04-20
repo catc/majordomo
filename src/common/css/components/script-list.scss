@@ -7,8 +7,23 @@
 	padding-right: 1.5em;
 }
 
-.script-list {
+.popup-script-list, .options-script-list {
+	max-width: 450px;
+	width: 100%;
+}
 
+.popup-script-list {
+	height: 100%;
+	max-height: 540px;
+}
+
+.options-script-list {
+	border-right: 1px solid $light1;
+	height: $body-height;
+}
+
+
+.script-list {
 	&__container {
 		display: flex;
 		flex-direction: column;
@@ -38,13 +53,14 @@
 		overflow: auto;
 		@include padding();
 		padding-top: 1.3em;
+		padding-bottom: 1.3em;
 		background: #f3f3f3;
 		height: 100%;
 
 		// ignore li placeholder for inview
 		> li:not(:first-child):not(:last-child) {
 			// TODO - consider changing this to a class
-			margin-bottom: 1em;
+			margin-bottom: 8px;
 		}
 	}
 

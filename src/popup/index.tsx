@@ -7,12 +7,12 @@ import Header from '@common/components/Header'
 import ScriptListWrapper from './components/ScriptListWrapper'
 
 const permissions = {
-	canFav: false,
 	canEditScript: false,
 	canAddScript: false,
 	canExecute: true,
 	canOpenOptions: true,
 	canToggleDescription: true,
+	canReorder: false,
 }
 
 function Foo() {

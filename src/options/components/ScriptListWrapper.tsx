@@ -42,5 +42,5 @@ export default function ScriptListWrapper() {
 			)
 	}
 
-	return <div className="script-list-wrapper">{component}</div>
+	return <div className="options-script-list">{component}</div>
 }
