@@ -26,6 +26,7 @@ export default function LeftBar({ script, canToggleDescription }: Props) {
 
 				{canToggleDescription && script.description && (
 					<button
+						data-testid="toggle-description"
 						className="script-item__toggle-description"
 						onClick={toggleDescription}
 					>

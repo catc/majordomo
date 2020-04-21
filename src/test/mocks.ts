@@ -16,7 +16,6 @@ export const generateScript = (
 		autorun: false,
 		filters: [],
 		code: '',
-		order: 5,
 		on: {},
 		...overrides,
 	}

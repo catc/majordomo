@@ -39,7 +39,6 @@ export type Script = {
 	color: string
 	code: string
 	description: string
-	order: number
 	autorun: boolean
 	filters: UrlFilter[]
 	on: {

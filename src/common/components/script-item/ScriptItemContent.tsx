@@ -26,6 +26,7 @@ export default function ScriptItemContent({ script, setStatus, permissions }: Pr
 			className={`script-item ${canEditScript ? 'editable' : ''}`}
 			style={{ borderLeftColor: !isWhiteColor(script.color) ? script.color : '' }}
 			onClick={handleItemClick}
+			data-testid="script-content"
 		>
 			<div className="script-item__left">
 				<LeftBar script={script} canToggleDescription={canToggleDescription} />

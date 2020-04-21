@@ -26,7 +26,12 @@ export default function ExecuteButton({ script }: Props) {
 	}, [displaySuccess])
 
 	return (
-		<button type="button" className="script-item__execute-btn" onClick={click}>
+		<button
+			type="button"
+			className="script-item__execute-btn"
+			onClick={click}
+			data-testid="execute"
+		>
 			<CheckCircle
 				className={`script-item__execute-success ${
 					displaySuccess ? 'active' : ''
