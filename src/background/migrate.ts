@@ -3,6 +3,8 @@ import { store, Script, getScriptDefaults, genID } from '@common/utils/scripts'
 import { remove } from '@common/utils/storage'
 import { log } from './log'
 
+const isTesting = process.env.NODE_ENV === 'test'
+
 // migrate v1 scripts to v2
 export default async function migrate_v1() {
 	const scriptsv1 = await getScriptsV1()
@@ -28,12 +30,17 @@ export default async function migrate_v1() {
 			const oldScriptKeys = scriptsv1.map(s => s.id).filter(a => a != null)
 			await remove(oldScriptKeys)
 
+			const len = oldScriptKeys.length
 			log(
-				`Finished migrating ${scriptsv2.length} script${
-					scriptsv2.length === 1 ? '' : 's'
-				} from v1 to v2`,
+				`Finished migrating ${len} script${len === 1 ? '' : 's'} from v1 to v2`,
 				'blue_bold',
 			)
+
+			if (!isTesting) {
+				window.alert(
+					`Migrated ${len} script${len === 1 ? '' : 's'} from v1 to v2`,
+				)
+			}
 		} catch (err) {
 			console.error('Error migrating v1 scripts to v2', err)
 			logError(err)

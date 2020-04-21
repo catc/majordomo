@@ -2,14 +2,13 @@ const { resolve } = require('path');
 const fs = require('fs');
 const archiver = require('archiver');
 
-const manifest = require('../build/manifest.json')
-
-
 const root = resolve(__dirname, '../')
 const INPUT = resolve(root, 'build')
 const OUTPUT = resolve(root, 'zip')
 
 module.exports = function (){
+	const manifest = require('../build/manifest.json')
+
 	const filename = `${manifest.name}_v${manifest.version}.zip`.toLowerCase()
 	const file = resolve(OUTPUT, filename)
 

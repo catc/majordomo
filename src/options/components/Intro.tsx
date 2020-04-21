@@ -24,7 +24,7 @@ export default function Intro() {
 					<div className="intro-modal">
 						<div className="intro-modal__title">🤵</div>
 						<p>
-							Welcome to Majordomo - the one-stop shop for all your custom
+							Welcome to Majordomo - your one-stop shop for all your custom
 							script needs. This extension comes with a variety of features
 							including:
 						</p>
