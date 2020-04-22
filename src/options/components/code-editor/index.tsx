@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
-import { editor } from 'monaco-editor/esm/vs/editor/editor.api'
 import { useForm, useField } from 'react-final-form'
 import MonacoEditor from '../form/MonacoEditor'
+import { editor } from 'monaco-editor'
 
 const PLACEHOLDER = `// script content
 const foo = 'this is foo';

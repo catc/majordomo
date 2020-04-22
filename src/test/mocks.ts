@@ -22,3 +22,13 @@ export const generateScript = (
 }
 
 export const generateScripts = (len: number): any => times(len, () => generateScript())
+
+export const setScriptsToStorage = (scripts: Script[]) => {
+	if (!global.storage.scripts) {
+		global.storage.scripts = {}
+	}
+	scripts.forEach(s => {
+		// @ts-ignore
+		global.storage.scripts[s.id] = s
+	})
+}
