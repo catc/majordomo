@@ -34,7 +34,8 @@ export function parseOptionsPageParams(): { type: QUERY_TYPE; id?: string } | nu
 
 	if (params.has(STATUS_KEY)) {
 		const status = params.get(STATUS_KEY)
-		return { type: status === QUERY_TYPE.new ? QUERY_TYPE.new : QUERY_TYPE.intro }
+		if (status === QUERY_TYPE.new) return { type: QUERY_TYPE.new }
+		if (status === QUERY_TYPE.intro) return { type: QUERY_TYPE.intro }
 	} else if (params.has(EDIT_KEY)) {
 		return { type: QUERY_TYPE.edit, id: params.get(EDIT_KEY)! }
 	}

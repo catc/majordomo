@@ -8,10 +8,10 @@ import useBoolean from '@common/hooks/useBoolean'
 import Modal from '@common/components/Modal'
 import ButtonPrimary from '@common/components/PrimaryButton'
 
-const initial = parseOptionsPageParams()?.type === QUERY_TYPE.intro
-
 export default function Intro() {
-	const { value: displayIntro, setTrue: open, setFalse: onClose } = useBoolean(initial)
+	const { value: displayIntro, setTrue: open, setFalse: onClose } = useBoolean(
+		() => parseOptionsPageParams()?.type === QUERY_TYPE.intro,
+	)
 
 	return (
 		<>

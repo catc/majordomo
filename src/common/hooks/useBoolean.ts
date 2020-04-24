@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react'
 
-export default function useBooleanState(initial: boolean) {
+type Prop = boolean | (() => boolean)
+
+export default function useBooleanState(initial: Prop) {
 	const [value, setVal] = useState(initial)
 	const setTrue = useCallback(() => {
 		setVal(true)
