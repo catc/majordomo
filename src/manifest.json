@@ -1,13 +1,12 @@
 {
 	"name": "Majordomo",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Execute scripts on any page",
 	"author": "catc",
 	"homepage_url": "https://github.com/catc/majordomo",
 	"permissions": [
 		"tabs",
 		"storage",
-		"activeTab",
 		"webNavigation",
 		"http://*/*",
 		"https://*/*"

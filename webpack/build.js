@@ -57,8 +57,16 @@ if (process.env.BUNDLE_ANALYZER) {
 
 const { handleErrors, wrapInColor } = require('./common')
 
-webpack(config, async (err, stats) => {
-	handleErrors(err, stats)
-	await zip()
-	wrapInColor('green', 'Done')
-})
+const package = require('../package.json')
+const manifest = require('../src/manifest.json')
+
+
+if (package.version !== manifest.version){
+	wrapInColor('red', `ERROR: manifest.json and package.json versions don't match`)
+} else {
+	webpack(config, async (err, stats) => {
+		handleErrors(err, stats)
+		await zip()
+		wrapInColor('green', 'Done')
+	})
+}
