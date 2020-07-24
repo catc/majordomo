@@ -53,12 +53,12 @@
 		overflow: auto;
 		@include padding();
 		padding-top: 1.3em;
-		padding-bottom: 1.3em;
+		padding-bottom: 0.5em;
 		background: #f3f3f3;
 		height: 100%;
 
 		// ignore li placeholder for inview
-		> li:not(:first-child):not(:last-child) {
+		> li:not(:first-child) {
 			// TODO - consider changing this to a class
 			margin-bottom: 10px;
 		}
